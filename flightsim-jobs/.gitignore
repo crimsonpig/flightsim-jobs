@@ -1,0 +1,7 @@
+target
+.settings
+*.tmp
+*.lck
+*.log
+data/converted_airports.csv
+data/FSTOOLS.properties

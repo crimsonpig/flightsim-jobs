@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+	<import resource="../data-source-context.xml"/>
+	<import resource="../batch-meta-context.xml"/>
+	<job id="FullRouteDefinitionsJob" job-repository="jobRepository" xmlns="http://www.springframework.org/schema/batch">
+		<step id="CleanupPreStep" next="ResolveAirportsStep">
+			<tasklet ref="deleteFullRouteDefinitions"/>
+		</step>
+		<step id="ResolveAirportsStep" next="ResolveAircraftStep">
+			<tasklet>
+				<chunk reader="routesReader"
+					processor="routeAirportProcessor" commit-interval="10"
+					writer="expandedRoutesWriter" />
+			</tasklet>
+		</step>
+		<step id="ResolveAircraftStep" next="CleanupStep">
+			<tasklet>
+				<chunk reader="expandedRoutesReader" 
+					processor="routeAircraftProcessor" 
+					commit-interval="10"  
+					writer="fullRoutesWriter" />
+			</tasklet>
+		</step>
+		<step id="CleanupStep">
+			<tasklet ref="deleteExpandedRouteDefinitions"/>
+		</step>
+	</job>
+	
+	<bean id="routesReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="resource" value="data/Airwave-Routes.csv"/>
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="delimiter" value=","/>
+						<property name="names" value="airline,aircraftModel,originTimezone,originAirport,destinationAirport,flightFrequency,lowestFlightLevel"/>
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="targetType" value="com.crimsonpig.fs.domain.route.SimpleRouteDefinition"/>
+					</bean>
+				</property>
+			</bean>
+		</property>			
+	</bean>
+	
+	<bean id="routeAirportProcessor" class="com.crimsonpig.fs.processors.RouteAirportProcessor">
+		<property name="airportService" ref="findAirportService" />
+	</bean>
+	
+	<bean id="routeAircraftProcessor" class="com.crimsonpig.fs.processors.RouteAircraftProcessor">
+		<property name="aircraftService" ref="flightplanAircraftService"/>
+	</bean>
+	
+	<bean id="findAirportService" class="com.crimsonpig.fs.service.retrieve.RetrieveAirportService">
+		<property name="dataSource" ref="domainDataSource"/>
+	</bean>
+	
+	<bean id="flightplanAircraftService" class="com.crimsonpig.fs.service.retrieve.RetrieveFlightplanAircraftService">
+		<property name="dataSource" ref="domainDataSource"/>
+	</bean>
+
+	<bean id="expandedRoutesWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
+		<property name="resource" value="file:./data/EXPANDED-Airwave-Routes.txt"/>
+		<property name="lineAggregator">
+			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+				<property name="delimiter" value=","/>
+				<property name="fieldExtractor">
+					<bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+						<property name="names" value="airline,aircraftModel,originTimezone,originAirport,originLatitude,originLongitude,destinationAirport,destinationLatitude,destinationLongitude,flightFrequency,lowestFlightLevel"/>
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="expandedRoutesReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="resource" value="file:./data/EXPANDED-Airwave-Routes.txt"/>
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="delimiter" value=","/>
+						<property name="names" value="airline,aircraftModel,originTimezone,originAirport,originLatitude,originLongitude,destinationAirport,destinationLatitude,destinationLongitude,flightFrequency,lowestFlightLevel"/>
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="targetType" value="com.crimsonpig.fs.domain.route.ExpandedRouteDefinition"/>
+					</bean>
+				</property>
+			</bean>
+		</property>			
+	</bean>	
+	<bean id="fullRoutesWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
+		<property name="resource" value="file:./data/FULL-Airwave-Routes.txt"/>
+		<property name="lineAggregator">
+			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+				<property name="delimiter" value=","/>
+				<property name="fieldExtractor">
+					<bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+						<property name="names" value="airline,aircraftModel,aircraftNumber,aircraftTitle,groundspeed,originTimezone,originAirport,originLatitude,originLongitude,destinationAirport,destinationLatitude,destinationLongitude,flightFrequency,lowestFlightLevel"/>
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="deleteFullRouteDefinitions" class="com.crimsonpig.fs.tasklet.DeleteFileTasklet">
+		<property name="fileToDelete" value="file:./data/FULL-Airwave-Routes.txt"/>
+	</bean>
+	
+	<bean id="deleteExpandedRouteDefinitions" class="com.crimsonpig.fs.tasklet.DeleteFileTasklet">
+		<property name="fileToDelete" value="file:./data/EXPANDED-Airwave-Routes.txt"/>
+	</bean>
+</beans>

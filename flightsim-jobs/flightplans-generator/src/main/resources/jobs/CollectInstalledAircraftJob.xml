@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+		
+	<import resource="../data-source-context.xml"/>
+	<import resource="../batch-meta-context.xml"/>
+
+	<job id="CollectInstalledAircraftJob"
+		job-repository="jobRepository" xmlns="http://www.springframework.org/schema/batch">
+		<step id="ListAircraftConfigFilesStep" next="ClearInstalledAircraftTableStep">
+			<tasklet>
+				<chunk reader="aircraftDirectoryReader"
+					processor="aircraftConfigListProcessor" commit-interval="10"
+					writer="aircraftConfigListWriter" />
+			</tasklet>
+		</step>
+		<step id="ClearInstalledAircraftTableStep" next="LoadInstalledAircraftTableStep">
+			<tasklet ref="deleteInstalledAircraftTasklet"/>
+		</step>
+		<step id="LoadInstalledAircraftTableStep" next="DeleteAircraftIndexStep">
+			<tasklet>
+				<chunk reader="aircraftConfigListReader"
+					processor="installedAircraftProcessor" commit-interval="10"
+					writer="installedAircraftListWriter"/>
+			</tasklet>
+		</step>
+		<step id="DeleteAircraftIndexStep">
+			<tasklet ref="deleteAircraftIndexTasklet"/>
+		</step>
+	</job>
+	
+	<bean id="deleteInstalledAircraftTasklet" class="com.crimsonpig.fs.tasklet.TruncateTableTasklet">
+		<property name="table" value="INSTALLEDAIRCRAFT"/>
+		<property name="dataSource" ref="domainDataSource" />
+	</bean>	
+	<bean class="com.crimsonpig.fs.readers.AircraftDirectoryReader" id="aircraftDirectoryReader">
+		<property name="installedAircraftDirectory" value="C:\Program Files (x86)\Microsoft Games\Microsoft Flight Simulator X\SimObjects\Airplanes"/>
+	</bean>
+	
+	<bean id="aircraftConfigListProcessor" class="com.crimsonpig.fs.processors.AircraftConfigListProcessor"/>
+	
+	<bean id="aircraftConfigListWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
+		<property name="resource" value="file:./data/AIRCRAFTCONFIGS.txt"/>
+		<property name="lineAggregator">
+			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+				<property name="delimiter" value=","/>
+				<property name="fieldExtractor">
+					<bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+						<property name="names" value="aircraftName,aircraftConfigFilePath"/>
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="aircraftConfigListReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="resource" value="file:./data/AIRCRAFTCONFIGS.txt"/>
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="delimiter" value=","/>
+						<property name="names" value="aircraftName,aircraftConfigFilePath"/>
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="targetType" value="com.crimsonpig.fs.domain.aircraft.config.AircraftConfigFile"/>
+					</bean>
+				</property>
+			</bean>
+		</property>	
+	</bean>
+	
+	<bean id="installedAircraftProcessor" class="com.crimsonpig.fs.processors.InstalledAircraftProcessor"/>
+
+	<bean id="installedAircraftListWriter" class="com.crimsonpig.fs.writers.ListItemWriter">
+		<property name="itemWriter" ref="installedAircraftWriter"/>
+	</bean>
+
+	<bean id="installedAircraftWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
+		<property name="dataSource" ref="domainDataSource" />
+		<property name="assertUpdates" value="true" />
+		<property name="itemSqlParameterSourceProvider">
+			<bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" />
+		</property>
+		<property name="sql" value="
+INSERT INTO INSTALLEDAIRCRAFT(
+	TITLE, 
+	AIRCRAFT_FOLDER, 
+	AIRLINE, 
+	ATC_TYPE, 
+	ATC_MODEL,
+	UI_MANUFACTURER, 
+	UI_TYPE, 
+	UI_VARIATION) 
+VALUES(
+	:title,
+	:aircraftFolder,
+	:airline,
+	:atcType,
+	:atcModel,
+	:uiManufacturer,
+	:uiType,
+	:uiVariation)"/>
+	</bean>
+	
+	<bean id="deleteAircraftIndexTasklet" class="com.crimsonpig.fs.tasklet.DeleteFileTasklet">
+		<property name="fileToDelete" value="file:./data/AIRCRAFTCONFIGS.txt"/>
+	</bean>
+</beans>
