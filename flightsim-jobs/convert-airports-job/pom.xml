@@ -8,9 +8,14 @@
   <artifactId>convert-airports-job</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>com.crimsonpig.fs</groupId>
+			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>common-utils</artifactId>
-			<version>0.0.1</version>
-		</dependency>
+			<version>${project.parent.version}</version>
+		</dependency>				
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flightsim-commons</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>		
 	</dependencies>
 </project>

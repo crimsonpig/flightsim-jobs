@@ -59,7 +59,8 @@
   </build>  
   
   <modules>
-   	<module>common-utils</module> 
+   	<module>common-utils</module>
+   	<module>flightsim-commons</module>
   	<module>convert-airports-job</module>  
   	<module>flightplans-generator</module>
   </modules>
