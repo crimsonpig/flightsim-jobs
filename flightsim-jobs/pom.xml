@@ -64,6 +64,7 @@
   	<module>convert-airports-job</module>  
   	<module>flightplans-generator</module>
   	<module>collect-installed-aircraft-job</module>
+  	<module>flightplan-aircraft-job</module>
   </modules>
   
 </project>
