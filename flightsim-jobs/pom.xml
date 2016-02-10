@@ -62,9 +62,9 @@
    	<module>common-utils</module>
    	<module>flightsim-commons</module>
   	<module>convert-airports-job</module>  
-  	<module>flightplans-generator</module>
   	<module>collect-installed-aircraft-job</module>
   	<module>flightplan-aircraft-job</module>
+  	<module>flightplans-generator</module>  	
   </modules>
   
 </project>
