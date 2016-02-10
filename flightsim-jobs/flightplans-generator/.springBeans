@@ -7,7 +7,6 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>src/main/resources/jobs/ConvertAirportsJob.xml</config>
 		<config>src/main/resources/batch-meta-context.xml</config>
 		<config>src/main/resources/data-source-context.xml</config>
 		<config>src/main/resources/jobs/FlightplanAircraftJob.xml</config>

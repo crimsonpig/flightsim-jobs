@@ -59,6 +59,7 @@
   </build>  
   
   <modules>
+  	<module>convert-airports-job</module>  
   	<module>flightplans-generator</module>
   </modules>
   
