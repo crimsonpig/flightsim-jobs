@@ -5,8 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
 
-	<import resource="../data-source-context.xml"/>
-	<import resource="../batch-meta-context.xml"/>
+	<import resource="data-source-context.xml"/>
+	<import resource="batch-meta-context.xml"/>
 	<job id="GenerateFlightPlansJob" job-repository="jobRepository" xmlns="http://www.springframework.org/schema/batch">
 		<step id="GenerateFlightPlansStep">
 			<tasklet>
