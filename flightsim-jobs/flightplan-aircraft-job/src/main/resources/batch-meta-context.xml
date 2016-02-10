@@ -14,7 +14,4 @@
 		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
 		<property name="jobRepository" ref="jobRepository"/>
 	</bean>
-	<bean id="testJobLauncher"
-		class="org.springframework.batch.test.JobLauncherTestUtils">
-	</bean>
 </beans>
