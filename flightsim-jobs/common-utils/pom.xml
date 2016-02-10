@@ -5,12 +5,5 @@
     <artifactId>flightsim-jobs</artifactId>
     <version>0.0.1</version>
   </parent>
-  <artifactId>convert-airports-job</artifactId>
-	<dependencies>
-		<dependency>
-			<groupId>com.crimsonpig.fs</groupId>
-			<artifactId>common-utils</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-	</dependencies>
+  <artifactId>common-utils</artifactId>
 </project>
