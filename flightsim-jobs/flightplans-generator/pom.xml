@@ -7,4 +7,16 @@
 		<artifactId>flightsim-jobs</artifactId>
 		<version>0.0.1</version>
 	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>common-utils</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>				
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flightsim-commons</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>		
+	</dependencies>	
 </project>
