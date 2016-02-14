@@ -6,16 +6,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
 	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-	
-	<import resource="data-source-context.xml"/>
+
 	<import resource="batch-meta-context.xml"/>
-	
-	<!-- Alternatively, we could just do a component scan and pick up JobComponentsConfig that way -->
-<!-- 	<context:component-scan base-package="com.crimsonpig.fs"/> -->
-	<!-- Automatically use Annotations to load classes -->
-	<context:annotation-config/>
-	<!-- This class is a configuration we load using the preceding annotation -->
-	<bean class="com.crimsonpig.fs.config.JobComponentsConfig"/>
+
+	<context:component-scan base-package="com.crimsonpig.fs.config"/>
+
+
 	
 	<job id="ConvertAirportsJob" job-repository="jobRepository" xmlns="http://www.springframework.org/schema/batch">
 		<step id="ClearConvertedAirportsStep" next="ConvertLatLonAndPersistStep">
