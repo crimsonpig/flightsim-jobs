@@ -2,54 +2,32 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
-	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<import resource="data-source-context.xml"/>
 	<import resource="batch-meta-context.xml"/>
 	
-	<batch:job id="ConvertAirportsJob" job-repository="jobRepository">
-		<batch:step id="ClearConvertedAirportsStep" next="ConvertLatLonAndPersistStep">
-			<batch:tasklet ref="truncateTableTasklet"/>
-		</batch:step>
-		<batch:step id="ConvertLatLonAndPersistStep">
-			<batch:tasklet>
-				<batch:chunk commit-interval="50" reader="airportsFileReader"
-					processor="airportLatLonDecimalConverter" writer="convertedAirportsWriter">
-				</batch:chunk>
-			</batch:tasklet>
-		</batch:step>
-	</batch:job>
-
-	<bean id="truncateTableTasklet" class="com.crimsonpig.fs.tasklet.TruncateTableTasklet" >
-		<property name="table" value="CONVERTEDAIRPORTS"/>
-		<property name="dataSource" ref="domainDataSource" />
-	</bean>
+	<!-- Alternatively, we could just do a component scan and pick up JobComponentsConfig that way -->
+<!-- 	<context:component-scan base-package="com.crimsonpig.fs"/> -->
+	<!-- Automatically use Annotations to load classes -->
+	<context:annotation-config/>
+	<!-- This class is a configuration we load using the preceding annotation -->
+	<bean class="com.crimsonpig.fs.config.JobComponentsConfig"/>
 	
-	<bean id="airportsFileReader" class="org.springframework.batch.item.file.FlatFileItemReader" >
-		<property name="resource" value="data/AirportsFSX1.txt"/>
-		<property name="lineMapper">
-			<bean class="com.crimsonpig.fs.mappers.AirportLineMapper"/>
-		</property>
-	</bean>
-	<bean id="airportLatLonDecimalConverter" class="com.crimsonpig.fs.processors.AirportProcessor" />
-	<bean id="convertedAirportsWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter" >
-		<property name="itemSqlParameterSourceProvider">
-			<bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" />
-		</property>
-		<property name="sql" value="
-INSERT INTO CONVERTEDAIRPORTS(
-	IDENT,
-	LATITUDE,
-	LONGITUDE,
-	ELEVATION) 
-VALUES(
-	:identifier, 
-	:latitudeRadians, 
-	:longitudeRadians, 
-	:elevation)" />
-		<property name="dataSource" ref="domainDataSource" />
-		<property name="assertUpdates" value="true" />
-	</bean>
+	<job id="ConvertAirportsJob" job-repository="jobRepository" xmlns="http://www.springframework.org/schema/batch">
+		<step id="ClearConvertedAirportsStep" next="ConvertLatLonAndPersistStep">
+			<tasklet ref="truncateTableTasklet"/>
+		</step>
+		<step id="ConvertLatLonAndPersistStep">
+			<tasklet>
+				<chunk commit-interval="50" reader="airportsFileReader"
+					processor="airportLatLonDecimalConverter" writer="convertedAirportsWriter">
+				</chunk>
+			</tasklet>
+		</step>
+	</job>
 
 </beans>
