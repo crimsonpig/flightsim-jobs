@@ -6,8 +6,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-		
-	<import resource="batch-meta-context.xml"/>
+
 	<context:component-scan base-package="com.crimsonpig.fs.config"/>
 
 	<job id="CollectInstalledAircraftJob"
