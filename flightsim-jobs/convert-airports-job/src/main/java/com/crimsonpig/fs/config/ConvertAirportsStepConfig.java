@@ -2,7 +2,6 @@ package com.crimsonpig.fs.config;
 
 import javax.sql.DataSource;
 
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -18,21 +17,12 @@ import com.crimsonpig.fs.domain.airport.Airport;
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
 import com.crimsonpig.fs.mappers.AirportLineMapper;
 import com.crimsonpig.fs.processors.AirportProcessor;
-import com.crimsonpig.fs.tasklet.TruncateTableTasklet;
 
 @Configuration
-public class JobComponentsConfig {
+public class ConvertAirportsStepConfig {
 
 	@Autowired
 	private DataSource domainDataSource;
-
-	@Bean(name = "truncateTableTasklet")
-	public Tasklet tasklet() {
-		TruncateTableTasklet tasklet = new TruncateTableTasklet();
-		tasklet.setTable("CONVERTEDAIRPORTS");
-		tasklet.setDataSource(domainDataSource);
-		return tasklet;
-	}
 
 	@Bean(name = "airportsFileReader")
 	public ItemReader<Airport> reader() {
