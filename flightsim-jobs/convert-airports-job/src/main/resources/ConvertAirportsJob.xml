@@ -29,19 +29,7 @@
 	<bean id="airportsFileReader" class="org.springframework.batch.item.file.FlatFileItemReader" >
 		<property name="resource" value="data/AirportsFSX1.txt"/>
 		<property name="lineMapper">
-			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
-				<property name="lineTokenizer">
-					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
-						<property name="delimiter" value=","/>
-						<property name="names" value="identifier,latitude,longitude,elevation"/>
-					</bean>
-				</property>
-				<property name="fieldSetMapper">
-					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-						<property name="targetType" value="com.crimsonpig.fs.domain.airport.Airport"/>
-					</bean>
-				</property>
-			</bean>
+			<bean class="com.crimsonpig.fs.mappers.AirportLineMapper"/>
 		</property>
 	</bean>
 	<bean id="airportLatLonDecimalConverter" class="com.crimsonpig.fs.processors.AirportProcessor" />
