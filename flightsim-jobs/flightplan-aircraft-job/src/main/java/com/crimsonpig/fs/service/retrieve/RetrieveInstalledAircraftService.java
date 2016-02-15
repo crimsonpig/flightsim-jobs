@@ -20,6 +20,10 @@ public class RetrieveInstalledAircraftService extends RetrieveItemFromDataSource
 		String sql = "SELECT * FROM INSTALLEDAIRCRAFT WHERE TITLE = ?";		
 		List<InstalledAircraft> foundAircraft 
 			= getJdbcAccessor().query(sql, rowMapper, title);
+		return findInstalledAircraft(title, foundAircraft);
+	}
+	
+	protected InstalledAircraft findInstalledAircraft(String title, List<InstalledAircraft> foundAircraft){
 		if(foundAircraft == null || foundAircraft.size() == 0){
 			throw new EntityNotFoundException(title);
 		}
