@@ -16,8 +16,7 @@ public class AirportLineMapper extends DefaultLineMapper<Airport> {
 	}
 	
 	private LineTokenizer airportLineTokenizer(){
-		DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
-		tokenizer.setDelimiter(",");
+		DelimitedLineTokenizer tokenizer = new CommaSeparatedLineTokenizer();
 		tokenizer.setNames(new String[]{"identifier","latitude","longitude","elevation"});
 		return tokenizer;
 	}
