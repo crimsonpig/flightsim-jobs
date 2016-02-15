@@ -25,12 +25,7 @@
 			</tasklet>
 		</step>
 	</job>
-	
-	<bean id="clearFlightplanAircraftTasklet" class="com.crimsonpig.fs.tasklet.TruncateTableTasklet" >
-		<property name="table" value="FLIGHTPLANAIRCRAFT"/>
-		<property name="dataSource" ref="domainDataSource" />
-	</bean>
-	
+
 	<bean id="routeAircraftReader" class="org.springframework.batch.item.file.FlatFileItemReader">
 		<property name="resource" value="data/AircraftFSX1.txt"/>
 		<property name="lineMapper">
