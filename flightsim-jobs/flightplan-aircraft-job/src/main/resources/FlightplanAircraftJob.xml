@@ -26,63 +26,7 @@
 		</step>
 	</job>
 
-	<bean id="routeAircraftReader" class="org.springframework.batch.item.file.FlatFileItemReader">
-		<property name="resource" value="data/AircraftFSX1.txt"/>
-		<property name="lineMapper">
-			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
-				<property name="lineTokenizer">
-					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
-						<property name="delimiter" value=","/>
-						<property name="names" value="groundspeed,title"/>
-					</bean>
-				</property>
-				<property name="fieldSetMapper">
-					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-						<property name="targetType" value="com.crimsonpig.fs.domain.aircraft.RouteAircraft"/>
-					</bean>
-				</property>
-			</bean>
-		</property>		
-	</bean>
-	
-	<bean id="flightplanAircraftProcessor" class="com.crimsonpig.fs.processors.FlightplanAircraftProcessor">
-		<property name="installedAircraftService" ref="installedAircraftService"/>
-	</bean>
-
-	<bean id="installedAircraftService" class="com.crimsonpig.fs.service.retrieve.RetrieveInstalledAircraftService">
-		<property name="dataSource" ref="domainDataSource"/>
-	</bean>
-	<!--bean id="installedAircraftReader" class="org.springframework.batch.item.database.JdbcCursorItemReader">
-		<property name="dataSource" ref="domainDataSource"/>
-		<property name="rowMapper">
-			<bean class="org.springframework.jdbc.core.BeanPropertyRowMapper">
-				<property name="mappedClass" value="com.crimsonpig.fs.aircraft.InstalledAircraft"/>
-			</bean>
-		</property>
-		<property name="verifyCursorPosition" value="true"/>
-		<property name="sql" value=""/>
-	</bean-->
-	
-	<bean id="flightplanAircraftWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
-		<property name="dataSource" ref="domainDataSource" />
-		<property name="assertUpdates" value="true" />
-		<property name="itemSqlParameterSourceProvider">
-			<bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" />
-		</property>		
-		<property name="sql" value="
-INSERT INTO FLIGHTPLANAIRCRAFT(
-	TITLE, 
-	GROUNDSPEED, 
-	AIRLINE, 
-	ATC_MODEL) 
-VALUES(
-	:title,
-	:groundspeed,
-	:airline,
-	:atcModel)"/>
-	
-	</bean>
-		<bean id="flightplanAircraftReader" class="org.springframework.batch.item.database.JdbcCursorItemReader">
+	<bean id="flightplanAircraftReader" class="org.springframework.batch.item.database.JdbcCursorItemReader">
 		<property name="dataSource" ref="domainDataSource"/>
 		<property name="rowMapper">
 			<bean class="org.springframework.jdbc.core.BeanPropertyRowMapper">
