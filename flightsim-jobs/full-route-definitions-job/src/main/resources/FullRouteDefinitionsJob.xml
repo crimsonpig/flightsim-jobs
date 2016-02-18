@@ -80,18 +80,5 @@
 			</bean>
 		</property>			
 	</bean>	
-	<bean id="fullRoutesWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
-		<property name="resource" value="file:./data/FULL-Airwave-Routes.txt"/>
-		<property name="lineAggregator">
-			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
-				<property name="delimiter" value=","/>
-				<property name="fieldExtractor">
-					<bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-						<property name="names" value="airline,aircraftModel,aircraftNumber,aircraftTitle,groundspeed,originTimezone,originAirport,originLatitude,originLongitude,destinationAirport,destinationLatitude,destinationLongitude,flightFrequency,lowestFlightLevel"/>
-					</bean>
-				</property>
-			</bean>
-		</property>
-	</bean>
 
 </beans>
