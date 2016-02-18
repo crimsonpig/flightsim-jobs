@@ -10,75 +10,13 @@
 	<context:component-scan base-package="com.crimsonpig.fs.config"/>
 
 	<job id="FullRouteDefinitionsJob" job-repository="jobRepository" xmlns="http://www.springframework.org/schema/batch">
-		<step id="CleanupPreStep" next="ResolveAirportsStep">
-			<tasklet ref="deleteFullRouteDefinitions"/>
-		</step>
-		<step id="ResolveAirportsStep" next="ResolveAircraftStep">
+		<step id="FullRouteDefinitionsStep">
 			<tasklet>
 				<chunk reader="routesReader"
-					processor="routeAirportProcessor" commit-interval="10"
-					writer="expandedRoutesWriter" />
-			</tasklet>
-		</step>
-		<step id="ResolveAircraftStep" next="CleanupStep">
-			<tasklet>
-				<chunk reader="expandedRoutesReader" 
-					processor="routeAircraftProcessor" 
-					commit-interval="10"  
+					processor="fullRouteDefinitionsProcessor" commit-interval="10"
 					writer="fullRoutesWriter" />
 			</tasklet>
 		</step>
-		<step id="CleanupStep">
-			<tasklet ref="deleteExpandedRouteDefinitions"/>
-		</step>
 	</job>
-	
-	<bean id="routeAirportProcessor" class="com.crimsonpig.fs.processors.RouteAirportProcessor">
-		<property name="airportService" ref="findAirportService" />
-	</bean>
-	
-	<bean id="routeAircraftProcessor" class="com.crimsonpig.fs.processors.RouteAircraftProcessor">
-		<property name="aircraftService" ref="flightplanAircraftService"/>
-	</bean>
-	
-	<bean id="findAirportService" class="com.crimsonpig.fs.service.retrieve.RetrieveAirportService">
-		<property name="dataSource" ref="domainDataSource"/>
-	</bean>
-	
-	<bean id="flightplanAircraftService" class="com.crimsonpig.fs.service.retrieve.RetrieveFlightplanAircraftService">
-		<property name="dataSource" ref="domainDataSource"/>
-	</bean>
-
-	<bean id="expandedRoutesWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
-		<property name="resource" value="file:./data/EXPANDED-Airwave-Routes.txt"/>
-		<property name="lineAggregator">
-			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
-				<property name="delimiter" value=","/>
-				<property name="fieldExtractor">
-					<bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-						<property name="names" value="airline,aircraftModel,originTimezone,originAirport,originLatitude,originLongitude,destinationAirport,destinationLatitude,destinationLongitude,flightFrequency,lowestFlightLevel"/>
-					</bean>
-				</property>
-			</bean>
-		</property>
-	</bean>
-	<bean id="expandedRoutesReader" class="org.springframework.batch.item.file.FlatFileItemReader">
-		<property name="resource" value="file:./data/EXPANDED-Airwave-Routes.txt"/>
-		<property name="lineMapper">
-			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
-				<property name="lineTokenizer">
-					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
-						<property name="delimiter" value=","/>
-						<property name="names" value="airline,aircraftModel,originTimezone,originAirport,originLatitude,originLongitude,destinationAirport,destinationLatitude,destinationLongitude,flightFrequency,lowestFlightLevel"/>
-					</bean>
-				</property>
-				<property name="fieldSetMapper">
-					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-						<property name="targetType" value="com.crimsonpig.fs.domain.route.ExpandedRouteDefinition"/>
-					</bean>
-				</property>
-			</bean>
-		</property>			
-	</bean>	
 
 </beans>

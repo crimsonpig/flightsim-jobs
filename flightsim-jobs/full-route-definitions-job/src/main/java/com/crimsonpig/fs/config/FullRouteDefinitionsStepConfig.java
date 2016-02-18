@@ -1,11 +1,18 @@
 package com.crimsonpig.fs.config;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.batch.item.support.CompositeItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -14,10 +21,17 @@ import org.springframework.core.io.UrlResource;
 import com.crimsonpig.fs.domain.route.*;
 import com.crimsonpig.fs.lineaggregators.FullRouteDefinitionLineAggregator;
 import com.crimsonpig.fs.mappers.SimpleRouteDefinitionLineMapper;
+import com.crimsonpig.fs.processors.RouteAircraftProcessor;
+import com.crimsonpig.fs.processors.RouteAirportProcessor;
+import com.crimsonpig.fs.service.retrieve.RetrieveAirportService;
+import com.crimsonpig.fs.service.retrieve.RetrieveFlightplanAircraftService;
 
 @Configuration
 public class FullRouteDefinitionsStepConfig {
 
+	@Autowired
+	private DataSource domainDataSource;
+	
 	@Bean(name = "routesReader")
 	public ItemReader<SimpleRouteDefinition> routesReader(){
 		FlatFileItemReader<SimpleRouteDefinition> reader = new FlatFileItemReader<SimpleRouteDefinition>();
@@ -26,6 +40,37 @@ public class FullRouteDefinitionsStepConfig {
 		return reader;
 	}
 	
+	@Bean(name = "fullRouteDefinitionsProcessor")
+	public ItemProcessor<SimpleRouteDefinition,FullRouteDefinition> processor(){
+		CompositeItemProcessor<SimpleRouteDefinition,FullRouteDefinition> compositeProcessor = new CompositeItemProcessor<SimpleRouteDefinition,FullRouteDefinition>();
+		compositeProcessor.setDelegates(getItemProcessors());
+		return compositeProcessor;
+		
+	}
+	
+	private List<ItemProcessor<?, ?>> getItemProcessors() {
+		List<ItemProcessor<?, ?>> processors = new ArrayList<ItemProcessor<?, ?>>();
+		processors.add(routeAirportProcessor());
+		processors.add(routeAircraftProcessor());
+		return processors;
+	}
+	
+	private RouteAirportProcessor routeAirportProcessor(){
+		RetrieveAirportService airportService = new RetrieveAirportService();
+		airportService.setDataSource(domainDataSource);
+		RouteAirportProcessor routeAirportProcessor = new RouteAirportProcessor();
+		routeAirportProcessor.setAirportService(airportService);
+		return routeAirportProcessor;
+	}
+	
+	private RouteAircraftProcessor routeAircraftProcessor(){
+		RetrieveFlightplanAircraftService aircraftService = new RetrieveFlightplanAircraftService();
+		aircraftService.setDataSource(domainDataSource);
+		RouteAircraftProcessor processor = new RouteAircraftProcessor();
+		processor.setAircraftService(aircraftService);
+		return processor;
+	}
+
 	@Bean(name = "fullRoutesWriter")
 	public ItemWriter<FullRouteDefinition> fullRoutesWriter() throws MalformedURLException{
 		FlatFileItemWriter<FullRouteDefinition> writer = new FlatFileItemWriter<FullRouteDefinition>();
