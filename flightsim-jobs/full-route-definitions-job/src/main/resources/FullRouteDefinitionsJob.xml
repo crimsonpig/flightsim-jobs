@@ -113,7 +113,4 @@
 		</property>
 	</bean>
 
-	<bean id="deleteExpandedRouteDefinitions" class="com.crimsonpig.fs.tasklet.DeleteFileTasklet">
-		<property name="fileToDelete" value="file:./data/EXPANDED-Airwave-Routes.txt"/>
-	</bean>
 </beans>
