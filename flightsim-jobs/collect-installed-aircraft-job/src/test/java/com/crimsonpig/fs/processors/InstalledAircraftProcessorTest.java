@@ -37,7 +37,7 @@ public class InstalledAircraftProcessorTest {
 		AircraftConfigFile configFile = new AircraftConfigFile();
 		configFile.setAircraftName("AIA_767_200_GE");
 		String srcTestResources = "src/test/resources";
-		File aircraftCfg = new File(srcTestResources + "/data/Aircraft.cfg");
+		File aircraftCfg = new File(srcTestResources + "/AIA_767_200_GE/Aircraft.cfg");
 		configFile.setAircraftConfigFilePath(aircraftCfg.getPath());
 		return configFile;
 	}
