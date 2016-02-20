@@ -1,15 +1,12 @@
 package com.crimsonpig.fs.domain.route;
 
-import java.time.LocalTime;
-
 public class RouteLeg {
 
 	private String originAirport;
 	private String destinationAirport;
 	private int flightLevel;
 	private double distance;
-	private LocalTime routeTime;
-	
+
 	public RouteLeg(){
 		
 	}
@@ -45,14 +42,5 @@ public class RouteLeg {
 	public void setDistance(double distance) {
 		this.distance = distance;
 	}
-	
-	public LocalTime getRouteTime() {
-		return routeTime;
-	}
-	
-	public void setRouteTime(LocalTime routeTime) {
-		this.routeTime = routeTime;
-	}
-	
-	
+
 }
