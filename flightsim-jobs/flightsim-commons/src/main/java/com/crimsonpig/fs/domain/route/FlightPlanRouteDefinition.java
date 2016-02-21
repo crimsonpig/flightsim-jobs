@@ -7,9 +7,15 @@ public class FlightPlanRouteDefinition {
 	private FlightplanAircraft flightplanAircraft;
 	private int originTimezone;
 	private int flightFrequency;
-	private RouteLeg originToDestination;
-	private RouteLeg destinationToOrigin;
-	private int minimumHoldTimeInMinutes;
+	private RouteTimes routeTimes;
+	
+	private String originAirport;
+	private int outboundFlightLevel;
+	
+	private String destinationAirport;
+	private int returnFlightLevel;
+	
+	private double distance;
 
 	public FlightplanAircraft getFlightplanAircraft() {
 		return flightplanAircraft;
@@ -35,28 +41,53 @@ public class FlightPlanRouteDefinition {
 		this.flightFrequency = flightFrequency;
 	}
 
-	public RouteLeg getOriginToDestination() {
-		return originToDestination;
+	public RouteTimes getRouteTimes() {
+		return routeTimes;
 	}
 
-	public void setOriginToDestination(RouteLeg originToDestination) {
-		this.originToDestination = originToDestination;
+	public void setRouteTimes(RouteTimes routeTimes) {
+		this.routeTimes = routeTimes;
 	}
 
-	public RouteLeg getDestinationToOrigin() {
-		return destinationToOrigin;
+	public String getOriginAirport() {
+		return originAirport;
 	}
 
-	public void setDestinationToOrigin(RouteLeg destinationToOrigin) {
-		this.destinationToOrigin = destinationToOrigin;
+	public void setOriginAirport(String originAirport) {
+		this.originAirport = originAirport;
+	}
+
+	public int getOutboundFlightLevel() {
+		return outboundFlightLevel;
+	}
+
+	public void setOutboundFlightLevel(int outboundFlightLevel) {
+		this.outboundFlightLevel = outboundFlightLevel;
+	}
+
+	public String getDestinationAirport() {
+		return destinationAirport;
+	}
+
+	public void setDestinationAirport(String destinationAirport) {
+		this.destinationAirport = destinationAirport;
+	}
+
+	public int getReturnFlightLevel() {
+		return returnFlightLevel;
+	}
+
+	public void setReturnFlightLevel(int returnFlightLevel) {
+		this.returnFlightLevel = returnFlightLevel;
+	}
+
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 	
-	public int getMinimumHoldTimeInMinutes() {
-		return minimumHoldTimeInMinutes;
-	}
-
-	public void setMinimumHoldTimeInMinutes(int minimumHoldTimeInMinutes) {
-		this.minimumHoldTimeInMinutes = minimumHoldTimeInMinutes;
-	}
-
+	
 }
