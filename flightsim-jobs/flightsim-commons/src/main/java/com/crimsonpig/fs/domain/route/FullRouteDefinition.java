@@ -3,8 +3,11 @@ package com.crimsonpig.fs.domain.route;
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
 
-public class FullRouteDefinition extends RouteDefinition {
+public class FullRouteDefinition {
 	
+	private int originTimezone;
+	private int flightFrequency;
+	private int lowestFlightLevel;
 	private FlightplanAircraft fpAircraft;
 	private ConvertedAirport origin;
 	private ConvertedAirport destination;
@@ -13,6 +16,30 @@ public class FullRouteDefinition extends RouteDefinition {
 		this.fpAircraft = new FlightplanAircraft();
 		this.origin = new ConvertedAirport();
 		this.destination = new ConvertedAirport();
+	}
+
+	public int getOriginTimezone() {
+		return originTimezone;
+	}
+
+	public void setOriginTimezone(int originTimezone) {
+		this.originTimezone = originTimezone;
+	}
+
+	public int getFlightFrequency() {
+		return flightFrequency;
+	}
+
+	public void setFlightFrequency(int flightFrequency) {
+		this.flightFrequency = flightFrequency;
+	}
+
+	public int getLowestFlightLevel() {
+		return lowestFlightLevel;
+	}
+
+	public void setLowestFlightLevel(int lowestFlightLevel) {
+		this.lowestFlightLevel = lowestFlightLevel;
 	}
 
 	public FlightplanAircraft getFlightplanAircraft() {
@@ -63,12 +90,10 @@ public class FullRouteDefinition extends RouteDefinition {
 		fpAircraft.setAcId(acId);
 	}
 
-	@Override
 	public String getOriginAirport() {
 		return origin.getIdentifier();
 	}
-	
-	@Override
+
 	public void setOriginAirport(String originAirport) {
 		origin.setIdentifier(originAirport);
 	}
@@ -89,12 +114,10 @@ public class FullRouteDefinition extends RouteDefinition {
 		origin.setLongitudeRadians(originLongitude);
 	}
 
-	@Override
 	public String getDestinationAirport() {
 		return destination.getIdentifier();
 	}
 
-	@Override
 	public void setDestinationAirport(String destinationAirport) {
 		destination.setIdentifier(destinationAirport);
 	}
@@ -115,22 +138,18 @@ public class FullRouteDefinition extends RouteDefinition {
 		destination.setLongitudeRadians(destinationLongitude);
 	}
 
-	@Override
 	public String getAirline() {
 		return fpAircraft.getAirline();
 	}
 
-	@Override
 	public void setAirline(String airline) {
 		fpAircraft.setAirline(airline);
 	}
 
-	@Override
 	public String getAircraftModel() {
 		return fpAircraft.getAtcModel();
 	}
 
-	@Override
 	public void setAircraftModel(String aircraftModel) {
 		fpAircraft.setAtcModel(aircraftModel);
 	}	

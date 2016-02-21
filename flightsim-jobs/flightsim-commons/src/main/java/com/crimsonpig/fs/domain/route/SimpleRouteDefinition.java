@@ -1,7 +1,10 @@
 package com.crimsonpig.fs.domain.route;
 
-public class SimpleRouteDefinition extends RouteDefinition {
+public class SimpleRouteDefinition {
 	
+	private int originTimezone;
+	private int flightFrequency;
+	private int lowestFlightLevel;
 	private String airline;
 	private String aircraftModel;
 	private String originAirport;
@@ -11,44 +14,60 @@ public class SimpleRouteDefinition extends RouteDefinition {
 		
 	}
 
-	@Override
+	public int getOriginTimezone() {
+		return originTimezone;
+	}
+
+	public void setOriginTimezone(int originTimezone) {
+		this.originTimezone = originTimezone;
+	}
+
+	public int getFlightFrequency() {
+		return flightFrequency;
+	}
+
+	public void setFlightFrequency(int flightFrequency) {
+		this.flightFrequency = flightFrequency;
+	}
+
+	public int getLowestFlightLevel() {
+		return lowestFlightLevel;
+	}
+
+	public void setLowestFlightLevel(int lowestFlightLevel) {
+		this.lowestFlightLevel = lowestFlightLevel;
+	}
+
 	public String getAirline() {
 		return airline;
 	}
 
-	@Override
 	public void setAirline(String airline) {
 		this.airline = airline;
 	}
 
-	@Override
 	public String getAircraftModel() {
 		return aircraftModel;
 	}
 
-	@Override
 	public void setAircraftModel(String aircraftModel) {
 		this.aircraftModel = aircraftModel;
 	}
 
-	@Override
 	public String getOriginAirport() {
 		return originAirport;
 	}
 
-	@Override
 	public void setOriginAirport(String originAirport) {
 		this.originAirport = originAirport;
 	}
 
-	@Override
 	public String getDestinationAirport() {
 		return destinationAirport;
 	}
 
-	@Override
 	public void setDestinationAirport(String destinationAirport) {
 		this.destinationAirport = destinationAirport;
 	}
-	
+
 }

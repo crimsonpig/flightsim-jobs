@@ -21,8 +21,7 @@ import org.springframework.core.io.UrlResource;
 import com.crimsonpig.fs.domain.route.*;
 import com.crimsonpig.fs.lineaggregators.FullRouteDefinitionLineAggregator;
 import com.crimsonpig.fs.mappers.SimpleRouteDefinitionLineMapper;
-import com.crimsonpig.fs.processors.RouteAircraftProcessor;
-import com.crimsonpig.fs.processors.RouteAirportProcessor;
+import com.crimsonpig.fs.processors.FullRouteDefinitionsProcessor;
 import com.crimsonpig.fs.service.retrieve.RetrieveAirportService;
 import com.crimsonpig.fs.service.retrieve.RetrieveFlightplanAircraftService;
 
@@ -50,24 +49,20 @@ public class FullRouteDefinitionsStepConfig {
 	
 	private List<ItemProcessor<?, ?>> getItemProcessors() {
 		List<ItemProcessor<?, ?>> processors = new ArrayList<ItemProcessor<?, ?>>();
-		processors.add(routeAirportProcessor());
-		processors.add(routeAircraftProcessor());
+		processors.add(fullRouteDefinitionsProcessor());
 		return processors;
 	}
 	
-	private RouteAirportProcessor routeAirportProcessor(){
+	private FullRouteDefinitionsProcessor fullRouteDefinitionsProcessor() {
+		FullRouteDefinitionsProcessor processor = new FullRouteDefinitionsProcessor();
 		RetrieveAirportService airportService = new RetrieveAirportService();
-		airportService.setDataSource(domainDataSource);
-		RouteAirportProcessor routeAirportProcessor = new RouteAirportProcessor();
-		routeAirportProcessor.setAirportService(airportService);
-		return routeAirportProcessor;
-	}
-	
-	private RouteAircraftProcessor routeAircraftProcessor(){
+		airportService.setDataSource(domainDataSource);		
+		processor.setAirportService(airportService);
+		
 		RetrieveFlightplanAircraftService aircraftService = new RetrieveFlightplanAircraftService();
 		aircraftService.setDataSource(domainDataSource);
-		RouteAircraftProcessor processor = new RouteAircraftProcessor();
 		processor.setAircraftService(aircraftService);
+		
 		return processor;
 	}
 
