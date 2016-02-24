@@ -4,10 +4,9 @@ import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 
 public class FlightPlanRouteDefinition {
 
-	private FlightplanAircraft flightplanAircraft;
+	private FlightplanAircraft fpAircraft;
 	private int originTimezone;
 	private int flightFrequency;
-	private RouteTimes routeTimes;
 	
 	private String originAirport;
 	private int outboundFlightLevel;
@@ -16,13 +15,20 @@ public class FlightPlanRouteDefinition {
 	private int returnFlightLevel;
 	
 	private double distance;
+	
+	private RouteTimes routeTimes;
 
+	public FlightPlanRouteDefinition(){
+		this.fpAircraft = new FlightplanAircraft();
+		this.routeTimes = new RouteTimes();
+	}
+	
 	public FlightplanAircraft getFlightplanAircraft() {
-		return flightplanAircraft;
+		return fpAircraft;
 	}
 
 	public void setFlightplanAircraft(FlightplanAircraft flightplanAircraft) {
-		this.flightplanAircraft = flightplanAircraft;
+		this.fpAircraft = flightplanAircraft;
 	}
 
 	public int getOriginTimezone() {
@@ -89,5 +95,61 @@ public class FlightPlanRouteDefinition {
 		this.distance = distance;
 	}
 	
+
+	public String getAircraftTitle() {
+		return fpAircraft.getTitle();
+	}
+
+	public void setAircraftTitle(String aircraftTitle) {
+		fpAircraft.setTitle(aircraftTitle);
+	}
+	
+	public int getGroundspeed() {
+		return fpAircraft.getGroundspeed();
+	}
+
+	public void setGroundspeed(int groundspeed) {
+		fpAircraft.setGroundspeed(groundspeed);
+	}
+
+	public int getAircraftNumber(){
+		return fpAircraft.getAcId();
+	}
+	
+	public void setAircraftNumber(int acId) {
+		fpAircraft.setAcId(acId);
+	}
+
+	public String getAirline() {
+		return fpAircraft.getAirline();
+	}
+
+	public void setAirline(String airline) {
+		fpAircraft.setAirline(airline);
+	}
+
+	public String getAircraftModel() {
+		return fpAircraft.getAtcModel();
+	}
+
+	public void setAircraftModel(String aircraftModel) {
+		fpAircraft.setAtcModel(aircraftModel);
+	}	
+	
+	public long getHoldTime(){
+		return routeTimes.getHoldTime();
+	}
+	
+	public void setHoldTime(long holdTime){
+		routeTimes.setHoldTime(holdTime);
+	}
+	
+	public long getRouteTime(){
+		return routeTimes.getRouteLegSeconds();
+	}
+	
+	public void setRouteTime(long routeTime){
+		routeTimes.setRouteLegSeconds(routeTime);
+	}
 	
 }
