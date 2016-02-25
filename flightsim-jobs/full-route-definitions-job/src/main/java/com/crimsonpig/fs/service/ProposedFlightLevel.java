@@ -1,4 +1,4 @@
-package com.crimsonpig.fs.service.generate;
+package com.crimsonpig.fs.service;
 
 public class ProposedFlightLevel {
 
