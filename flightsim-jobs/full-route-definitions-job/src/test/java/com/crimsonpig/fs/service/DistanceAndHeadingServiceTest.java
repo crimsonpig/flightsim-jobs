@@ -1,4 +1,4 @@
-package com.crimsonpig.fs.service.generate;
+package com.crimsonpig.fs.service;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
 import com.crimsonpig.fs.domain.route.DistanceAndHeading;
-import com.crimsonpig.fs.service.generate.DistanceAndHeadingService;
+import com.crimsonpig.fs.service.DistanceAndHeadingService;
 
 public class DistanceAndHeadingServiceTest {
 

@@ -1,4 +1,4 @@
-package com.crimsonpig.fs.service.generate;
+package com.crimsonpig.fs.service;
 
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
 import com.crimsonpig.fs.domain.route.DistanceAndHeading;
