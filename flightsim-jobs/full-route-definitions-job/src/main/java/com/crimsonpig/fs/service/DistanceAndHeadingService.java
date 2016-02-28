@@ -4,21 +4,15 @@ import com.crimsonpig.fs.domain.airport.ConvertedAirport;
 import com.crimsonpig.fs.domain.route.DistanceAndHeading;
 
 public class DistanceAndHeadingService {
-	
-	private double originLatitude;
-	private double originLongitude;
-	private double destinationLatitude;
-	private double destinationLongitude;
 
-	public DistanceAndHeadingService(ConvertedAirport originAirport, ConvertedAirport destinationAirport){
-		originLatitude = originAirport.getLatitudeRadians();
-		originLongitude = originAirport.getLongitudeRadians();
-		destinationLatitude = destinationAirport.getLatitudeRadians();
-		destinationLongitude = destinationAirport.getLongitudeRadians();
-	}
-
-	public DistanceAndHeading computeDistanceAndHeading(){
-
+	public DistanceAndHeading computeDistanceAndHeading(ConvertedAirport originAirport, ConvertedAirport destinationAirport){
+		
+		double originLatitude = originAirport.getLatitudeRadians();
+		double originLongitude = originAirport.getLongitudeRadians();
+		
+		double destinationLatitude = destinationAirport.getLatitudeRadians();
+		double destinationLongitude = destinationAirport.getLongitudeRadians();
+		
 		double temp1 = (Math.sin(originLatitude) * Math.sin(destinationLatitude)) 
 				+ (Math.cos(originLatitude) * Math.cos(destinationLatitude) * Math.cos(originLongitude - destinationLongitude));
 		

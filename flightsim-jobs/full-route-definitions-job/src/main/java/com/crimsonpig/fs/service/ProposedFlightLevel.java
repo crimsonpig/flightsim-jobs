@@ -2,23 +2,13 @@ package com.crimsonpig.fs.service;
 
 public class ProposedFlightLevel {
 
-	private final double heading;
-	private final int lowestFlightLevel;
-	
-	public ProposedFlightLevel(double heading, int lowestFlightLevel) {
+	private double heading;
+	private int lowestFlightLevel;
+
+	public int determineActualFlightLevel(double heading, int lowestFlightLevel) {
 		this.heading = heading;
 		this.lowestFlightLevel = lowestFlightLevel;
-	}
-	
-	public double getHeading() {
-		return heading;
-	}
-	public int getLowestFlightLevel() {
-		return lowestFlightLevel;
-	}
-
-	public int determineActualFlightLevel() {
-		int toReturn = lowestFlightLevel;
+		int toReturn = this.lowestFlightLevel;
 		//odd
 		if(flightLevelShouldBeAdjustedUp()){
 			toReturn += 10;
