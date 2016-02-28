@@ -13,8 +13,8 @@ public class DistanceAndHeadingServiceTest {
 	@Test
 	public void ontToSmfTest(){
 		DistanceAndHeadingService service = 
-				new DistanceAndHeadingService(getOntarioAirport(), getSacramentoAirport());
-		DistanceAndHeading dAndH = service.computeDistanceAndHeading();
+				new DistanceAndHeadingService();
+		DistanceAndHeading dAndH = service.computeDistanceAndHeading(getOntarioAirport(), getSacramentoAirport());
 		assertEquals(338,dAndH.getDistance(),0.5);
 		assertEquals(326,dAndH.getHeading(),0.5);
 	}
@@ -22,8 +22,8 @@ public class DistanceAndHeadingServiceTest {
 	@Test
 	public void smfToOntTest(){
 		DistanceAndHeadingService service = 
-				new DistanceAndHeadingService(getSacramentoAirport(), getOntarioAirport());
-		DistanceAndHeading dAndH = service.computeDistanceAndHeading();
+				new DistanceAndHeadingService();
+		DistanceAndHeading dAndH = service.computeDistanceAndHeading(getSacramentoAirport(), getOntarioAirport());
 		assertEquals(338,dAndH.getDistance(),0.5);
 		assertEquals(144,dAndH.getHeading(),0.5);		
 	}
@@ -31,8 +31,8 @@ public class DistanceAndHeadingServiceTest {
 	@Test
 	public void smfToEugTest(){
 		DistanceAndHeadingService service = 
-				new DistanceAndHeadingService(getSacramentoAirport(), getEugeneAirport());
-		DistanceAndHeading dAndH = service.computeDistanceAndHeading();
+				new DistanceAndHeadingService();
+		DistanceAndHeading dAndH = service.computeDistanceAndHeading(getSacramentoAirport(), getEugeneAirport());
 		assertEquals(334, dAndH.getDistance(), 0.5);
 		assertEquals(348,dAndH.getHeading(),0.5);			
 	}
