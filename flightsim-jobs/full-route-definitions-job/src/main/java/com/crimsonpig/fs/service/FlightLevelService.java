@@ -1,6 +1,6 @@
 package com.crimsonpig.fs.service;
 
-public class ProposedFlightLevel {
+public class FlightLevelService {
 
 	private double heading;
 	private int lowestFlightLevel;

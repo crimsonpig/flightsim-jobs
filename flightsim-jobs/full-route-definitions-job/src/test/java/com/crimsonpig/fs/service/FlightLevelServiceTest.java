@@ -11,7 +11,7 @@ public class FlightLevelServiceTest {
 	public void oddUpToEvenTest(){
 		double heading = 326;
 		int lowestFlightLevel = 330;
-		ProposedFlightLevel proposal = new ProposedFlightLevel(heading, lowestFlightLevel);
+		FlightLevelService proposal = new FlightLevelService(heading, lowestFlightLevel);
 		int actualFlightLevel = proposal.determineActualFlightLevel();
 		assertEquals(340, actualFlightLevel);
 	}
@@ -20,7 +20,7 @@ public class FlightLevelServiceTest {
 	public void oddSameAsLowestTest(){
 		double heading = 144;
 		int lowestFlightLevel = 330;
-		ProposedFlightLevel proposal = new ProposedFlightLevel(heading, lowestFlightLevel);
+		FlightLevelService proposal = new FlightLevelService(heading, lowestFlightLevel);
 		int actualFlightLevel = proposal.determineActualFlightLevel();
 		assertEquals(330, actualFlightLevel);
 	}
@@ -29,7 +29,7 @@ public class FlightLevelServiceTest {
 	public void evenUpToOddTest(){
 		double heading = 144;
 		int lowestFlightLevel = 340;
-		ProposedFlightLevel proposal = new ProposedFlightLevel(heading, lowestFlightLevel);
+		FlightLevelService proposal = new FlightLevelService(heading, lowestFlightLevel);
 		int actualFlightLevel = proposal.determineActualFlightLevel();
 		assertEquals(350, actualFlightLevel);	
 	}
@@ -38,7 +38,7 @@ public class FlightLevelServiceTest {
 	public void evenSameAsLowestTest(){
 		double heading = 348;
 		int lowestFlightLevel = 340;
-		ProposedFlightLevel proposal = new ProposedFlightLevel(heading, lowestFlightLevel);
+		FlightLevelService proposal = new FlightLevelService(heading, lowestFlightLevel);
 		int actualFlightLevel = proposal.determineActualFlightLevel();
 		assertEquals(340, actualFlightLevel);			
 	}

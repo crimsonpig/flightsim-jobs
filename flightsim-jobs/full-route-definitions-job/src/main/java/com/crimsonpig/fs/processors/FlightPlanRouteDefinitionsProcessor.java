@@ -10,7 +10,7 @@ import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
 import com.crimsonpig.fs.domain.route.FullRouteDefinition;
 import com.crimsonpig.fs.domain.route.RouteTimes;
 import com.crimsonpig.fs.service.DistanceAndHeadingService;
-import com.crimsonpig.fs.service.ProposedFlightLevel;
+import com.crimsonpig.fs.service.FlightLevelService;
 
 public class FlightPlanRouteDefinitionsProcessor implements
 		ItemProcessor<FullRouteDefinition, FlightPlanRouteDefinition> {
@@ -20,9 +20,15 @@ public class FlightPlanRouteDefinitionsProcessor implements
 	private static final int MINIMUM_HOLD_TIME = 60 * 60;
 	
 	private DistanceAndHeadingService distanceAndHeadingService;
+	
+	private FlightLevelService flightLevelService;
 
 	public void setDistanceAndHeading(DistanceAndHeadingService distanceAndHeading) {
 		this.distanceAndHeadingService = distanceAndHeading;
+	}
+
+	public void setFlightLevelService(FlightLevelService flightLevelService) {
+		this.flightLevelService = flightLevelService;
 	}
 
 	@Override
@@ -35,10 +41,9 @@ public class FlightPlanRouteDefinitionsProcessor implements
 		if(originToDestination.getDistance() != destinationToOrigin.getDistance()){
 			throw new Exception("Distances should be equal!");
 		} 
-		
-		ProposedFlightLevel proposedFlightLevel = new ProposedFlightLevel();
-		int outboundFlightLevel = proposedFlightLevel.determineActualFlightLevel(originToDestination.getHeading(), item.getLowestFlightLevel());
-		int inboundFlightLevel = proposedFlightLevel.determineActualFlightLevel(destinationToOrigin.getHeading(), item.getLowestFlightLevel());
+	
+		int outboundFlightLevel = flightLevelService.determineActualFlightLevel(originToDestination.getHeading(), item.getLowestFlightLevel());
+		int inboundFlightLevel = flightLevelService.determineActualFlightLevel(destinationToOrigin.getHeading(), item.getLowestFlightLevel());
 
 		FlightPlanRouteDefinition toReturn = new FlightPlanRouteDefinition();
 		toReturn.setFlightplanAircraft(item.getFlightplanAircraft());
