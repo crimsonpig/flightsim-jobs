@@ -1,8 +1,5 @@
 package com.crimsonpig.fs.processors;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import org.springframework.batch.item.ItemProcessor;
 
 import com.crimsonpig.fs.domain.route.DistanceAndHeading;
@@ -11,17 +8,19 @@ import com.crimsonpig.fs.domain.route.FullRouteDefinition;
 import com.crimsonpig.fs.domain.route.RouteTimes;
 import com.crimsonpig.fs.service.DistanceAndHeadingService;
 import com.crimsonpig.fs.service.FlightLevelService;
+import com.crimsonpig.fs.service.FlightPlanRouteDefinitionsService;
+import com.crimsonpig.fs.service.RouteTimesService;
 
 public class FlightPlanRouteDefinitionsProcessor implements
 		ItemProcessor<FullRouteDefinition, FlightPlanRouteDefinition> {
-
-	private static final int GROUND_SECONDS = 15 * 60;
-	
-	private static final int MINIMUM_HOLD_TIME = 60 * 60;
 	
 	private DistanceAndHeadingService distanceAndHeadingService;
 	
 	private FlightLevelService flightLevelService;
+	
+	private FlightPlanRouteDefinitionsService routeDefinitionsService;
+	
+	private RouteTimesService routeTimesService;
 
 	public void setDistanceAndHeading(DistanceAndHeadingService distanceAndHeading) {
 		this.distanceAndHeadingService = distanceAndHeading;
@@ -29,6 +28,15 @@ public class FlightPlanRouteDefinitionsProcessor implements
 
 	public void setFlightLevelService(FlightLevelService flightLevelService) {
 		this.flightLevelService = flightLevelService;
+	}
+
+	public void setRouteDefinitionsService(
+			FlightPlanRouteDefinitionsService routeDefinitionsService) {
+		this.routeDefinitionsService = routeDefinitionsService;
+	}
+
+	public void setRouteTimesService(RouteTimesService routeTimesService) {
+		this.routeTimesService = routeTimesService;
 	}
 
 	@Override
@@ -41,35 +49,19 @@ public class FlightPlanRouteDefinitionsProcessor implements
 		if(originToDestination.getDistance() != destinationToOrigin.getDistance()){
 			throw new Exception("Distances should be equal!");
 		} 
+		
+		double distance = originToDestination.getDistance();
 	
 		int outboundFlightLevel = flightLevelService.determineActualFlightLevel(originToDestination.getHeading(), item.getLowestFlightLevel());
 		int inboundFlightLevel = flightLevelService.determineActualFlightLevel(destinationToOrigin.getHeading(), item.getLowestFlightLevel());
 
-		FlightPlanRouteDefinition toReturn = new FlightPlanRouteDefinition();
-		toReturn.setFlightplanAircraft(item.getFlightplanAircraft());
-		toReturn.setOriginAirport(item.getOriginAirport());
-		toReturn.setOriginTimezone(item.getOriginTimezone());
+		FlightPlanRouteDefinition toReturn = routeDefinitionsService.populateFlightPlanRouteDefinition(item);
 		toReturn.setOutboundFlightLevel(outboundFlightLevel);
-		toReturn.setDestinationAirport(item.getDestinationAirport());
 		toReturn.setReturnFlightLevel(inboundFlightLevel);
-		toReturn.setFlightFrequency(item.getFlightFrequency());
-		toReturn.setDistance(originToDestination.getDistance());
+		toReturn.setDistance(distance);
 		
-		RouteTimes routeTimes = new RouteTimes();
-		
-		long routeLegSeconds = GROUND_SECONDS;
-		BigDecimal distanceInNauticalMiles = new BigDecimal(originToDestination.getDistance());
-		BigDecimal groundSpeedInKnots = new BigDecimal(item.getGroundspeed());
-		BigDecimal oneHourInSeconds = new BigDecimal(3600);
-		BigDecimal groundSpeedKnotsPerSecond = groundSpeedInKnots.divide(oneHourInSeconds, 4, RoundingMode.HALF_UP);
-		BigDecimal routeLegSecondsDecimal = distanceInNauticalMiles.divide(groundSpeedKnotsPerSecond, 0, RoundingMode.HALF_UP);
-		
-		routeLegSeconds = routeLegSecondsDecimal.longValue();  
-		routeLegSeconds += GROUND_SECONDS;
-		
-		routeTimes.setRouteLegSeconds(routeLegSeconds);
-		routeTimes.setHoldTime(MINIMUM_HOLD_TIME);
-		
+		RouteTimes routeTimes = routeTimesService.calculateRouteTimes(distance, item.getGroundspeed());
+
 		toReturn.setRouteTimes(routeTimes);
 
 		return toReturn;
