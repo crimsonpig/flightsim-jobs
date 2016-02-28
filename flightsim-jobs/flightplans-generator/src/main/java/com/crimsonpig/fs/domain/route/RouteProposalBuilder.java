@@ -23,7 +23,7 @@ public class RouteProposalBuilder {
 
 	public RouteProposal build() {
 		RouteProposal proposal = new RouteProposal();
-		proposal.calculateDistanceAndFlightLevels(this);
+
 		return proposal;
 	}
 
