@@ -16,6 +16,10 @@ import com.crimsonpig.fs.domain.route.FullRouteDefinition;
 import com.crimsonpig.fs.lineaggregators.FlightPlanRouteDefinitionLineAggregator;
 import com.crimsonpig.fs.mappers.FullRouteDefinitionLineMapper;
 import com.crimsonpig.fs.processors.FlightPlanRouteDefinitionsProcessor;
+import com.crimsonpig.fs.service.DistanceAndHeadingService;
+import com.crimsonpig.fs.service.FlightLevelService;
+import com.crimsonpig.fs.service.FlightPlanRouteDefinitionsService;
+import com.crimsonpig.fs.service.RouteTimesService;
 
 @Configuration
 public class FlightPlanRouteDefinitionsStepConfig {
@@ -31,6 +35,10 @@ public class FlightPlanRouteDefinitionsStepConfig {
 	@Bean(name = "flightPlanRouteDefinitionsProcessor")
 	public ItemProcessor<FullRouteDefinition,FlightPlanRouteDefinition> processor(){
 		FlightPlanRouteDefinitionsProcessor processor = new FlightPlanRouteDefinitionsProcessor();
+		processor.setDistanceAndHeading(new DistanceAndHeadingService());
+		processor.setFlightLevelService(new FlightLevelService());
+		processor.setRouteDefinitionsService(new FlightPlanRouteDefinitionsService());
+		processor.setRouteTimesService(new RouteTimesService());
 		return processor;
 	}
 	

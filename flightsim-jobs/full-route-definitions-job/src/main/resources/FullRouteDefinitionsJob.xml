@@ -10,11 +10,18 @@
 	<context:component-scan base-package="com.crimsonpig.fs.config"/>
 
 	<job id="FullRouteDefinitionsJob" job-repository="jobRepository" xmlns="http://www.springframework.org/schema/batch">
-		<step id="FullRouteDefinitionsStep">
+		<step id="FullRouteDefinitionsStep" next="FlightPlanRouteDefinitionsStep">
 			<tasklet>
 				<chunk reader="routesReader"
 					processor="fullRouteDefinitionsProcessor" commit-interval="10"
 					writer="fullRoutesWriter" />
+			</tasklet>
+		</step>
+		<step id="FlightPlanRouteDefinitionsStep">
+			<tasklet>
+				<chunk reader="fullRoutesReader"
+					processor="flightPlanRouteDefinitionsProcessor" commit-interval="10"
+					writer="flightPlanRoutesWriter" />
 			</tasklet>
 		</step>
 	</job>
