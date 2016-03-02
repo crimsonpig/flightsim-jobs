@@ -1,6 +1,8 @@
 package com.crimsonpig.fs.processors;
 
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 
 import com.crimsonpig.fs.domain.route.DistanceAndHeading;
 import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
@@ -12,7 +14,7 @@ import com.crimsonpig.fs.service.FlightPlanRouteDefinitionsService;
 import com.crimsonpig.fs.service.RouteTimesService;
 
 public class FlightPlanRouteDefinitionsProcessor implements
-		ItemProcessor<FullRouteDefinition, FlightPlanRouteDefinition> {
+		ItemProcessor<FullRouteDefinition, FlightPlanRouteDefinition>, InitializingBean {
 	
 	private DistanceAndHeadingService distanceAndHeadingService;
 	
@@ -65,6 +67,14 @@ public class FlightPlanRouteDefinitionsProcessor implements
 		toReturn.setRouteTimes(routeTimes);
 
 		return toReturn;
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		Assert.notNull(distanceAndHeadingService, "DistanceAndHeadingService cannot be null!");
+		Assert.notNull(flightLevelService, "FlightLevelService cannot be null!");
+		Assert.notNull(routeDefinitionsService, "FlightPlanRouteDefinitionsService cannot be null!");
+		Assert.notNull(routeTimesService, "RouteTimesService cannot be null!");
 	}
 	
 }
