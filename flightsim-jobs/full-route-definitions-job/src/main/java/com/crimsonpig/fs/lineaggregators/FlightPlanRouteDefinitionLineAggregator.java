@@ -13,7 +13,7 @@ public class FlightPlanRouteDefinitionLineAggregator extends CommaSeparatedLineA
 
 	private FieldExtractor<FlightPlanRouteDefinition> fieldExtractor() {
 		BeanWrapperFieldExtractor<FlightPlanRouteDefinition> extractor = new BeanWrapperFieldExtractor<FlightPlanRouteDefinition>();
-		extractor.setNames(new String[]{"airline","aircraftModel","aircraftNumber","aircraftTitle","groundspeed","originTimezone","flightFrequency","originAirport","outboundFlightLevel","destinationAirport","returnFlightLevel","distance","holdTime","routeTime"});
+		extractor.setNames(new String[]{"airline","aircraftModel","aircraftNumber","aircraftTitle","groundspeed","originTimezone","flightFrequency","originAirport","outboundFlightLevel","destinationAirport","returnFlightLevel","distance","routeTime"});
 		return extractor;
 	}
 	

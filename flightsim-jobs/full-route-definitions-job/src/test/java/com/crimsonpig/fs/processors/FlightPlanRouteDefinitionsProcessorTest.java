@@ -54,10 +54,8 @@ public class FlightPlanRouteDefinitionsProcessorTest {
 		assertEquals("KDEN", flightPlanRoute.getDestinationAirport());
 		assertEquals(380, flightPlanRoute.getReturnFlightLevel());
 		assertEquals(788, flightPlanRoute.getDistance(), 0.5);
-		assertEquals(3600, flightPlanRoute.getHoldTime(), 10);
 		assertEquals(7500, flightPlanRoute.getRouteTime(), 10);
-		assertEquals(11100, flightPlanRoute.getRouteTimes().getMinimumLegSeconds(), 10);
-		assertEquals(22200, flightPlanRoute.getRouteTimes().getSingleRepetitionSeconds(), 10);
+
 	}
 	
 }

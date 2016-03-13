@@ -16,11 +16,10 @@ public class FlightPlanRouteDefinition {
 	
 	private double distance;
 	
-	private RouteTimes routeTimes;
+	private long routeTime;
 
 	public FlightPlanRouteDefinition(){
 		this.fpAircraft = new FlightplanAircraft();
-		this.routeTimes = new RouteTimes();
 	}
 	
 	public FlightplanAircraft getFlightplanAircraft() {
@@ -45,14 +44,6 @@ public class FlightPlanRouteDefinition {
 
 	public void setFlightFrequency(int flightFrequency) {
 		this.flightFrequency = flightFrequency;
-	}
-
-	public RouteTimes getRouteTimes() {
-		return routeTimes;
-	}
-
-	public void setRouteTimes(RouteTimes routeTimes) {
-		this.routeTimes = routeTimes;
 	}
 
 	public String getOriginAirport() {
@@ -134,22 +125,15 @@ public class FlightPlanRouteDefinition {
 
 	public void setAircraftModel(String aircraftModel) {
 		fpAircraft.setAtcModel(aircraftModel);
+	}
+
+	public long getRouteTime() {
+		return routeTime;
+	}
+
+	public void setRouteTime(long routeTimeInSeconds) {
+		this.routeTime = routeTimeInSeconds;
 	}	
 	
-	public long getHoldTime(){
-		return routeTimes.getHoldTime();
-	}
-	
-	public void setHoldTime(long holdTime){
-		routeTimes.setHoldTime(holdTime);
-	}
-	
-	public long getRouteTime(){
-		return routeTimes.getRouteLegSeconds();
-	}
-	
-	public void setRouteTime(long routeTime){
-		routeTimes.setRouteLegSeconds(routeTime);
-	}
-	
+
 }

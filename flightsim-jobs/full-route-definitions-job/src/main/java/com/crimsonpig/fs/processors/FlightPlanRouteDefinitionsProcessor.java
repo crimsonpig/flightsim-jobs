@@ -7,7 +7,6 @@ import org.springframework.util.Assert;
 import com.crimsonpig.fs.domain.route.DistanceAndHeading;
 import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
 import com.crimsonpig.fs.domain.route.FullRouteDefinition;
-import com.crimsonpig.fs.domain.route.RouteTimes;
 import com.crimsonpig.fs.service.DistanceAndHeadingService;
 import com.crimsonpig.fs.service.FlightLevelService;
 import com.crimsonpig.fs.service.FlightPlanRouteDefinitionsService;
@@ -62,9 +61,9 @@ public class FlightPlanRouteDefinitionsProcessor implements
 		toReturn.setReturnFlightLevel(inboundFlightLevel);
 		toReturn.setDistance(distance);
 		
-		RouteTimes routeTimes = routeTimesService.calculateRouteTimes(distance, item.getGroundspeed());
+		long routeTime = routeTimesService.calculateRouteTime(distance, item.getGroundspeed());
 
-		toReturn.setRouteTimes(routeTimes);
+		toReturn.setRouteTime(routeTime);
 
 		return toReturn;
 	}

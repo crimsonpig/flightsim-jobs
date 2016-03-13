@@ -26,12 +26,11 @@ public class FlightPlanRouteDefinitionLineAggregatorTest {
 		smfToDen.setReturnFlightLevel(380);
 		smfToDen.setFlightFrequency(8);
 		smfToDen.setDistance(788);
-		smfToDen.setHoldTime(3600);
 		smfToDen.setRouteTime(7500);
 		
 		String line = aggregator.aggregate(smfToDen);
 		
-		assertEquals("American Pacific,B734,1,Boeing 737-400 Paint1,430,-7,8,KSMF,370,KDEN,380,788.0,3600,7500", line);
+		assertEquals("American Pacific,B734,1,Boeing 737-400 Paint1,430,-7,8,KSMF,370,KDEN,380,788.0,7500", line);
 	}
 	
 }
