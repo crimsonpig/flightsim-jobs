@@ -10,7 +10,7 @@ public class FlightPlan {
 	private String airline;
 	private String registration = "N700MS";
 	private int percentage = 90;
-	private String repetition = "24Hr";
+	private Repetition repetition = Repetition.TWENTY_FOUR_HOURS;
 	private FlightRules flightRules = FlightRules.IFR;
 	private List<Leg> legs;
 	
@@ -63,11 +63,11 @@ public class FlightPlan {
 		this.percentage = percentage;
 	}
 
-	public String getRepetition() {
+	public Repetition getRepetition() {
 		return repetition;
 	}
 
-	public void setRepetition(String repetition) {
+	public void setRepetition(Repetition repetition) {
 		this.repetition = repetition;
 	}
 

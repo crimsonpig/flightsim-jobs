@@ -6,28 +6,10 @@ public class Leg {
 	private LocalTime departureTime;
 	private LocalTime arrivalTime;
 	private int flightLevel;
-	private CallBy fOrR;
+	private CallBy fOrR = CallBy.F;
 	private int flightNumber;
 	private String arrivalAirport;
 	private String departureAirport;
-	private double heading;
-	private double distance;
-	
-	public double getHeading() {
-		return heading;
-	}
-
-	public void setHeading(double heading) {
-		this.heading = heading;
-	}
-
-	public double getDistance() {
-		return distance;
-	}
-
-	public void setDistance(double distance) {
-		this.distance = distance;
-	}
 
 	public Leg(){
 		
