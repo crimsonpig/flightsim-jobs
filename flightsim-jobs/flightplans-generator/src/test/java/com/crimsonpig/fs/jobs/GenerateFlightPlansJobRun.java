@@ -5,7 +5,7 @@ import org.springframework.batch.core.launch.support.CommandLineJobRunner;
 public class GenerateFlightPlansJobRun {
 
 	public static void main(String[] args) throws Exception{
-		String args2[] = {"/jobs/GenerateFlightPlansJob.xml", "GenerateFlightPlansJob"};
+		String args2[] = {"/GenerateFlightPlansJob.xml", "GenerateFlightPlansJob"};
 		CommandLineJobRunner.main(args2);
 	}
 }

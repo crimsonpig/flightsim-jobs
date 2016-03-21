@@ -12,42 +12,11 @@
 	<job id="GenerateFlightPlansJob" job-repository="jobRepository" xmlns="http://www.springframework.org/schema/batch">
 		<step id="GenerateFlightPlansStep">
 			<tasklet>
-				<chunk reader="fullRoutesReader"
+				<chunk reader="routesReader"
 					processor="flightPlanGenerator" commit-interval="10"
 					writer="flightPlansWriter" />
 			</tasklet>
 		</step>
 	</job>
-	
-	<bean id="fullRoutesReader" class="org.springframework.batch.item.file.FlatFileItemReader">
-		<property name="resource" value="file:./data/FULL-Airwave-Routes.txt"/>
-		<property name="lineMapper">
-			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
-				<property name="lineTokenizer">
-					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
-						<property name="delimiter" value=","/>
-						<property name="names" value="airline,aircraftModel,aircraftNumber,aircraftTitle,groundspeed,originTimezone,originAirport,originLatitude,originLongitude,destinationAirport,destinationLatitude,destinationLongitude,flightFrequency,lowestFlightLevel"/>
-					</bean>
-				</property>
-				<property name="fieldSetMapper">
-					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-						<property name="targetType" value="com.crimsonpig.fs.domain.route.FullRouteDefinition"/>
-					</bean>
-				</property>
-			</bean>
-		</property>			
-	</bean>
-	<bean id="flightPlanGenerator" class="com.crimsonpig.fs.processors.FlightPlanGenerator"/>
-
-	<bean id="flightPlansWriter" class="com.crimsonpig.fs.writers.ListItemStreamWriter">
-		<property name="itemStreamWriter" ref="singleFlightPlanWriter"/>
-	</bean>
-	
-	<bean id="singleFlightPlanWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
-		<property name="resource" value="file:./data/FlightplansAirwave.txt"/>
-		<property name="lineAggregator">
-			<bean class="com.crimsonpig.fs.lineaggregators.FlightPlanLineAggregator" />
-		</property>
-	</bean>
 	
 </beans>
