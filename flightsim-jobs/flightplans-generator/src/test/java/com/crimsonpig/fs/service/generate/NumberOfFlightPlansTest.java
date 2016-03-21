@@ -6,13 +6,15 @@ import org.junit.Test;
 
 public class NumberOfFlightPlansTest {
 
+	private final static long ONE_HOUR_HOLD_TIME = 3600;
+	
 	@Test
 	public void singleFourHourFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 324.0;
+		
+		long routeTime = 3614;
 		int flightFrequency = 6;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -22,11 +24,11 @@ public class NumberOfFlightPlansTest {
 
 	@Test
 	public void doubleFourHourFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 324.0;
+
+		long routeTime = 3614;
 		int flightFrequency = 11;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -36,11 +38,11 @@ public class NumberOfFlightPlansTest {
 
 	@Test
 	public void tripleFourHourFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 324.0;
+		
+		long routeTime = 3614;
 		int flightFrequency = 14;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -50,11 +52,11 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void singleSixHourFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 526.0;
+		
+		long routeTime = 5305;
 		int flightFrequency = 4;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -64,11 +66,10 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void doubleSixHourFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 526.0;
+		long routeTime = 5305;
 		int flightFrequency = 8;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -77,11 +78,10 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void quadrupleSixHourFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 526.0;
+		long routeTime = 5305;
 		int flightFrequency = 15;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -90,11 +90,10 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void singleEightHourFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 788.0;
+		long routeTime = 7500;
 		int flightFrequency = 3;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -103,11 +102,10 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void tripleEightHourFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 788.0;
+		long routeTime = 7500;
 		int flightFrequency = 8;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -116,11 +114,10 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void singleTwelveHourFlightPlanTest(){
-		int groundspeed = 480;
-		double distance = 2242.0;
+		long routeTime = 17719;
 		int flightFrequency = 2;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -129,11 +126,10 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void quadrupleTwelveHourFlightPlanTest(){
-		int groundspeed = 480;
-		double distance = 2242.0;
+		long routeTime = 17719;
 		int flightFrequency = 8;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -142,11 +138,10 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void quintupleTwelveHourFlightPlanTest(){
-		int groundspeed = 480;
-		double distance = 2242.0;
+		long routeTime = 17719;
 		int flightFrequency = 10;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -155,11 +150,10 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void singleOneDayFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 2242.0;
+		long routeTime = 19677;
 		int flightFrequency = 1;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
@@ -168,11 +162,10 @@ public class NumberOfFlightPlansTest {
 	
 	@Test
 	public void doubleOneDayFlightPlanTest(){
-		int groundspeed = 430;
-		double distance = 2242.0;
+		long routeTime = 19677;
 		int flightFrequency = 2;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder();
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(flightFrequency, time);
