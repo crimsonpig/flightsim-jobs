@@ -8,12 +8,13 @@ import com.crimsonpig.fs.domain.flightplan.Repetition;
 
 public class RepetitionCalculatorTest {
 
+	private final static long ONE_HOUR_HOLD_TIME = 3600;
+	
 	@Test
 	public void calculateFourHourRepetitionTest(){
-		int groundspeed = 430;
-		double distance = 324.0;
+		long routeTime = 3614;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
@@ -22,10 +23,9 @@ public class RepetitionCalculatorTest {
 	
 	@Test
 	public void calculateSixHourRepetitionTest(){
-		int groundspeed = 430;
-		double distance = 526.0;
+		long routeTime = 5305;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
@@ -34,10 +34,9 @@ public class RepetitionCalculatorTest {
 	
 	@Test
 	public void calculateEightHourRepetitionTest(){
-		int groundspeed = 430;
-		double distance = 788.0;
+		long routeTime = 7500;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
@@ -46,10 +45,9 @@ public class RepetitionCalculatorTest {
 	
 	@Test
 	public void calculateTwelveHourRepetitionTest(){
-		int groundspeed = 480;
-		double distance = 2242.0;
+		long routeTime = 17719;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
@@ -58,10 +56,9 @@ public class RepetitionCalculatorTest {
 	
 	@Test
 	public void calculateTwentyFourHourRepetitionTest(){
-		int groundspeed = 430;
-		double distance = 2242.0;
+		long routeTime = 19677;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
