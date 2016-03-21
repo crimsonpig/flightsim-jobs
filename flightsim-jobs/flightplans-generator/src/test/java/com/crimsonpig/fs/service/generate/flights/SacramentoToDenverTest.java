@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.crimsonpig.fs.domain.flightplan.Leg;
 import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
+import com.crimsonpig.fs.domain.flightplan.Repetition;
 
 public class SacramentoToDenverTest extends BaseGenerateFlightTest {
 
@@ -40,8 +41,8 @@ public class SacramentoToDenverTest extends BaseGenerateFlightTest {
 		assertEquals(370, firstLeg.getFlightLevel());
 		assertEquals(380, secondLeg.getFlightLevel());
 		
-		assertLeg(firstLeg, LocalTime.of(13, 0, 0), LocalTime.of(15, 4, 54));
-		assertLeg(secondLeg, LocalTime.of(16, 4, 54), LocalTime.of(18, 9, 48));
+		assertLeg(firstLeg, LocalTime.of(13, 0, 0), LocalTime.of(15, 5, 0));
+		assertLeg(secondLeg, LocalTime.of(16, 5, 0), LocalTime.of(18, 10, 0));
 	}
 
 	@Test
@@ -51,7 +52,7 @@ public class SacramentoToDenverTest extends BaseGenerateFlightTest {
 
 	@Test
 	public void repetitionTest() {
-		getFlightPlans().forEach(flightPlan -> assertEquals("6Hr", flightPlan.getRepetition()));
+		getFlightPlans().forEach(flightPlan -> assertEquals(Repetition.SIX_HOURS, flightPlan.getRepetition()));
 	}
 
 }

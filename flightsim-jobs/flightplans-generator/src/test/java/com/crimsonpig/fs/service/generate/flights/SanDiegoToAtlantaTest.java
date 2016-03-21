@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
+import com.crimsonpig.fs.domain.flightplan.*;
 
 public class SanDiegoToAtlantaTest extends BaseGenerateFlightTest {
 
@@ -34,6 +35,6 @@ public class SanDiegoToAtlantaTest extends BaseGenerateFlightTest {
 	@Test
 	public void repetitionTest(){
 		getFlightPlans().forEach(flightPlan -> 
-			assertEquals("12Hr", flightPlan.getRepetition()));
+		assertEquals(Repetition.TWELVE_HOURS, flightPlan.getRepetition()));
 	}
 }

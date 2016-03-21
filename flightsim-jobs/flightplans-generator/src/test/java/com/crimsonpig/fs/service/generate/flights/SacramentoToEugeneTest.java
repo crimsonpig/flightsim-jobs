@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.crimsonpig.fs.domain.flightplan.Leg;
+import com.crimsonpig.fs.domain.flightplan.*;
 import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
 
 public class SacramentoToEugeneTest extends BaseGenerateFlightTest {
@@ -34,15 +34,15 @@ public class SacramentoToEugeneTest extends BaseGenerateFlightTest {
 		assertEquals(1, getFlightPlans().size());
 		List<Leg> flightPlanLegs = getFlightPlans().get(0).getLegs();
 		
-		assertEquals(6, flightPlanLegs.size());
+		
 		Leg firstLeg = flightPlanLegs.get(0);
 		Leg secondLeg = flightPlanLegs.get(1);
 
 		//Remember, all times are in GMT so 6:00 local time at KSMF is 13:00 GMT.
-		assertLeg(firstLeg, LocalTime.of(13, 0, 0), LocalTime.of(14, 1, 34));
+		assertLeg(firstLeg, LocalTime.of(13, 0, 0), LocalTime.of(14, 1, 37));
 		assertEquals(380, firstLeg.getFlightLevel());
 		assertEquals(370, secondLeg.getFlightLevel());
-		assertLeg(secondLeg, LocalTime.of(15, 1, 34), LocalTime.of(16, 3, 8));
+		assertLeg(secondLeg, LocalTime.of(15, 1, 37), LocalTime.of(16, 3, 14));
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class SacramentoToEugeneTest extends BaseGenerateFlightTest {
 	
 	@Test
 	public void repetitionTest(){
-		getFlightPlans().forEach(flightPlan -> assertEquals("8Hr", flightPlan.getRepetition()));
+		getFlightPlans().forEach(flightPlan -> assertEquals(Repetition.EIGHT_HOURS, flightPlan.getRepetition()));
 	}
 }
 

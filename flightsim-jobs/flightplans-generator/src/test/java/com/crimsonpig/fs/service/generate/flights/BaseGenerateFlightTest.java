@@ -54,20 +54,16 @@ public abstract class BaseGenerateFlightTest {
 	}
 	
 	@Test
-	public final void firstAndLastLegTest(){
+	public final void firstAndSecondLegTest(){
 		assertNotNull(getFlightPlans());
 		assertTrue(getFlightPlans().size() > 0);
 		for(FlightPlan flightPlan : getFlightPlans()){
+			assertEquals(2, flightPlan.getLegs().size());
 			Leg firstLeg = flightPlan.getLegs().get(0);
-			int lastLegIdx = flightPlan.getLegs().size() - 1;
-			Leg lastLeg = flightPlan.getLegs().get(lastLegIdx);
+			Leg secondLeg = flightPlan.getLegs().get(1);
 			
-			assertEquals(firstLeg.getDepartureAirport(), lastLeg.getArrivalAirport());
-			assertEquals(firstLeg.getArrivalAirport(), lastLeg.getDepartureAirport());
-			
-			LocalTime firstLegDepartureTime = firstLeg.getDepartureTime();
-			LocalTime lastLegArrivalTime = lastLeg.getArrivalTime();
-			assertTrue(lastLegArrivalTime.compareTo(firstLegDepartureTime) < 0);
+			assertEquals(firstLeg.getDepartureAirport(), secondLeg.getArrivalAirport());
+			assertEquals(firstLeg.getArrivalAirport(), secondLeg.getDepartureAirport());			
 		}
 	}
 	
