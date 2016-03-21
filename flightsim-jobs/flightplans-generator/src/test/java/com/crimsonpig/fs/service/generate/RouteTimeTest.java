@@ -6,12 +6,14 @@ import org.junit.Test;
 
 public class RouteTimeTest {
 
+	private final static long ONE_HOUR_HOLD_TIME = 3600;
+	
 	@Test
 	public void routeLegSecondsTest(){
-		int groundspeed = 430;
-		double distance = 788.0;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		long routeTime = 7500;
+		
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		assertEquals(7500, time.getRouteLegSeconds(), 4);
 	}
@@ -19,40 +21,35 @@ public class RouteTimeTest {
 	
 	@Test
 	public void anotherRouteLegSecondsTest(){
-		int groundspeed = 430;
-		double distance = 2242.0;
+		long routeTime = 19677;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 
 		assertEquals(19680, time.getRouteLegSeconds(), 4);
 	}
 	
 	@Test
 	public void minimumLegSecondsTest(){
-		int groundspeed = 430;
-		double distance = 788.0;
+		long routeTime = 7500;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		
 		assertEquals(11100, time.getMinimumLegSeconds(), 4);
 	}
 	
 	@Test
 	public void anotherMinimumLegSecondsTest(){
-		int groundspeed = 430;
-		double distance = 2242.0;
-		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		long routeTime = 19677;
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		
 		assertEquals(23280, time.getMinimumLegSeconds(), 4);
 	}
 	
 	@Test
 	public void singleRepetitionSecondsTest(){
-		int groundspeed = 430;
-		double distance = 788.0;
+		long routeTime = 7500;
 		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		
 		assertEquals(22200, time.getSingleRepetitionSeconds(), 4);		
 	}
@@ -60,10 +57,8 @@ public class RouteTimeTest {
 	
 	@Test
 	public void anotherSingleRepetitionSeconds(){
-		int groundspeed = 430;
-		double distance = 2242.0;
-		
-		RouteTime time = new RouteTime(groundspeed, distance);
+		long routeTime = 19677;
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		
 		assertEquals(46560, time.getSingleRepetitionSeconds(), 8);		
 	}
