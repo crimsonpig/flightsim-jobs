@@ -20,9 +20,13 @@ public class SacramentoToDenverTest extends BaseGenerateFlightTest {
 		smfToDen.setAirline("American Pacific");
 		smfToDen.setGroundspeed(430);
 		smfToDen.setOriginAirport("KSMF");
+		smfToDen.setOutboundFlightLevel(370);
 		smfToDen.setOriginTimezone(-7);
 		smfToDen.setDestinationAirport("KDEN");
+		smfToDen.setReturnFlightLevel(380);
 		smfToDen.setFlightFrequency(8);
+		smfToDen.setDistance(788);
+		smfToDen.setRouteTime(7500);
 		return smfToDen;
 	}
 
@@ -32,15 +36,12 @@ public class SacramentoToDenverTest extends BaseGenerateFlightTest {
 		
 		Leg firstLeg = legs.get(0);
 		Leg secondLeg = legs.get(1);
-		assertEquals(788, firstLeg.getDistance(), 0.5);
-		assertEquals(788, secondLeg.getDistance(), 0.5);
-		assertEquals(80, firstLeg.getHeading(), 0.5);
-		assertEquals(270, secondLeg.getHeading(), 0.5);
+
+		assertEquals(370, firstLeg.getFlightLevel());
+		assertEquals(380, secondLeg.getFlightLevel());
 		
 		assertLeg(firstLeg, LocalTime.of(13, 0, 0), LocalTime.of(15, 4, 54));
-		assertEquals(370, firstLeg.getFlightLevel());
 		assertLeg(secondLeg, LocalTime.of(16, 4, 54), LocalTime.of(18, 9, 48));
-		assertEquals(380, secondLeg.getFlightLevel());
 	}
 
 	@Test
