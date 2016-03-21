@@ -8,26 +8,21 @@ import java.util.List;
 import org.junit.Test;
 
 import com.crimsonpig.fs.domain.flightplan.Leg;
-import com.crimsonpig.fs.domain.route.FullRouteDefinition;
+import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
 
 public class SacramentoToDenverTest extends BaseGenerateFlightTest {
 
 	@Override
-	protected FullRouteDefinition getRouteDefinition() {
-		FullRouteDefinition smfToDen = new FullRouteDefinition();
+	protected FlightPlanRouteDefinition getRouteDefinition() {
+		FlightPlanRouteDefinition smfToDen = new FlightPlanRouteDefinition();
 		smfToDen.setAircraftNumber(1);
 		smfToDen.setAircraftTitle("Boeing 737-400 Paint1");
 		smfToDen.setAirline("American Pacific");
 		smfToDen.setGroundspeed(430);
 		smfToDen.setOriginAirport("KSMF");
-		smfToDen.setOriginLatitude(0.67536243);
-		smfToDen.setOriginLongitude(-2.12215942);
 		smfToDen.setOriginTimezone(-7);
 		smfToDen.setDestinationAirport("KDEN");
-		smfToDen.setDestinationLatitude(0.69571713);
-		smfToDen.setDestinationLongitude(-1.82689160);
 		smfToDen.setFlightFrequency(8);
-		smfToDen.setLowestFlightLevel(370);
 		return smfToDen;
 	}
 

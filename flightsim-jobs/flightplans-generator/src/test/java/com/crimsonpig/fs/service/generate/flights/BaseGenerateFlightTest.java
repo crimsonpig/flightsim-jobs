@@ -11,14 +11,14 @@ import org.junit.Test;
 import com.crimsonpig.fs.domain.flightplan.FlightPlan;
 import com.crimsonpig.fs.domain.flightplan.FlightRules;
 import com.crimsonpig.fs.domain.flightplan.Leg;
-import com.crimsonpig.fs.domain.route.FullRouteDefinition;
+import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
 import com.crimsonpig.fs.service.GenerateFlightPlanService;
 
 public abstract class BaseGenerateFlightTest {
 
 	private List<FlightPlan> flightPlans;
 	
-	protected abstract FullRouteDefinition getRouteDefinition();	
+	protected abstract FlightPlanRouteDefinition getRouteDefinition();	
 	public abstract void flightPlansTest();
 	public abstract void repetitionTest();
 
@@ -49,7 +49,7 @@ public abstract class BaseGenerateFlightTest {
 	@Before
 	public final void generateFlightPlan(){
 		GenerateFlightPlanService service = new GenerateFlightPlanService();
-		FullRouteDefinition smfToEug = getRouteDefinition();
+		FlightPlanRouteDefinition smfToEug = getRouteDefinition();
 		flightPlans = service.buildFlightPlans(smfToEug);
 	}
 	
