@@ -18,7 +18,7 @@ public class FlightPlanLineAggregator extends DelimitedLineAggregator<FlightPlan
 		//AC#14,N7169D,74%,12Hr,VFR,04:28,05:31,035,F,8332,KPBI,10:28,11:31,045,F,8331,KBOW
 		toReturn.append(item.getPercentage() + "%");
 		toReturn.append(',');
-		toReturn.append(item.getRepetition());
+		toReturn.append(item.getRepetition().getHours() + "Hr");
 		toReturn.append(',');
 		toReturn.append(item.getFlightRules());
 		for(Leg leg : item.getLegs()){

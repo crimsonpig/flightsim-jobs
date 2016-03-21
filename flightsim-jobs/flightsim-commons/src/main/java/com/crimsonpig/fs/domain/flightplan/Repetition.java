@@ -3,10 +3,12 @@ package com.crimsonpig.fs.domain.flightplan;
 public class Repetition {
 	
 	private final long seconds;
+	private final int hours;
 	private final int frequency;
 	
 	private Repetition(long seconds, int frequency) {
 		this.seconds = seconds;
+		this.hours = (int)(seconds / 3600);
 		this.frequency = frequency;
 	}
 
@@ -20,6 +22,10 @@ public class Repetition {
 
 	public long getSeconds(){
 		return seconds;
+	}
+	
+	public int getHours(){
+		return hours;
 	}
 	
 	public String toString(){
