@@ -11,8 +11,8 @@ public class Temp {
 	public void routeTimesTest(){
 		
 		
-		int groundspeed = 430;
-		double distance = 788;
+		int groundspeed = 480;
+		double distance = 1639;
 		
 		RouteTimesService routeTimesService = new RouteTimesService();
 		long routeTime = routeTimesService.calculateRouteTime(distance, groundspeed);

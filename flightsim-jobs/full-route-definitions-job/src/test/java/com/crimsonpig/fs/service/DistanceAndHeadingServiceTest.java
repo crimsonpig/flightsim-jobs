@@ -37,6 +37,15 @@ public class DistanceAndHeadingServiceTest {
 		assertEquals(348,dAndH.getHeading(),0.5);			
 	}
 	
+	@Test
+	public void sanToAtlTest(){
+		DistanceAndHeadingService service = 
+				new DistanceAndHeadingService();
+		DistanceAndHeading dAndH = service.computeDistanceAndHeading(getSanDiegoAirport(), getAtlantaAirport());
+		assertEquals(1639, dAndH.getDistance(), 0.5);
+		assertEquals(79,dAndH.getHeading(),0.5);		
+	}
+	
 	private ConvertedAirport getOntarioAirport(){
 		ConvertedAirport kont = new ConvertedAirport();
 		kont.setIdentifier("KONT");
@@ -59,5 +68,21 @@ public class DistanceAndHeadingServiceTest {
 		keug.setLatitudeRadians(0.77009599);
 		keug.setLongitudeRadians(-2.15057143);
 		return keug;
+	}
+	
+	private ConvertedAirport getSanDiegoAirport(){
+		ConvertedAirport ksan = new ConvertedAirport();
+		ksan.setIdentifier("KSAN");
+		ksan.setLatitudeRadians(0.57130831);
+		ksan.setLongitudeRadians(-2.04534553);
+		return ksan;
+	}
+	
+	private ConvertedAirport getAtlantaAirport(){
+		ConvertedAirport katl = new ConvertedAirport();
+		katl.setIdentifier("KATL");
+		katl.setLatitudeRadians(0.58713653);
+		katl.setLongitudeRadians(-1.47352817);
+		return katl;
 	}
 }

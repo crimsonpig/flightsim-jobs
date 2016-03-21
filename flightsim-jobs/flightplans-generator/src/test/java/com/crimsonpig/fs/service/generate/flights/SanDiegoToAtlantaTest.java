@@ -18,7 +18,11 @@ public class SanDiegoToAtlantaTest extends BaseGenerateFlightTest {
 		sanToAtl.setFlightFrequency(8);
 		sanToAtl.setOriginTimezone(-7);
 		sanToAtl.setOriginAirport("KSAN");
+		sanToAtl.setOutboundFlightLevel(370);
 		sanToAtl.setDestinationAirport("KATL");
+		sanToAtl.setReturnFlightLevel(380);
+		sanToAtl.setDistance(1639);
+		sanToAtl.setRouteTime(13196);
 		return sanToAtl;
 	}
 	
