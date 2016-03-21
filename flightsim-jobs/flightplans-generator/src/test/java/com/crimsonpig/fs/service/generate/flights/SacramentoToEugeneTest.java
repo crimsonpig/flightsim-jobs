@@ -19,9 +19,13 @@ public class SacramentoToEugeneTest extends BaseGenerateFlightTest {
 		smfToEug.setAirline("American Pacific");
 		smfToEug.setGroundspeed(430);
 		smfToEug.setOriginAirport("KSMF");
+		smfToEug.setOutboundFlightLevel(380);
 		smfToEug.setOriginTimezone(-7);
 		smfToEug.setDestinationAirport("KEUG");
+		smfToEug.setReturnFlightLevel(370);
 		smfToEug.setFlightFrequency(3);
+		smfToEug.setDistance(334);
+		smfToEug.setRouteTime(3697);
 		return smfToEug;
 	}
 	
@@ -33,10 +37,7 @@ public class SacramentoToEugeneTest extends BaseGenerateFlightTest {
 		assertEquals(6, flightPlanLegs.size());
 		Leg firstLeg = flightPlanLegs.get(0);
 		Leg secondLeg = flightPlanLegs.get(1);
-		assertEquals(334,firstLeg.getDistance(),0.5);
-		assertEquals(334,secondLeg.getDistance(),0.5);
-		assertEquals(348,firstLeg.getHeading(),0.5);
-		assertEquals(167,secondLeg.getHeading(),0.5);
+
 		//Remember, all times are in GMT so 6:00 local time at KSMF is 13:00 GMT.
 		assertLeg(firstLeg, LocalTime.of(13, 0, 0), LocalTime.of(14, 1, 34));
 		assertEquals(380, firstLeg.getFlightLevel());
