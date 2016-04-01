@@ -5,20 +5,23 @@ import com.crimsonpig.fs.exception.RouteExceedsTwentyFourHoursException;
 
 public class RepetitionBuilder {
 
-	private int TOLERANCE_SECONDS = 600;
+	private double TOLERANCE_FACTOR = 1.0/6.0;
 	
-	public Repetition buildFromSeconds(long singleRepetitionSeconds){
+	public Repetition buildFromSeconds(RouteTime routeTime){
 		Repetition toReturn = null;
 		
-		if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.FOUR_HOURS, TOLERANCE_SECONDS)) {
+		long singleRepetitionSeconds = routeTime.getSingleRepetitionSeconds();
+		long toleranceSeconds = (long)(TOLERANCE_FACTOR * (double)routeTime.getHoldTime());
+		
+		if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.FOUR_HOURS, toleranceSeconds)) {
 			toReturn = Repetition.FOUR_HOURS;			
-		} else if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.SIX_HOURS, TOLERANCE_SECONDS)) {
+		} else if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.SIX_HOURS, toleranceSeconds)) {
 			toReturn = Repetition.SIX_HOURS;			
-		} else if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.EIGHT_HOURS, TOLERANCE_SECONDS)) {
+		} else if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.EIGHT_HOURS, toleranceSeconds)) {
 			toReturn = Repetition.EIGHT_HOURS;			
-		} else if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.TWELVE_HOURS, TOLERANCE_SECONDS)) {
+		} else if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.TWELVE_HOURS, toleranceSeconds)) {
 			toReturn = Repetition.TWELVE_HOURS;			
-		} else if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.TWENTY_FOUR_HOURS, TOLERANCE_SECONDS)) {
+		} else if(isWithinToleranceOfRepetition(singleRepetitionSeconds, Repetition.TWENTY_FOUR_HOURS, toleranceSeconds)) {
 			toReturn = Repetition.TWENTY_FOUR_HOURS;			
 		} else {
 			throw new RouteExceedsTwentyFourHoursException("Single-repetition seconds exceeds 24 hours!");
@@ -26,7 +29,7 @@ public class RepetitionBuilder {
 		return toReturn;
 	}
 
-	private boolean isWithinToleranceOfRepetition(long singleRepetitionSeconds, Repetition repetition, int tolerance){
+	private boolean isWithinToleranceOfRepetition(long singleRepetitionSeconds, Repetition repetition, long tolerance){
 		return singleRepetitionSeconds <= (tolerance + repetition.getSeconds());
 	}
 }

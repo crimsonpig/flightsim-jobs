@@ -15,10 +15,9 @@ public class RepetitionCalculatorTest {
 		long routeTime = 3614;
 		
 		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
-		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
-		assertEquals(Repetition.FOUR_HOURS, repetitionBuilder.buildFromSeconds(singleRepetitionSeconds));
+		assertEquals(Repetition.FOUR_HOURS, repetitionBuilder.buildFromSeconds(time));
 	}
 	
 	@Test
@@ -26,10 +25,9 @@ public class RepetitionCalculatorTest {
 		long routeTime = 5305;
 		
 		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
-		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
-		assertEquals(Repetition.SIX_HOURS, repetitionBuilder.buildFromSeconds(singleRepetitionSeconds));
+		assertEquals(Repetition.SIX_HOURS, repetitionBuilder.buildFromSeconds(time));
 	}
 	
 	@Test
@@ -37,10 +35,9 @@ public class RepetitionCalculatorTest {
 		long routeTime = 7500;
 		
 		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
-		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
-		assertEquals(Repetition.SIX_HOURS, repetitionBuilder.buildFromSeconds(singleRepetitionSeconds));
+		assertEquals(Repetition.SIX_HOURS, repetitionBuilder.buildFromSeconds(time));
 	}
 	
 	@Test
@@ -48,10 +45,9 @@ public class RepetitionCalculatorTest {
 		long routeTime = 7600;
 		
 		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
-		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
-		assertEquals(Repetition.EIGHT_HOURS, repetitionBuilder.buildFromSeconds(singleRepetitionSeconds));
+		assertEquals(Repetition.EIGHT_HOURS, repetitionBuilder.buildFromSeconds(time));
 	}
 	
 	@Test
@@ -59,10 +55,9 @@ public class RepetitionCalculatorTest {
 		long routeTime = 17719;
 		
 		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
-		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
-		assertEquals(Repetition.TWELVE_HOURS, repetitionBuilder.buildFromSeconds(singleRepetitionSeconds));		
+		assertEquals(Repetition.TWELVE_HOURS, repetitionBuilder.buildFromSeconds(time));		
 	}
 	
 	@Test
@@ -70,9 +65,8 @@ public class RepetitionCalculatorTest {
 		long routeTime = 19677;
 		
 		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
-		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
 		
 		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
-		assertEquals(Repetition.TWENTY_FOUR_HOURS, repetitionBuilder.buildFromSeconds(singleRepetitionSeconds));		
+		assertEquals(Repetition.TWENTY_FOUR_HOURS, repetitionBuilder.buildFromSeconds(time));		
 	}
 }

@@ -37,8 +37,7 @@ public class GenerateFlightPlanService {
 	public List<FlightPlan> buildFlightPlans(FlightPlanRouteDefinition item) {
 
 		RouteTime routeTimes = new RouteTime(item.getRouteTime(), defaultHoldTime);
-		long singleRepetitionSeconds = routeTimes.getSingleRepetitionSeconds();
-		Repetition repetition = repetitionBuilder.buildFromSeconds(singleRepetitionSeconds);
+		Repetition repetition = repetitionBuilder.buildFromSeconds(routeTimes);
 		
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(item.getFlightFrequency(), repetition);
 		List<FlightPlan> output = new ArrayList<FlightPlan>(numberOfFlightPlans);
