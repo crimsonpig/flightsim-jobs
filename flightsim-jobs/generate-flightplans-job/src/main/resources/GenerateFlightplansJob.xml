@@ -10,6 +10,20 @@
 
 	<job id="GenerateFlightplansJob" job-repository="jobRepository"
 		xmlns="http://www.springframework.org/schema/batch">
+		<step id="ClearFlightplanAircraftStep" next="BuildFlightplanAircraftStep">
+			<tasklet ref="clearFlightplanAircraftTasklet"/>
+		</step>
+		<step id="BuildFlightplanAircraftStep" next="FlightplanAircraftFileStep">
+			<tasklet>
+				<chunk reader="routeAircraftReader" processor="flightplanAircraftProcessor"
+					writer="flightplanAircraftWriter" commit-interval="10"/>
+			</tasklet>
+		</step>
+		<step id="FlightplanAircraftFileStep" next="FullRouteDefinitionsStep">
+			<tasklet>
+				<chunk reader="flightplanAircraftReader" writer="flightplanAircraftFileWriter" commit-interval="10" />
+			</tasklet>
+		</step>		
 		<step id="FullRouteDefinitionsStep" next="FlightPlanRouteDefinitionsStep">
 			<tasklet>
 				<chunk reader="routesReader" processor="fullRouteDefinitionsProcessor"
