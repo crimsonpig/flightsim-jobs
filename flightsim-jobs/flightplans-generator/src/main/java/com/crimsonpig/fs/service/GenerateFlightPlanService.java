@@ -23,6 +23,7 @@ public class GenerateFlightPlanService {
 	private StartTimeSequenceGenerator startTimesGenerator;
 	private FlightPlanBuilder flightPlanBuilder;
 	private RepetitionBuilder repetitionBuilder;
+	private RepetitionReducer repetitionReducer;
 	private FlightNumberGenerator flightNumberGenerator;
 	
 	public GenerateFlightPlanService(){
@@ -31,6 +32,7 @@ public class GenerateFlightPlanService {
 		startTimesGenerator = new StartTimeSequenceGenerator();
 		flightPlanBuilder = new FlightPlanBuilder();
 		repetitionBuilder = new RepetitionBuilder();
+		repetitionReducer = new RepetitionReducer();
 		flightNumberGenerator = new FlightNumberGenerator();
 	}
 
@@ -40,6 +42,10 @@ public class GenerateFlightPlanService {
 		Repetition repetition = repetitionBuilder.buildFromSeconds(routeTimes);
 		
 		int numberOfFlightPlans = flightPlanBuilder.getNumberOfFlightPlans(item.getFlightFrequency(), repetition);
+		if(numberOfFlightPlans == 1){
+			repetition = repetitionReducer.buildRepetitionFromFrequency(repetition, item.getFlightFrequency());
+		}
+		
 		List<FlightPlan> output = new ArrayList<FlightPlan>(numberOfFlightPlans);
 		
 		List<LocalTime> startTimes = startTimesGenerator
