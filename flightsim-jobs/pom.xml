@@ -86,7 +86,6 @@
 		<module>shared-config</module>		
 		<module>convert-airports-job</module>
 		<module>collect-installed-aircraft-job</module>
-		<module>flightplan-aircraft-job</module>
 		<module>generate-flightplans-job</module>
 	</modules>
 
