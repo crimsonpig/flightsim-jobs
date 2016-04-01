@@ -33,8 +33,19 @@ public class RepetitionCalculatorTest {
 	}
 	
 	@Test
-	public void calculateEightHourRepetitionTest(){
+	public void calculateAnotherSixHourRepetitionTest(){
 		long routeTime = 7500;
+		
+		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
+		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
+		
+		RepetitionBuilder repetitionBuilder = new RepetitionBuilder();
+		assertEquals(Repetition.SIX_HOURS, repetitionBuilder.buildFromSeconds(singleRepetitionSeconds));
+	}
+	
+	@Test
+	public void calculateEightHourRepetitionTest(){
+		long routeTime = 7600;
 		
 		RouteTime time = new RouteTime(routeTime, ONE_HOUR_HOLD_TIME);
 		long singleRepetitionSeconds = time.getSingleRepetitionSeconds();
