@@ -31,7 +31,7 @@ public class FullRouteDefinitionsStepConfig {
 	@Autowired
 	private DataSource domainDataSource;
 	
-	@Bean(name = "routesReader")
+	@Bean(name = "simpleRoutesReader")
 	public ItemReader<SimpleRouteDefinition> routesReader(){
 		FlatFileItemReader<SimpleRouteDefinition> reader = new FlatFileItemReader<SimpleRouteDefinition>();
 		reader.setResource(new ClassPathResource("data/Airwave-Routes.csv"));

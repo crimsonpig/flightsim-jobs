@@ -26,7 +26,7 @@
 		</step>		
 		<step id="FullRouteDefinitionsStep" next="FlightPlanRouteDefinitionsStep">
 			<tasklet>
-				<chunk reader="routesReader" processor="fullRouteDefinitionsProcessor"
+				<chunk reader="simpleRoutesReader" processor="fullRouteDefinitionsProcessor"
 					commit-interval="10" writer="fullRoutesWriter" />
 			</tasklet>
 		</step>
@@ -38,7 +38,7 @@
 		</step>
 		<step id="GenerateFlightPlansStep">
 			<tasklet>
-				<chunk reader="routesReader" processor="flightPlanGenerator"
+				<chunk reader="flightPlanRoutesReader" processor="flightPlanGenerator"
 					commit-interval="10" writer="flightPlansWriter" />
 			</tasklet>
 		</step>

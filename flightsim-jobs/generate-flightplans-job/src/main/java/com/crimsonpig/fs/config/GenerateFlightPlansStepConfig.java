@@ -23,7 +23,7 @@ import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
 @Configuration
 public class GenerateFlightPlansStepConfig {
 
-	@Bean(name = "routesReader")
+	@Bean(name = "flightPlanRoutesReader")
 	public ItemReader<FlightPlanRouteDefinition> reader() throws MalformedURLException{
 		FlatFileItemReader<FlightPlanRouteDefinition> reader = new FlatFileItemReader<FlightPlanRouteDefinition>();
 		reader.setResource(new UrlResource("file:./data/Airwave-Flightplan-Routes.txt"));
