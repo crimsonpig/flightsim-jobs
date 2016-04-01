@@ -89,6 +89,7 @@
 		<module>flightplan-aircraft-job</module>
 		<module>full-route-definitions-job</module>
 		<module>flightplans-generator</module>
+		<module>generate-flightplans-job</module>
 	</modules>
 
 </project>
