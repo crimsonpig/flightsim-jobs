@@ -17,5 +17,10 @@
 			<artifactId>flightsim-commons</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>		
-	</dependencies>  
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>shared-config</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>				
+	</dependencies>
 </project>
