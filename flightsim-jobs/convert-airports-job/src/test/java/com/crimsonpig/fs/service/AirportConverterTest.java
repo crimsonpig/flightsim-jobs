@@ -15,7 +15,7 @@ public class AirportConverterTest {
 	private final double DOUBLE_ACCEPTANCE_INTERVAL = 0.000000001;
 	
 	@Test
-	public void convertAirportTest(){
+	public void convertAmericanAirportTest(){
 		Airport airport = new Airport();
 		airport.setIdentifier("KLAX");
 		airport.setLatitude("N33* 56.55220'");
@@ -28,6 +28,20 @@ public class AirportConverterTest {
 		assertEquals(0.592409021, convertedAirport.getLatitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
 		assertEquals(-2.06661077, convertedAirport.getLongitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
 	}
-	
+
+	@Test
+	public void convertEuropeanAirportTest(){
+		Airport airport = new Airport();
+		airport.setIdentifier("EDDF");
+		airport.setLatitude("N50* 01.99830'");
+		airport.setLongitude("E08* 34.22730'");
+		airport.setElevation(364);
+		AirportConverter converter = new AirportConverter();
+		ConvertedAirport convertedAirport = converter.convertAirport(airport);
+		assertEquals(airport.getIdentifier(), convertedAirport.getIdentifier());
+		assertEquals(airport.getElevation(), convertedAirport.getElevation());
+		assertEquals(0.873245908, convertedAirport.getLatitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
+		assertEquals(-0.149582658, convertedAirport.getLongitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
+	}
 
 }
