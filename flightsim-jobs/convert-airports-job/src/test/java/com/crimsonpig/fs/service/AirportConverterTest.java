@@ -41,7 +41,7 @@ public class AirportConverterTest {
 		assertEquals(airport.getIdentifier(), convertedAirport.getIdentifier());
 		assertEquals(airport.getElevation(), convertedAirport.getElevation());
 		assertEquals(0.873245908, convertedAirport.getLatitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
-		assertEquals(-0.149582658, convertedAirport.getLongitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
+		assertEquals(0.149582658, convertedAirport.getLongitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
 	}
 
 }
