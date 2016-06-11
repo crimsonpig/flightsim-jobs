@@ -1,4 +1,4 @@
-package com.crimsonpig.fs.readers;
+package com.crimsonpig.fs.config.readers;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
-package com.crimsonpig.fs.readers;
+package com.crimsonpig.fs.config.readers;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.crimsonpig.fs.config.readers.FlightplanAircraftReader;
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 
 public class EmptyFlightplanAircraftReader extends FlightplanAircraftReader {

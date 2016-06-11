@@ -1,8 +1,9 @@
-package com.crimsonpig.fs.readers;
+package com.crimsonpig.fs.config.readers;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.crimsonpig.fs.config.readers.ConvertedAirportReader;
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
 import com.crimsonpig.fs.stubs.ConvertedAirportStubs;
 

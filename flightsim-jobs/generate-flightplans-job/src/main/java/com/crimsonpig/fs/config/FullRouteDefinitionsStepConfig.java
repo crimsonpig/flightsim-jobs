@@ -18,12 +18,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.UrlResource;
 
+import com.crimsonpig.fs.config.readers.ConvertedAirportReader;
+import com.crimsonpig.fs.config.readers.FlightplanAircraftReader;
 import com.crimsonpig.fs.domain.route.*;
 import com.crimsonpig.fs.lineaggregators.FullRouteDefinitionLineAggregator;
 import com.crimsonpig.fs.mappers.SimpleRouteDefinitionLineMapper;
 import com.crimsonpig.fs.processors.FullRouteDefinitionsProcessor;
-import com.crimsonpig.fs.readers.ConvertedAirportReader;
-import com.crimsonpig.fs.readers.FlightplanAircraftReader;
 import com.crimsonpig.fs.service.retrieve.RetrieveAirportService;
 import com.crimsonpig.fs.service.retrieve.RetrieveFlightplanAircraftService;
 

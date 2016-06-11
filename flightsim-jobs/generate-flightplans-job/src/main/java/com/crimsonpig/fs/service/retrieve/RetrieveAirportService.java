@@ -2,9 +2,9 @@ package com.crimsonpig.fs.service.retrieve;
 
 import java.util.List;
 
+import com.crimsonpig.fs.config.readers.ConvertedAirportReader;
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
 import com.crimsonpig.fs.exception.EntityNotFoundException;
-import com.crimsonpig.fs.readers.ConvertedAirportReader;
 
 public class RetrieveAirportService extends RetrieveItemFromDataSourceService {
 

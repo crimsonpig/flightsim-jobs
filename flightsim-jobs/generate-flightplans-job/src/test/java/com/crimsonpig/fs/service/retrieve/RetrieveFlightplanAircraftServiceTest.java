@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.crimsonpig.fs.config.readers.*;
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 import com.crimsonpig.fs.exception.EntityNotFoundException;
-import com.crimsonpig.fs.readers.*;
 
 public class RetrieveFlightplanAircraftServiceTest {
 

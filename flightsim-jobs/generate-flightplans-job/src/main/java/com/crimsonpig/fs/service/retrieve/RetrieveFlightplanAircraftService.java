@@ -2,9 +2,9 @@ package com.crimsonpig.fs.service.retrieve;
 
 import java.util.List;
 
+import com.crimsonpig.fs.config.readers.FlightplanAircraftReader;
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 import com.crimsonpig.fs.exception.EntityNotFoundException;
-import com.crimsonpig.fs.readers.FlightplanAircraftReader;
 
 public class RetrieveFlightplanAircraftService {
 

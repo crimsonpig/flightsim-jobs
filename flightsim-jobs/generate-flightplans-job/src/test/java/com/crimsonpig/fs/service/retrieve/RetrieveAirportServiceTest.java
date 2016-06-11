@@ -6,9 +6,9 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.crimsonpig.fs.config.readers.*;
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
 import com.crimsonpig.fs.exception.EntityNotFoundException;
-import com.crimsonpig.fs.readers.*;
 
 public class RetrieveAirportServiceTest {
 
