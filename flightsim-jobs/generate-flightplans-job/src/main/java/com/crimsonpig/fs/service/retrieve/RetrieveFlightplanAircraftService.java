@@ -2,24 +2,20 @@ package com.crimsonpig.fs.service.retrieve;
 
 import java.util.List;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 import com.crimsonpig.fs.exception.EntityNotFoundException;
+import com.crimsonpig.fs.readers.FlightplanAircraftReader;
 
-public class RetrieveFlightplanAircraftService extends RetrieveItemFromDataSourceService {
+public class RetrieveFlightplanAircraftService {
 
-	private RowMapper<FlightplanAircraft> rowMapper;
-	
-	public RetrieveFlightplanAircraftService(){
-		this.rowMapper = new BeanPropertyRowMapper<FlightplanAircraft>(FlightplanAircraft.class);
+	private FlightplanAircraftReader dbReader;
+
+	public void setDatabaseReader(FlightplanAircraftReader dbReader) {
+		this.dbReader = dbReader;
 	}
 
-	public FlightplanAircraft retrieveInstalledAircraftFromAirlineAndModel(String airline, String model) {
-		String sql = "SELECT * FROM FLIGHTPLANAIRCRAFT WHERE AIRLINE = ? AND ATC_MODEL = ?";		
-		List<FlightplanAircraft> foundAircraft 
-			= getJdbcAccessor().query(sql, rowMapper, airline, model);
+	public FlightplanAircraft retrieveInstalledAircraftFromAirlineAndModel(String airline, String model) {	
+		List<FlightplanAircraft> foundAircraft = dbReader.retrieveInstalledAircraftFromAirlineAndModel(airline, model);
 		if(foundAircraft == null || foundAircraft.isEmpty()){
 			throw new EntityNotFoundException("airline = " + airline + ", model = " + model);
 		}
