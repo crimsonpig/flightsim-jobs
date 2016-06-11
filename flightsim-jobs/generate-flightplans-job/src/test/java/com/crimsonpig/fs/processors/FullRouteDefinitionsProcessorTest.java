@@ -5,9 +5,9 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.crimsonpig.fs.config.readers.*;
 import com.crimsonpig.fs.domain.route.*;
 import com.crimsonpig.fs.service.retrieve.*;
+import com.crimsonpig.fs.stubs.readers.*;
 
 public class FullRouteDefinitionsProcessorTest {
 
@@ -18,11 +18,11 @@ public class FullRouteDefinitionsProcessorTest {
 		processor = new FullRouteDefinitionsProcessor();
 		
 		RetrieveAirportService airportService = new RetrieveAirportService();
-		airportService.setDatabaseReader(new SingleConvertedAirportReader());
+		airportService.setDatabaseReader(new StubConvertedAirportReader());
 		processor.setAirportService(airportService);
 		
 		RetrieveFlightplanAircraftService aircraftService = new RetrieveFlightplanAircraftService();
-		aircraftService.setDatabaseReader(new SingleFlightplanAircraftReader());
+		aircraftService.setDatabaseReader(new StubFlightplanAircraftReader());
 		processor.setAircraftService(aircraftService);
 	}
 	

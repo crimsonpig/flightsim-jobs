@@ -6,9 +6,10 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.crimsonpig.fs.config.readers.*;
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
 import com.crimsonpig.fs.exception.EntityNotFoundException;
+import com.crimsonpig.fs.stubs.ConvertedAirportStubs;
+import com.crimsonpig.fs.stubs.readers.*;
 
 public class RetrieveAirportServiceTest {
 
@@ -21,7 +22,7 @@ public class RetrieveAirportServiceTest {
 	
 	@Test
 	public void testAirportNotFound(){
-		retrieveService.setDatabaseReader(new EmptyConvertedAirportReader());
+		retrieveService.setDatabaseReader(new StubConvertedAirportReader());
 		String identifier = "L01";
 		try {
 			retrieveService.retrieveAirport(identifier);
@@ -34,7 +35,9 @@ public class RetrieveAirportServiceTest {
 	
 	@Test
 	public void testAirportFound(){
-		retrieveService.setDatabaseReader(new SingleConvertedAirportReader());
+		StubConvertedAirportReader reader = new StubConvertedAirportReader();
+		reader.addAirportToRetrieve(ConvertedAirportStubs.getLAXAirport());
+		retrieveService.setDatabaseReader(reader);
 		String identifier = "KLAX";
 		ConvertedAirport found = retrieveService.retrieveAirport(identifier);
 		assertEquals("KLAX", found.getIdentifier());

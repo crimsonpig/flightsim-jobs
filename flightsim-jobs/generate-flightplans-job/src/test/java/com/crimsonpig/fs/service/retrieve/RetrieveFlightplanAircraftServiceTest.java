@@ -5,9 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.crimsonpig.fs.config.readers.*;
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 import com.crimsonpig.fs.exception.EntityNotFoundException;
+import com.crimsonpig.fs.stubs.FlightplanAircraftStubs;
+import com.crimsonpig.fs.stubs.readers.*;
 
 public class RetrieveFlightplanAircraftServiceTest {
 
@@ -21,7 +22,7 @@ public class RetrieveFlightplanAircraftServiceTest {
 	
 	@Test
 	public void testAircraftNotFound(){
-		retrieveService.setDatabaseReader(new EmptyFlightplanAircraftReader());
+		retrieveService.setDatabaseReader(new StubFlightplanAircraftReader());
 		String airline = "Southwest";
 		String aircraft = "A320";
 		try {
@@ -35,7 +36,10 @@ public class RetrieveFlightplanAircraftServiceTest {
 	
 	@Test
 	public void testMoreThanOneAircraftFound(){
-		retrieveService.setDatabaseReader(new MoreThanOneFlightplanAircraftReader());
+		StubFlightplanAircraftReader reader = new StubFlightplanAircraftReader();
+		reader.addAircraftToList(FlightplanAircraftStubs.getFirstFlightplanAircraft());
+		reader.addAircraftToList(FlightplanAircraftStubs.getSecondFlightplanAircraft());
+		retrieveService.setDatabaseReader(reader);
 		String airline = "Southwest";
 		String aircraft = "B737";
 		try {
@@ -49,7 +53,9 @@ public class RetrieveFlightplanAircraftServiceTest {
 	
 	@Test
 	public void testAircraftFound(){
-		retrieveService.setDatabaseReader(new SingleFlightplanAircraftReader());
+		StubFlightplanAircraftReader reader = new StubFlightplanAircraftReader();
+		reader.addAircraftToList(FlightplanAircraftStubs.getFirstFlightplanAircraft());
+		retrieveService.setDatabaseReader(reader);
 		String airline = "Southwest";
 		String aircraft = "B737";
 		FlightplanAircraft found = retrieveService.retrieveInstalledAircraftFromAirlineAndModel(airline, aircraft);
