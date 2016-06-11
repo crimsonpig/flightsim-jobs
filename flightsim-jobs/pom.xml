@@ -57,7 +57,7 @@
 					<destFile>${project.build.directory}/target/coverage-reports/jacoco-unit.exec</destFile>
 					<dataFile>${project.build.directory}/target/coverage-reports/jacoco-unit.exec</dataFile>
 					<excludes>
-						<exclude>com/crimsonpig/fs/config/*</exclude>
+						<exclude>com/crimsonpig/fs/config/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>
