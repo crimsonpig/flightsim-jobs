@@ -21,7 +21,7 @@ public class RetrieveAirportServiceTest {
 	
 	@Test
 	public void testAirportNotFound(){
-		retrieveService.setDbReader(new EmptyConvertedAirportReader());
+		retrieveService.setDatabaseReader(new EmptyConvertedAirportReader());
 		String identifier = "L01";
 		try {
 			retrieveService.retrieveAirport(identifier);
@@ -34,7 +34,7 @@ public class RetrieveAirportServiceTest {
 	
 	@Test
 	public void testAirportFound(){
-		retrieveService.setDbReader(new SingleConvertedAirportReader());
+		retrieveService.setDatabaseReader(new SingleConvertedAirportReader());
 		String identifier = "KLAX";
 		ConvertedAirport found = retrieveService.retrieveAirport(identifier);
 		assertEquals("KLAX", found.getIdentifier());

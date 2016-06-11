@@ -61,7 +61,7 @@ public class FullRouteDefinitionsStepConfig {
 		ConvertedAirportReader airportReader = new ConvertedAirportReader();
 		airportReader.setDataSource(domainDataSource);
 		RetrieveAirportService airportService = new RetrieveAirportService();
-		airportService.setDbReader(airportReader);		
+		airportService.setDatabaseReader(airportReader);		
 		processor.setAirportService(airportService);
 		
 		FlightplanAircraftReader fpAircraftReader = new FlightplanAircraftReader();

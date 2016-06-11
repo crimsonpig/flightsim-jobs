@@ -10,7 +10,7 @@ public class RetrieveAirportService extends RetrieveItemFromDataSourceService {
 
 	private ConvertedAirportReader dbReader;
 
-	public void setDbReader(ConvertedAirportReader dbReader) {
+	public void setDatabaseReader(ConvertedAirportReader dbReader) {
 		this.dbReader = dbReader;
 	}
 
