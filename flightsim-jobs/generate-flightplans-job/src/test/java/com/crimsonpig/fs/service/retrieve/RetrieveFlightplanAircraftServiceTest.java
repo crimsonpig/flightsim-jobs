@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.crimsonpig.fs.exception.EntityNotFoundException;
-import com.crimsonpig.fs.readers.EmptyFlightplanAircraftReader;
+import com.crimsonpig.fs.readers.*;
 
 public class RetrieveFlightplanAircraftServiceTest {
 
@@ -31,4 +31,19 @@ public class RetrieveFlightplanAircraftServiceTest {
 			assertEquals(expected, e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testMoreThanOneAircraftFound(){
+		retrieveService.setDatabaseReader(new MoreThanOneFlightplanAircraftReader());
+		String airline = "Southwest";
+		String aircraft = "B737";
+		try {
+			retrieveService.retrieveInstalledAircraftFromAirlineAndModel(airline, aircraft);
+			fail();
+		} catch(RuntimeException e){
+			String expected = "More than one aircraft found for airline = Southwest and model = B737";
+			assertEquals(expected, e.getMessage());
+		}
+	}
+	
 }
