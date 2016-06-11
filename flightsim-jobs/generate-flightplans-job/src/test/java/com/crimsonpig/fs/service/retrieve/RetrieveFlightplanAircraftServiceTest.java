@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 import com.crimsonpig.fs.exception.EntityNotFoundException;
 import com.crimsonpig.fs.readers.*;
 
@@ -44,6 +45,19 @@ public class RetrieveFlightplanAircraftServiceTest {
 			String expected = "More than one aircraft found for airline = Southwest and model = B737";
 			assertEquals(expected, e.getMessage());
 		}
+	}
+	
+	@Test
+	public void testAircraftFound(){
+		retrieveService.setDatabaseReader(new SingleFlightplanAircraftReader());
+		String airline = "Southwest";
+		String aircraft = "B737";
+		FlightplanAircraft found = retrieveService.retrieveInstalledAircraftFromAirlineAndModel(airline, aircraft);
+		assertEquals("Southwest", found.getAirline());
+		assertEquals("B737", found.getAtcModel());
+		assertEquals("Boeing 737-700 Southwest Newest Colors", found.getTitle());
+		assertEquals(430, found.getGroundspeed());
+		
 	}
 	
 }

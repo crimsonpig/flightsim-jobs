@@ -22,6 +22,7 @@ import com.crimsonpig.fs.domain.route.*;
 import com.crimsonpig.fs.lineaggregators.FullRouteDefinitionLineAggregator;
 import com.crimsonpig.fs.mappers.SimpleRouteDefinitionLineMapper;
 import com.crimsonpig.fs.processors.FullRouteDefinitionsProcessor;
+import com.crimsonpig.fs.readers.FlightplanAircraftReader;
 import com.crimsonpig.fs.service.retrieve.RetrieveAirportService;
 import com.crimsonpig.fs.service.retrieve.RetrieveFlightplanAircraftService;
 
@@ -59,8 +60,10 @@ public class FullRouteDefinitionsStepConfig {
 		airportService.setDataSource(domainDataSource);		
 		processor.setAirportService(airportService);
 		
+		FlightplanAircraftReader fpAircraftReader = new FlightplanAircraftReader();
+		fpAircraftReader.setDataSource(domainDataSource);
 		RetrieveFlightplanAircraftService aircraftService = new RetrieveFlightplanAircraftService();
-		aircraftService.setDataSource(domainDataSource);
+		aircraftService.setDatabaseReader(fpAircraftReader);
 		processor.setAircraftService(aircraftService);
 		
 		return processor;
