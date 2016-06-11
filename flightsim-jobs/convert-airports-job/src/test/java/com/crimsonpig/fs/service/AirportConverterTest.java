@@ -23,8 +23,8 @@ public class AirportConverterTest {
 		airport.setElevation(125);
 		AirportConverter converter = new AirportConverter();
 		ConvertedAirport convertedAirport = converter.convertAirport(airport);
-		assertEquals(airport.getIdentifier(), convertedAirport.getIdentifier());
-		assertEquals(airport.getElevation(), convertedAirport.getElevation());
+		assertEquals("KLAX", convertedAirport.getIdentifier());
+		assertEquals(125, convertedAirport.getElevation());
 		assertEquals(0.592409021, convertedAirport.getLatitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
 		assertEquals(-2.06661077, convertedAirport.getLongitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
 	}
@@ -38,10 +38,25 @@ public class AirportConverterTest {
 		airport.setElevation(364);
 		AirportConverter converter = new AirportConverter();
 		ConvertedAirport convertedAirport = converter.convertAirport(airport);
-		assertEquals(airport.getIdentifier(), convertedAirport.getIdentifier());
-		assertEquals(airport.getElevation(), convertedAirport.getElevation());
+		assertEquals("EDDF", convertedAirport.getIdentifier());
+		assertEquals(364, convertedAirport.getElevation());
 		assertEquals(0.873245908, convertedAirport.getLatitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
 		assertEquals(0.149582658, convertedAirport.getLongitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
 	}
 
+	
+	@Test
+	public void convertPacificAirportTest(){
+		Airport airport = new Airport();
+		airport.setIdentifier("NZAA");
+		airport.setLatitude("S37* 00.48330'");
+		airport.setLongitude("E174* 47.50000'");
+		airport.setElevation(23);
+		AirportConverter converter = new AirportConverter();
+		ConvertedAirport convertedAirport = converter.convertAirport(airport);
+		assertEquals("NZAA", convertedAirport.getIdentifier());
+		assertEquals(23, convertedAirport.getElevation());
+		assertEquals(-0.64591241, convertedAirport.getLatitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
+		assertEquals(3.050690088, convertedAirport.getLongitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
+	}
 }
