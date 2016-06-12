@@ -6,8 +6,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.springframework.batch.item.file.LineMapper;
 
-import com.crimsonpig.fs.domain.route.FullRouteDefinition;
-import com.crimsonpig.fs.domain.route.SimpleRouteDefinition;
+import com.crimsonpig.fs.domain.route.*;
 
 public class RouteDefinitionMapperTest {
 	
@@ -56,6 +55,33 @@ public class RouteDefinitionMapperTest {
 		assertEquals(-2.12215942, route.getDestinationLongitude(), 0);
 		assertEquals(5, route.getFlightFrequency());
 		assertEquals(370, route.getLowestFlightLevel());
+		
+	}
+	
+	@Test
+	public void mapLineToFlightPlanRouteDefinition(){
+		
+		LineMapper<FlightPlanRouteDefinition> mapper = new FlightPlanRouteDefinitionLineMapper();
+		String lineToMap = "Airwave,MD80,5,McDonnell-Douglas/Boeing MD-83 Paint1,437,-7,5,KPDX,370,KSMF,380,416.0061345896832,4327";
+		FlightPlanRouteDefinition route = null;
+		try {
+			route = mapper.mapLine(lineToMap, 0);
+		} catch (Exception e){
+			fail();
+		}
+		assertEquals("Airwave", route.getAirline());
+		assertEquals("MD80", route.getAircraftModel());
+		assertEquals(5, route.getAircraftNumber());
+		assertEquals("McDonnell-Douglas/Boeing MD-83 Paint1", route.getAircraftTitle());
+		assertEquals(437, route.getGroundspeed());
+		assertEquals(-7, route.getOriginTimezone());
+		assertEquals(5, route.getFlightFrequency());
+		assertEquals("KPDX", route.getOriginAirport());
+		assertEquals(370, route.getOutboundFlightLevel());
+		assertEquals("KSMF", route.getDestinationAirport());
+		assertEquals(380, route.getReturnFlightLevel());
+		assertEquals(416.00, route.getDistance(), 0.01);
+		assertEquals(4327, route.getRouteTime());
 		
 	}
 
