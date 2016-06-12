@@ -44,7 +44,7 @@
 	<bean id="aircraftConfigListProcessor" class="com.crimsonpig.fs.processors.AircraftConfigListProcessor"/>
 	
 	<bean id="aircraftConfigListWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
-		<property name="resource" value="file:./data/AIRCRAFTCONFIGS.txt"/>
+		<property name="resource" value="file:./AIRCRAFTCONFIGS.txt"/>
 		<property name="lineAggregator">
 			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
 				<property name="delimiter" value=","/>
@@ -58,7 +58,7 @@
 	</bean>
 	
 	<bean id="aircraftConfigListReader" class="org.springframework.batch.item.file.FlatFileItemReader">
-		<property name="resource" value="file:./data/AIRCRAFTCONFIGS.txt"/>
+		<property name="resource" value="file:./AIRCRAFTCONFIGS.txt"/>
 		<property name="lineMapper">
 			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
 				<property name="lineTokenizer">
@@ -110,6 +110,6 @@ VALUES(
 	</bean>
 	
 	<bean id="deleteAircraftIndexTasklet" class="com.crimsonpig.fs.tasklet.DeleteFileTasklet">
-		<property name="fileToDelete" value="file:./data/AIRCRAFTCONFIGS.txt"/>
+		<property name="fileToDelete" value="file:./AIRCRAFTCONFIGS.txt"/>
 	</bean>
 </beans>
