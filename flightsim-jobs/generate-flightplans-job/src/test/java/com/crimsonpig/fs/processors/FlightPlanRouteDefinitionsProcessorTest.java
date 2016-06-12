@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
 import com.crimsonpig.fs.domain.route.FullRouteDefinition;
 import com.crimsonpig.fs.service.*;
+import com.crimsonpig.fs.stubs.FullRouteDefinitionStubs;
 
 public class FlightPlanRouteDefinitionsProcessorTest {
 
@@ -20,21 +21,7 @@ public class FlightPlanRouteDefinitionsProcessorTest {
 		processor.setRouteDefinitionsService(new FlightPlanRouteDefinitionsService());
 		processor.setRouteTimesService(new RouteTimesService());
 		
-		FullRouteDefinition smfToDen = new FullRouteDefinition();
-		smfToDen.setAircraftNumber(1);
-		smfToDen.setAircraftTitle("Boeing 737-400 Paint1");
-		smfToDen.setAircraftModel("B734");
-		smfToDen.setAirline("American Pacific");
-		smfToDen.setGroundspeed(430);
-		smfToDen.setOriginAirport("KSMF");
-		smfToDen.setOriginLatitude(0.67536243);
-		smfToDen.setOriginLongitude(-2.12215942);
-		smfToDen.setOriginTimezone(-7);
-		smfToDen.setDestinationAirport("KDEN");
-		smfToDen.setDestinationLatitude(0.69571713);
-		smfToDen.setDestinationLongitude(-1.82689160);
-		smfToDen.setFlightFrequency(8);
-		smfToDen.setLowestFlightLevel(370);
+		FullRouteDefinition smfToDen = FullRouteDefinitionStubs.getSmfToDen();
 		
 		FlightPlanRouteDefinition flightPlanRoute = null;
 		try {

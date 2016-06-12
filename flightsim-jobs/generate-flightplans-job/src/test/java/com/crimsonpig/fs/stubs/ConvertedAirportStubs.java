@@ -12,5 +12,20 @@ public class ConvertedAirportStubs {
 		lax.setLongitudeRadians(-2.06661077);
 		return lax;
 	}
+	
+	public static ConvertedAirport getSmfAirport(){
+		ConvertedAirport smf = new ConvertedAirport();
+		smf.setIdentifier("KSMF");
+		smf.setLatitudeRadians(0.67536243);
+		smf.setLongitudeRadians(-2.12215942);
+		return smf;
+	}
 
+	public static ConvertedAirport getDenAirport(){
+		ConvertedAirport den = new ConvertedAirport();
+		den.setIdentifier("KDEN");
+		den.setLatitudeRadians(0.69571713);
+		den.setLongitudeRadians(-1.82689160);
+		return den;
+	}
 }

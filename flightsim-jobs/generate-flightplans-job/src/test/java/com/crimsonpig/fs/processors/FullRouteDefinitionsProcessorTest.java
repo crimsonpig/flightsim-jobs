@@ -9,6 +9,7 @@ import com.crimsonpig.fs.domain.route.*;
 import com.crimsonpig.fs.service.retrieve.*;
 import com.crimsonpig.fs.stubs.ConvertedAirportStubs;
 import com.crimsonpig.fs.stubs.FlightplanAircraftStubs;
+import com.crimsonpig.fs.stubs.SimpleRouteDefinitionStubs;
 import com.crimsonpig.fs.stubs.readers.*;
 
 public class FullRouteDefinitionsProcessorTest {
@@ -21,13 +22,14 @@ public class FullRouteDefinitionsProcessorTest {
 		
 		RetrieveAirportService airportService = new RetrieveAirportService();
 		StubConvertedAirportReader airportReader = new StubConvertedAirportReader();
-		airportReader.addAirportToRetrieve(ConvertedAirportStubs.getLAXAirport());
+		airportReader.addAirportToRetrieve(ConvertedAirportStubs.getSmfAirport());
+		airportReader.addAirportToRetrieve(ConvertedAirportStubs.getDenAirport());
 		airportService.setDatabaseReader(airportReader);
 		processor.setAirportService(airportService);
 		
 		RetrieveFlightplanAircraftService aircraftService = new RetrieveFlightplanAircraftService();
 		StubFlightplanAircraftReader aircraftReader = new StubFlightplanAircraftReader();
-		aircraftReader.addAircraftToList(FlightplanAircraftStubs.getFirstFlightplanAircraft());
+		aircraftReader.addAircraftToList(FlightplanAircraftStubs.getGeneric737400());
 		aircraftService.setDatabaseReader(aircraftReader);
 		processor.setAircraftService(aircraftService);
 	}
@@ -35,7 +37,7 @@ public class FullRouteDefinitionsProcessorTest {
 	@Test
 	public void testProcessRouteDefinition(){
 		
-		SimpleRouteDefinition simpleRoute = new SimpleRouteDefinition();
+		SimpleRouteDefinition simpleRoute = SimpleRouteDefinitionStubs.getSmfToDen();
 		try {
 			FullRouteDefinition fullRoute = processor.process(simpleRoute);
 		} catch (Exception e) {
