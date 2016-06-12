@@ -21,5 +21,26 @@ public class FlightplanAircraftStubs {
 		second.setGroundspeed(430);
 		return second;
 	}
+
+	public static FlightplanAircraft getGeneric737400(){
+		FlightplanAircraft fpAircraft = new FlightplanAircraft();
+		fpAircraft.setAcId(1);
+		fpAircraft.setGroundspeed(430);
+		fpAircraft.setTitle("Boeing 737-400 Paint1");
+		fpAircraft.setAirline("American Pacific");
+		fpAircraft.setAtcModel("B734");
+		return fpAircraft;
+	}
+	
+	public static FlightplanAircraft getGenericMD83(){
+		FlightplanAircraft aircraft = new FlightplanAircraft();
+		aircraft.setAcId(4);
+		aircraft.setGroundspeed(437);
+		aircraft.setTitle("McDonnell-Douglas/Boeing MD-83");
+		aircraft.setAirline("Airwave");
+		aircraft.setAtcModel("MD83");
+		return aircraft;
+	}
+	
 	
 }

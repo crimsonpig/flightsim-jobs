@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
 import com.crimsonpig.fs.domain.route.FullRouteDefinition;
+import com.crimsonpig.fs.stubs.FlightplanAircraftStubs;
 
 public class FlightPlanRouteDefinitionsServiceTest {
 
@@ -27,11 +28,7 @@ public class FlightPlanRouteDefinitionsServiceTest {
 		FlightPlanRouteDefinitionsService service = new FlightPlanRouteDefinitionsService();
 		FlightPlanRouteDefinition fpRouteDefinitions = service.populateFlightPlanRouteDefinition(item);
 		
-		FlightplanAircraft fpAircraft = new FlightplanAircraft();
-		fpAircraft.setAcId(1);
-		fpAircraft.setTitle("Boeing 737-400 Paint1");
-		fpAircraft.setAirline("American Pacific");
-		fpAircraft.setAtcModel("B734");
+		FlightplanAircraft fpAircraft = FlightplanAircraftStubs.getGeneric737400();
 		
 		assertEquals("KSMF", fpRouteDefinitions.getOriginAirport());
 		assertEquals("KDEN", fpRouteDefinitions.getDestinationAirport());
