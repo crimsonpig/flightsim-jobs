@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import com.crimsonpig.fs.domain.route.*;
 import com.crimsonpig.fs.service.retrieve.*;
+import com.crimsonpig.fs.stubs.ConvertedAirportStubs;
+import com.crimsonpig.fs.stubs.FlightplanAircraftStubs;
 import com.crimsonpig.fs.stubs.readers.*;
 
 public class FullRouteDefinitionsProcessorTest {
@@ -18,11 +20,15 @@ public class FullRouteDefinitionsProcessorTest {
 		processor = new FullRouteDefinitionsProcessor();
 		
 		RetrieveAirportService airportService = new RetrieveAirportService();
-		airportService.setDatabaseReader(new StubConvertedAirportReader());
+		StubConvertedAirportReader airportReader = new StubConvertedAirportReader();
+		airportReader.addAirportToRetrieve(ConvertedAirportStubs.getLAXAirport());
+		airportService.setDatabaseReader(airportReader);
 		processor.setAirportService(airportService);
 		
 		RetrieveFlightplanAircraftService aircraftService = new RetrieveFlightplanAircraftService();
-		aircraftService.setDatabaseReader(new StubFlightplanAircraftReader());
+		StubFlightplanAircraftReader aircraftReader = new StubFlightplanAircraftReader();
+		aircraftReader.addAircraftToList(FlightplanAircraftStubs.getFirstFlightplanAircraft());
+		aircraftService.setDatabaseReader(aircraftReader);
 		processor.setAircraftService(aircraftService);
 	}
 	
