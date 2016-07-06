@@ -91,7 +91,7 @@
 							<finalName>${project.artifactId}</finalName>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.crimsonpig.fs.jobs.CollectInstalledAircraftJobRun</mainClass>
+									<mainClass>com.crimsonpig.fs.jobs.RunJob</mainClass>
 								</transformer>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
 									<resource>META-INF/spring.handlers</resource>
