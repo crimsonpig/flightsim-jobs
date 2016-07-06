@@ -11,7 +11,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 
 import com.crimsonpig.fs.domain.airport.Airport;
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
@@ -27,8 +27,7 @@ public class ConvertAirportsStepConfig {
 	@Bean(name = "airportsFileReader")
 	public ItemReader<Airport> reader() {
 		FlatFileItemReader<Airport> reader = new FlatFileItemReader<Airport>();
-		reader.setResource(new ClassPathResource("Airports.txt"));
-		reader.setStrict(false);
+		reader.setResource(new FileSystemResource("Airports.txt"));
 		reader.setLineMapper(new AirportLineMapper());
 		return reader;
 	}
