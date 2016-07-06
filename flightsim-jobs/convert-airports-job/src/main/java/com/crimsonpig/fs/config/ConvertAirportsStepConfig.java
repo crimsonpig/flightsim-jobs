@@ -27,7 +27,8 @@ public class ConvertAirportsStepConfig {
 	@Bean(name = "airportsFileReader")
 	public ItemReader<Airport> reader() {
 		FlatFileItemReader<Airport> reader = new FlatFileItemReader<Airport>();
-		reader.setResource(new ClassPathResource("data/AirportsFSX1.txt"));
+		reader.setResource(new ClassPathResource("Airports.txt"));
+		reader.setStrict(false);
 		reader.setLineMapper(new AirportLineMapper());
 		return reader;
 	}
