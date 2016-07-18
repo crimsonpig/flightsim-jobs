@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.UrlResource;
 
@@ -23,7 +24,10 @@ import com.crimsonpig.fs.mappers.AirportLineMapper;
 import com.crimsonpig.fs.processors.AirportProcessor;
 
 @Configuration
-@PropertySource("classpath:batch.properties")
+@PropertySources({
+	@PropertySource("classpath:batch.properties"),
+	@PropertySource(value="file:./batch.preferences", ignoreResourceNotFound=true)
+})
 public class ConvertAirportsStepConfig {
 
 	@Autowired
