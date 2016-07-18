@@ -1,5 +1,7 @@
 package com.crimsonpig.fs.config;
 
+import java.net.MalformedURLException;
+
 import javax.sql.DataSource;
 
 import org.springframework.batch.item.ItemProcessor;
@@ -11,7 +13,9 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.UrlResource;
 
 import com.crimsonpig.fs.domain.airport.Airport;
 import com.crimsonpig.fs.domain.airport.ConvertedAirport;
@@ -19,15 +23,19 @@ import com.crimsonpig.fs.mappers.AirportLineMapper;
 import com.crimsonpig.fs.processors.AirportProcessor;
 
 @Configuration
+@PropertySource("classpath:batch.properties")
 public class ConvertAirportsStepConfig {
 
 	@Autowired
 	private DataSource domainDataSource;
+	
+	@Autowired
+	private Environment environment;
 
 	@Bean(name = "airportsFileReader")
-	public ItemReader<Airport> reader() {
+	public ItemReader<Airport> reader() throws MalformedURLException {
 		FlatFileItemReader<Airport> reader = new FlatFileItemReader<Airport>();
-		reader.setResource(new FileSystemResource("Airports.txt"));
+		reader.setResource(new UrlResource(environment.getProperty("filename")));
 		reader.setLineMapper(new AirportLineMapper());
 		return reader;
 	}
