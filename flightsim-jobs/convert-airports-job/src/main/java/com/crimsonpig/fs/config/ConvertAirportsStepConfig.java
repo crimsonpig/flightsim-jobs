@@ -25,7 +25,7 @@ import com.crimsonpig.fs.processors.AirportProcessor;
 
 @Configuration
 @PropertySources({
-	@PropertySource("classpath:batch.properties"),
+	@PropertySource(value="classpath:batch.properties", ignoreResourceNotFound=true),
 	@PropertySource(value="file:./batch.preferences", ignoreResourceNotFound=true)
 })
 public class ConvertAirportsStepConfig {
@@ -39,7 +39,7 @@ public class ConvertAirportsStepConfig {
 	@Bean(name = "airportsFileReader")
 	public ItemReader<Airport> reader() throws MalformedURLException {
 		FlatFileItemReader<Airport> reader = new FlatFileItemReader<Airport>();
-		reader.setResource(new UrlResource(environment.getProperty("filename")));
+		reader.setResource(new UrlResource(environment.getProperty("convert.airports.input.filename")));
 		reader.setLineMapper(new AirportLineMapper());
 		return reader;
 	}
