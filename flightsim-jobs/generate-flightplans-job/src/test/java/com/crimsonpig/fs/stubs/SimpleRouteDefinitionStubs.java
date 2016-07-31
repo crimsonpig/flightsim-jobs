@@ -6,7 +6,7 @@ public class SimpleRouteDefinitionStubs {
 
 	public static SimpleRouteDefinition getSmfToDen(){
 		SimpleRouteDefinition smfToDen = new SimpleRouteDefinition();
-		smfToDen.setAircraftModel("B734");
+		smfToDen.setTitle("Boeing 737-400");
 		smfToDen.setAirline("American Pacific");
 		smfToDen.setOriginAirport("KSMF");
 		smfToDen.setOriginTimezone(-7);

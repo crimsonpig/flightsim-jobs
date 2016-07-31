@@ -16,10 +16,10 @@ public class FlightplanAircraftReader extends RetrieveItemFromDataSourceService 
 		this.rowMapper = new BeanPropertyRowMapper<FlightplanAircraft>(FlightplanAircraft.class);
 	}
 
-	public List<FlightplanAircraft> retrieveInstalledAircraftFromAirlineAndModel(String airline, String model) {
-		String sql = "SELECT * FROM FLIGHTPLANAIRCRAFT WHERE AIRLINE = ? AND ATC_MODEL = ?";		
+	public List<FlightplanAircraft> retrieveInstalledAircraftByTitle(String title){
+		String sql = "SELECT * FROM FLIGHTPLANAIRCRAFT WHERE TITLE = ? ";		
 		List<FlightplanAircraft> foundAircraft 
-			= getJdbcAccessor().query(sql, rowMapper, airline, model);
+			= getJdbcAccessor().query(sql, rowMapper, title);
 		return foundAircraft;
 	}
 	

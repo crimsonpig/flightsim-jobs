@@ -10,7 +10,7 @@ public class StubFlightplanAircraftReader extends FlightplanAircraftReader {
 
 	private List<FlightplanAircraft> acList = new ArrayList<FlightplanAircraft>();
 	
-	public List<FlightplanAircraft> retrieveInstalledAircraftFromAirlineAndModel(String airline, String model) {
+	public List<FlightplanAircraft> retrieveInstalledAircraftByTitle(String title) {
 		return acList;
 	}
 	

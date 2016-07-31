@@ -14,15 +14,11 @@ public class RetrieveFlightplanAircraftService {
 		this.dbReader = dbReader;
 	}
 
-	public FlightplanAircraft retrieveInstalledAircraftFromAirlineAndModel(String airline, String model) {	
-		List<FlightplanAircraft> foundAircraft = dbReader.retrieveInstalledAircraftFromAirlineAndModel(airline, model);
+	public FlightplanAircraft retrieveInstalledAircraftByTitle(String title) {	
+		List<FlightplanAircraft> foundAircraft = dbReader.retrieveInstalledAircraftByTitle(title);
 		if(foundAircraft == null || foundAircraft.isEmpty()){
-			throw new EntityNotFoundException("airline = " + airline + ", model = " + model);
-		}
-		else if(foundAircraft.size() > 1){
-			throw new RuntimeException("More than one aircraft found for airline = " + airline + " and model = " + model);
-		}
-		else{
+			throw new EntityNotFoundException(String.format("title = %s", title));
+		} else{
 			return foundAircraft.get(0);
 		}
 	}

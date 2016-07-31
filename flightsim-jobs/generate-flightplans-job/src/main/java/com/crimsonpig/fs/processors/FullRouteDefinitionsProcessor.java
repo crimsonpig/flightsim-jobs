@@ -26,9 +26,8 @@ public class FullRouteDefinitionsProcessor implements ItemProcessor<SimpleRouteD
 	public FullRouteDefinition process(SimpleRouteDefinition item)
 			throws Exception {
 		
-		String airline = item.getAirline();
-		String model = item.getAircraftModel();
-		FlightplanAircraft flightPlanAircraft = aircraftService.retrieveInstalledAircraftFromAirlineAndModel(airline, model);
+		String title = item.getTitle();
+		FlightplanAircraft flightPlanAircraft = aircraftService.retrieveInstalledAircraftByTitle(title);
 		
 		ConvertedAirport originAirport = airportService.retrieveAirport(item.getOriginAirport());
 		ConvertedAirport destinationAirport = airportService.retrieveAirport(item.getDestinationAirport());

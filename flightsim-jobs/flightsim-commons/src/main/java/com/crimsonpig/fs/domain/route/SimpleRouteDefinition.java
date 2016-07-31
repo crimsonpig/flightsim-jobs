@@ -5,8 +5,8 @@ public class SimpleRouteDefinition {
 	private int originTimezone;
 	private int flightFrequency;
 	private int lowestFlightLevel;
+	private String title;
 	private String airline;
-	private String aircraftModel;
 	private String originAirport;
 	private String destinationAirport;
 	
@@ -38,20 +38,20 @@ public class SimpleRouteDefinition {
 		this.lowestFlightLevel = lowestFlightLevel;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public String getAirline() {
 		return airline;
 	}
 
 	public void setAirline(String airline) {
 		this.airline = airline;
-	}
-
-	public String getAircraftModel() {
-		return aircraftModel;
-	}
-
-	public void setAircraftModel(String aircraftModel) {
-		this.aircraftModel = aircraftModel;
 	}
 
 	public String getOriginAirport() {
@@ -69,5 +69,7 @@ public class SimpleRouteDefinition {
 	public void setDestinationAirport(String destinationAirport) {
 		this.destinationAirport = destinationAirport;
 	}
+
+	
 
 }

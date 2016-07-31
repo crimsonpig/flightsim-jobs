@@ -17,7 +17,7 @@ public class SimpleRouteDefinitionLineMapper extends DefaultLineMapper<SimpleRou
 	
 	private LineTokenizer simpleRouteDefinitionLineTokenizer(){
 		DelimitedLineTokenizer tokenizer = new CommaSeparatedLineTokenizer();
-		tokenizer.setNames(new String[]{"airline","aircraftModel","originTimezone","originAirport","destinationAirport","flightFrequency","lowestFlightLevel"});
+		tokenizer.setNames(new String[]{"airline","title","originTimezone","originAirport","destinationAirport","flightFrequency","lowestFlightLevel"});
 		return tokenizer;
 	}
 	

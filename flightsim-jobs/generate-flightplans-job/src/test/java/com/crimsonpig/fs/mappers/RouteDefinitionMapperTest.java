@@ -13,7 +13,7 @@ public class RouteDefinitionMapperTest {
 	@Test
 	public void mapLineToSimpleRouteDefintition(){
 		LineMapper<SimpleRouteDefinition> mapper = new SimpleRouteDefinitionLineMapper();
-		String lineToMap = "Airwave,MD80,-7,KSMF,KLAX,6,370";
+		String lineToMap = "Airwave,McDonnell-Douglas/Boeing MD-83 Paint1,-7,KSMF,KLAX,6,370";
 		SimpleRouteDefinition route = null;
 		try {
 			route = mapper.mapLine(lineToMap, 0);
@@ -21,7 +21,7 @@ public class RouteDefinitionMapperTest {
 			fail();
 		}
 		assertEquals("Airwave", route.getAirline());
-		assertEquals("MD80", route.getAircraftModel());
+		assertEquals("McDonnell-Douglas/Boeing MD-83 Paint1", route.getTitle());
 		assertEquals(-7, route.getOriginTimezone());
 		assertEquals("KSMF", route.getOriginAirport());
 		assertEquals("KLAX", route.getDestinationAirport());

@@ -23,42 +23,23 @@ public class RetrieveFlightplanAircraftServiceTest {
 	@Test
 	public void testAircraftNotFound(){
 		retrieveService.setDatabaseReader(new StubFlightplanAircraftReader());
-		String airline = "Southwest";
-		String aircraft = "A320";
+		String title = "Airbus A320 Southwest";
 		try {
-			retrieveService.retrieveInstalledAircraftFromAirlineAndModel(airline, aircraft);
+			retrieveService.retrieveInstalledAircraftByTitle(title);
 			fail();
 		} catch(EntityNotFoundException e){
-			String expected = "Entity : airline = Southwest, model = A320 not found in database! ";
+			String expected = "Entity : title = Airbus A320 Southwest not found in database! ";
 			assertEquals(expected, e.getMessage());
 		}
 	}
-	
-	@Test
-	public void testMoreThanOneAircraftFound(){
-		StubFlightplanAircraftReader reader = new StubFlightplanAircraftReader();
-		reader.addAircraftToList(FlightplanAircraftStubs.getFirstFlightplanAircraft());
-		reader.addAircraftToList(FlightplanAircraftStubs.getSecondFlightplanAircraft());
-		retrieveService.setDatabaseReader(reader);
-		String airline = "Southwest";
-		String aircraft = "B737";
-		try {
-			retrieveService.retrieveInstalledAircraftFromAirlineAndModel(airline, aircraft);
-			fail();
-		} catch(RuntimeException e){
-			String expected = "More than one aircraft found for airline = Southwest and model = B737";
-			assertEquals(expected, e.getMessage());
-		}
-	}
-	
+
 	@Test
 	public void testAircraftFound(){
 		StubFlightplanAircraftReader reader = new StubFlightplanAircraftReader();
 		reader.addAircraftToList(FlightplanAircraftStubs.getFirstFlightplanAircraft());
 		retrieveService.setDatabaseReader(reader);
-		String airline = "Southwest";
-		String aircraft = "B737";
-		FlightplanAircraft found = retrieveService.retrieveInstalledAircraftFromAirlineAndModel(airline, aircraft);
+		String title = "Boeing 737-700 Southwest Newest Colors";
+		FlightplanAircraft found = retrieveService.retrieveInstalledAircraftByTitle(title);
 		assertEquals("Southwest", found.getAirline());
 		assertEquals("B737", found.getAtcModel());
 		assertEquals("Boeing 737-700 Southwest Newest Colors", found.getTitle());
