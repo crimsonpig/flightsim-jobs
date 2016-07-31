@@ -13,8 +13,6 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.UrlResource;
 
@@ -24,14 +22,13 @@ import com.crimsonpig.fs.mappers.AirportLineMapper;
 import com.crimsonpig.fs.processors.AirportProcessor;
 
 @Configuration
-@PropertySources({
-	@PropertySource(value="classpath:batch.properties", ignoreResourceNotFound=true),
-	@PropertySource(value="file:./batch.preferences", ignoreResourceNotFound=true)
-})
 public class ConvertAirportsStepConfig {
 
 	@Autowired
 	private DataSource domainDataSource;
+	
+	@Autowired
+	private PropertiesConfig properties;
 	
 	@Autowired
 	private Environment environment;
@@ -39,7 +36,7 @@ public class ConvertAirportsStepConfig {
 	@Bean(name = "airportsFileReader")
 	public ItemReader<Airport> reader() throws MalformedURLException {
 		FlatFileItemReader<Airport> reader = new FlatFileItemReader<Airport>();
-		reader.setResource(new UrlResource(environment.getProperty("convert.airports.input.filename")));
+		reader.setResource(new UrlResource(properties.getProperty("convert.airports.input.filename")));
 		reader.setLineMapper(new AirportLineMapper());
 		return reader;
 	}
