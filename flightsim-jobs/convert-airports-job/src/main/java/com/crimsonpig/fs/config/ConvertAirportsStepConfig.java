@@ -28,15 +28,12 @@ public class ConvertAirportsStepConfig {
 	private DataSource domainDataSource;
 	
 	@Autowired
-	private BatchPropertiesConfig properties;
-	
-	@Autowired
-	private Environment environment;
+	private BatchPropertiesConfig batchProperties;
 
 	@Bean(name = "airportsFileReader")
 	public ItemReader<Airport> reader() throws MalformedURLException {
 		FlatFileItemReader<Airport> reader = new FlatFileItemReader<Airport>();
-		reader.setResource(new UrlResource(properties.getProperty("convert.airports.input.filename")));
+		reader.setResource(new UrlResource(batchProperties.getProperty("convert.airports.input.filename")));
 		reader.setLineMapper(new AirportLineMapper());
 		return reader;
 	}
