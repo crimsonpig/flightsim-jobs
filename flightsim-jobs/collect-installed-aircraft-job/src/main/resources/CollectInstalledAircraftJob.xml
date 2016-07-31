@@ -38,25 +38,6 @@
 		<property name="dataSource" ref="domainDataSource" />
 	</bean>	
 	
-	<bean id="aircraftConfigListReader" class="org.springframework.batch.item.file.FlatFileItemReader">
-		<property name="resource" value="file:./AIRCRAFTCONFIGS.txt"/>
-		<property name="lineMapper">
-			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
-				<property name="lineTokenizer">
-					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
-						<property name="delimiter" value=","/>
-						<property name="names" value="aircraftName,aircraftConfigFilePath"/>
-					</bean>
-				</property>
-				<property name="fieldSetMapper">
-					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-						<property name="targetType" value="com.crimsonpig.fs.domain.aircraft.config.AircraftConfigFile"/>
-					</bean>
-				</property>
-			</bean>
-		</property>	
-	</bean>
-	
 	<bean id="installedAircraftProcessor" class="com.crimsonpig.fs.processors.InstalledAircraftProcessor"/>
 
 	<bean id="installedAircraftListWriter" class="com.crimsonpig.fs.writers.ListItemWriter">
