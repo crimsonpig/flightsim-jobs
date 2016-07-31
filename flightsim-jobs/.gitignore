@@ -5,3 +5,4 @@ target
 *.log
 data/converted_airports.csv
 data/FSTOOLS.properties
+deploy.sh
