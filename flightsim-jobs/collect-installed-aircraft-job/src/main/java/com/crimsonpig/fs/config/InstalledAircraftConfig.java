@@ -26,8 +26,8 @@ public class InstalledAircraftConfig {
 	private DataSource domainDataSource;
 	
 	private static final String INSERT_INSTALLED_AIRCRAFT = "INSERT INTO INSTALLEDAIRCRAFT("
-			+ "TITLE, AIRCRAFT_FOLDER, AIRLINE, ATC_TYPE,ATC_MODEL,UI_MANUFACTURER,UI_TYPE,UI_VARIATION)"
-			+ "VALUES(:title,:aircraftFolder,:airline,:atcType,:atcModel,:uiManufacturer,:uiType,:uiVariation)";
+			+ "TITLE, AIRCRAFT_FOLDER, AIRLINE, ATC_TYPE, ATC_MODEL, UI_MANUFACTURER, UI_TYPE, UI_VARIATION) "
+			+ "VALUES(:title, :aircraftFolder, :airline, :atcType, :atcModel, :uiManufacturer, :uiType, :uiVariation)";
 	
 	@Bean(name="deleteInstalledAircraftTasklet")
 	public Tasklet deleteInstalledAircraftTasklet(){
@@ -55,6 +55,7 @@ public class InstalledAircraftConfig {
 		jdbcWriter.setAssertUpdates(true);
 		jdbcWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<InstalledAircraft>());
 		jdbcWriter.setSql(INSERT_INSTALLED_AIRCRAFT);
+		jdbcWriter.afterPropertiesSet();
 		return jdbcWriter;
 	}
 	
