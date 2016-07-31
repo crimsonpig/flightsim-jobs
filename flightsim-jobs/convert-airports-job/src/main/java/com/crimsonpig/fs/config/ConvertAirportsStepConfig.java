@@ -28,7 +28,7 @@ public class ConvertAirportsStepConfig {
 	private DataSource domainDataSource;
 	
 	@Autowired
-	private PropertiesConfig properties;
+	private BatchPropertiesConfig properties;
 	
 	@Autowired
 	private Environment environment;

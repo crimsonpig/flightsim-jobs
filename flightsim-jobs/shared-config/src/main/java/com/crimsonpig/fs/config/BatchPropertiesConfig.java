@@ -11,7 +11,7 @@ import org.springframework.core.env.Environment;
 	@PropertySource(value="classpath:batch.properties", ignoreResourceNotFound=true),
 	@PropertySource(value="file:./batch.preferences", ignoreResourceNotFound=true)
 })
-public class PropertiesConfig {
+public class BatchPropertiesConfig {
 
 	@Autowired
 	private Environment environment;
