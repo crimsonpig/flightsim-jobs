@@ -15,7 +15,6 @@ import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.UrlResource;
 
 import com.crimsonpig.fs.config.readers.ConvertedAirportReader;
@@ -32,11 +31,14 @@ public class FullRouteDefinitionsStepConfig {
 
 	@Autowired
 	private DataSource domainDataSource;
+
+	@Autowired
+	private BatchPropertiesConfig batchProperties;
 	
 	@Bean(name = "simpleRoutesReader")
-	public ItemReader<SimpleRouteDefinition> routesReader(){
+	public ItemReader<SimpleRouteDefinition> routesReader() throws MalformedURLException{
 		FlatFileItemReader<SimpleRouteDefinition> reader = new FlatFileItemReader<SimpleRouteDefinition>();
-		reader.setResource(new ClassPathResource("data/Airwave-Routes.csv"));
+		reader.setResource(new UrlResource(batchProperties.getProperty("simple.routes.file")));
 		reader.setLineMapper(new SimpleRouteDefinitionLineMapper());
 		return reader;
 	}
@@ -77,7 +79,7 @@ public class FullRouteDefinitionsStepConfig {
 	public ItemWriter<FullRouteDefinition> fullRoutesWriter() throws MalformedURLException{
 		FlatFileItemWriter<FullRouteDefinition> writer = new FlatFileItemWriter<FullRouteDefinition>();
 		writer.setShouldDeleteIfExists(true);
-		writer.setResource(new UrlResource("file:./data/FULL-Airwave-Routes.txt"));
+		writer.setResource(new UrlResource(batchProperties.getProperty("full.routes.file")));
 		writer.setLineAggregator(new FullRouteDefinitionLineAggregator());
 		return writer;
 	}

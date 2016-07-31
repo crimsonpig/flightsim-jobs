@@ -9,6 +9,7 @@ import org.springframework.batch.item.ItemStreamWriter;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.UrlResource;
@@ -23,10 +24,13 @@ import com.crimsonpig.fs.domain.route.FlightPlanRouteDefinition;
 @Configuration
 public class GenerateFlightPlansStepConfig {
 
+	@Autowired
+	private BatchPropertiesConfig batchProperties;
+	
 	@Bean(name = "flightPlanRoutesReader")
 	public ItemReader<FlightPlanRouteDefinition> reader() throws MalformedURLException{
 		FlatFileItemReader<FlightPlanRouteDefinition> reader = new FlatFileItemReader<FlightPlanRouteDefinition>();
-		reader.setResource(new UrlResource("file:./data/Airwave-Flightplan-Routes.txt"));
+		reader.setResource(new UrlResource(batchProperties.getProperty("flightplan.routes.file")));
 		reader.setLineMapper(new FlightPlanRouteDefinitionLineMapper());
 		return reader;
 	}
@@ -45,7 +49,7 @@ public class GenerateFlightPlansStepConfig {
 
 	private ItemStreamWriter<FlightPlan> singleFlightPlanWriter() throws MalformedURLException{
 		FlatFileItemWriter<FlightPlan> writer = new FlatFileItemWriter<FlightPlan>();
-		writer.setResource(new UrlResource("file:./data/FlightplansAirwave.txt"));
+		writer.setResource(new UrlResource(batchProperties.getProperty("generated.flightplans.file")));
 		writer.setLineAggregator(new FlightPlanLineAggregator());
 		return writer;
 	}

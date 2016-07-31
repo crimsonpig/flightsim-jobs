@@ -1,5 +1,7 @@
 package com.crimsonpig.fs.config;
 
+import java.net.MalformedURLException;
+
 import javax.sql.DataSource;
 
 import org.springframework.batch.item.ItemProcessor;
@@ -11,7 +13,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.UrlResource;
 
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
 import com.crimsonpig.fs.domain.aircraft.RouteAircraft;
@@ -25,10 +27,13 @@ public class BuildFlightplanAircraftStepConfig {
 	@Autowired
 	private DataSource domainDataSource;
 	
+	@Autowired
+	private BatchPropertiesConfig batchProperties;
+	
 	@Bean(name = "routeAircraftReader")
-	public ItemReader<RouteAircraft> reader(){
+	public ItemReader<RouteAircraft> reader() throws MalformedURLException{
 		FlatFileItemReader<RouteAircraft> reader = new FlatFileItemReader<RouteAircraft>();
-		reader.setResource(new ClassPathResource("data/AircraftFSX1.txt"));
+		reader.setResource(new UrlResource(batchProperties.getProperty("route.aircraft.file")));
 		reader.setLineMapper(new RouteAircraftLineMapper());
 		return reader;
 	}

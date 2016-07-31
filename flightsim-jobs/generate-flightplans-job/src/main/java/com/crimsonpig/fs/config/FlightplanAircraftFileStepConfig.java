@@ -23,6 +23,9 @@ public class FlightplanAircraftFileStepConfig {
 	@Autowired
 	private DataSource domainDataSource;
 
+	@Autowired
+	private BatchPropertiesConfig batchProperties;
+	
 	@Bean(name = "flightplanAircraftReader")
 	public ItemReader<FlightplanAircraft> reader(){
 		JdbcCursorItemReader<FlightplanAircraft> reader = new JdbcCursorItemReader<FlightplanAircraft>();
@@ -38,7 +41,7 @@ public class FlightplanAircraftFileStepConfig {
 	@Bean(name = "flightplanAircraftFileWriter")
 	public ItemWriter<FlightplanAircraft> writer() throws MalformedURLException{
 		FlatFileItemWriter<FlightplanAircraft> writer = new FlatFileItemWriter<FlightplanAircraft>();
-		writer.setResource(new UrlResource("file:./data/AircraftAirwave.txt"));
+		writer.setResource(new UrlResource(batchProperties.getProperty("flightplan.aircraft.file")));
 		writer.setLineAggregator(new FlightplanAiAircraftAggregator());
 		return writer;
 	}

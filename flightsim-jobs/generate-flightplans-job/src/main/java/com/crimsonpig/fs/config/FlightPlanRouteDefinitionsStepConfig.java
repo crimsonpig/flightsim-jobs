@@ -7,6 +7,7 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.UrlResource;
@@ -23,11 +24,14 @@ import com.crimsonpig.fs.service.RouteTimesService;
 
 @Configuration
 public class FlightPlanRouteDefinitionsStepConfig {
-
+	
+	@Autowired
+	private BatchPropertiesConfig batchProperties;
+	
 	@Bean(name = "fullRoutesReader")
 	public ItemReader<FullRouteDefinition> routesReader() throws MalformedURLException{
 		FlatFileItemReader<FullRouteDefinition> reader = new FlatFileItemReader<FullRouteDefinition>();
-		reader.setResource(new UrlResource("file:./data/FULL-Airwave-Routes.txt"));
+		reader.setResource(new UrlResource(batchProperties.getProperty("full.routes.file")));
 		reader.setLineMapper(new FullRouteDefinitionLineMapper());
 		return reader;
 	}
@@ -46,7 +50,7 @@ public class FlightPlanRouteDefinitionsStepConfig {
 	public ItemWriter<FlightPlanRouteDefinition> fullRoutesWriter() throws MalformedURLException{
 		FlatFileItemWriter<FlightPlanRouteDefinition> writer = new FlatFileItemWriter<FlightPlanRouteDefinition>();
 		writer.setShouldDeleteIfExists(true);
-		writer.setResource(new UrlResource("file:./data/Airwave-Flightplan-Routes.txt"));
+		writer.setResource(new UrlResource(batchProperties.getProperty("flightplan.routes.file")));
 		writer.setLineAggregator(new FlightPlanRouteDefinitionLineAggregator());
 		return writer;
 	}
