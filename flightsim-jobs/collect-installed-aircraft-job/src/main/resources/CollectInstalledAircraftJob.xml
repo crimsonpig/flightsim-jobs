@@ -37,25 +37,6 @@
 		<property name="table" value="INSTALLEDAIRCRAFT"/>
 		<property name="dataSource" ref="domainDataSource" />
 	</bean>	
-	<bean class="com.crimsonpig.fs.readers.AircraftDirectoryReader" id="aircraftDirectoryReader">
-		<property name="installedAircraftDirectory" value="C:\Program Files (x86)\Microsoft Games\Microsoft Flight Simulator X\SimObjects\Airplanes"/>
-	</bean>
-	
-	<bean id="aircraftConfigListProcessor" class="com.crimsonpig.fs.processors.AircraftConfigListProcessor"/>
-	
-	<bean id="aircraftConfigListWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
-		<property name="resource" value="file:./AIRCRAFTCONFIGS.txt"/>
-		<property name="lineAggregator">
-			<bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
-				<property name="delimiter" value=","/>
-				<property name="fieldExtractor">
-					<bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-						<property name="names" value="aircraftName,aircraftConfigFilePath"/>
-					</bean>
-				</property>
-			</bean>
-		</property>
-	</bean>
 	
 	<bean id="aircraftConfigListReader" class="org.springframework.batch.item.file.FlatFileItemReader">
 		<property name="resource" value="file:./AIRCRAFTCONFIGS.txt"/>

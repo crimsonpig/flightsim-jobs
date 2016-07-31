@@ -26,6 +26,11 @@ public class AircraftDirectoryReader implements ItemReader<File> {
 	public File read() throws Exception, UnexpectedInputException,
 			ParseException, NonTransientResourceException {
 		arrayIndex++;
+		
+		if(aircraftFolders == null){
+			throw new RuntimeException("No aircraft are located in " + installedAircraftDirectory);
+		}
+		
 		if(arrayIndex < aircraftFolders.length){
 			return aircraftFolders[arrayIndex];
 		}else{
