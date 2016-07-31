@@ -32,43 +32,5 @@
 			<tasklet ref="deleteAircraftIndexTasklet"/>
 		</step>
 	</job>
-	
-	<bean id="deleteInstalledAircraftTasklet" class="com.crimsonpig.fs.tasklet.TruncateTableTasklet">
-		<property name="table" value="INSTALLEDAIRCRAFT"/>
-		<property name="dataSource" ref="domainDataSource" />
-	</bean>	
-	
-	<bean id="installedAircraftProcessor" class="com.crimsonpig.fs.processors.InstalledAircraftProcessor"/>
 
-	<bean id="installedAircraftListWriter" class="com.crimsonpig.fs.writers.ListItemWriter">
-		<property name="itemWriter" ref="installedAircraftWriter"/>
-	</bean>
-
-	<bean id="installedAircraftWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
-		<property name="dataSource" ref="domainDataSource" />
-		<property name="assertUpdates" value="true" />
-		<property name="itemSqlParameterSourceProvider">
-			<bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" />
-		</property>
-		<property name="sql" value="
-INSERT INTO INSTALLEDAIRCRAFT(
-	TITLE, 
-	AIRCRAFT_FOLDER, 
-	AIRLINE, 
-	ATC_TYPE, 
-	ATC_MODEL,
-	UI_MANUFACTURER, 
-	UI_TYPE, 
-	UI_VARIATION) 
-VALUES(
-	:title,
-	:aircraftFolder,
-	:airline,
-	:atcType,
-	:atcModel,
-	:uiManufacturer,
-	:uiType,
-	:uiVariation)"/>
-	</bean>
-	
 </beans>
