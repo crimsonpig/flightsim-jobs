@@ -90,7 +90,4 @@ VALUES(
 	:uiVariation)"/>
 	</bean>
 	
-	<bean id="deleteAircraftIndexTasklet" class="com.crimsonpig.fs.tasklet.DeleteFileTasklet">
-		<property name="fileToDelete" value="file:./AIRCRAFTCONFIGS.txt"/>
-	</bean>
 </beans>

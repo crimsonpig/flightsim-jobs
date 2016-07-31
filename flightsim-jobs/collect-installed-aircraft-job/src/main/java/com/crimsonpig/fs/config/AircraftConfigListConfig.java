@@ -3,6 +3,7 @@ package com.crimsonpig.fs.config;
 import java.io.File;
 import java.net.MalformedURLException;
 
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -16,6 +17,7 @@ import com.crimsonpig.fs.domain.aircraft.config.AircraftConfigFile;
 import com.crimsonpig.fs.lineaggregators.AircraftConfigListLineAggregator;
 import com.crimsonpig.fs.processors.AircraftConfigListProcessor;
 import com.crimsonpig.fs.readers.AircraftDirectoryReader;
+import com.crimsonpig.fs.tasklet.DeleteFileTasklet;
 
 @Configuration
 public class AircraftConfigListConfig {
@@ -43,4 +45,11 @@ public class AircraftConfigListConfig {
 		return writer;
 	}
 
+	@Bean(name="deleteAircraftIndexTasklet")
+	public Tasklet deleteAircraftIndexTasklet() throws MalformedURLException{
+		DeleteFileTasklet deleteTasklet = new DeleteFileTasklet();
+		deleteTasklet.setFileToDelete(new UrlResource(batchProperties.getProperty("aircraft.config.list.file")));
+		return deleteTasklet;
+	}
+	
 }
