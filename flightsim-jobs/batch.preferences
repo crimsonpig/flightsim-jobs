@@ -1,0 +1,3 @@
+convert.airports.input.filename=file:C:\\FlightSimStuff\\AI-Manager-Jobs\\Airports-min.txt
+
+aircraft.config.list.file=file:./AIRCRAFTCONFIGS.txt
