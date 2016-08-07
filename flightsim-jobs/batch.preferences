@@ -1,3 +1,11 @@
 convert.airports.input.filename=file:C:\\FlightSimStuff\\AI-Manager-Jobs\\Airports-min.txt
 
 aircraft.config.list.file=file:./AIRCRAFTCONFIGS.txt
+
+simple.routes.file=file:./Airwave-Routes.csv
+full.routes.file=file:./FULL-Airwave-Routes.txt
+flightplan.routes.file=file:./Airwave-Flightplan-Routes.txt
+generated.flightplans.file=file:./FlightplansAirwave.txt
+
+route.aircraft.file=file:./AircraftFSX1.txt
+flightplan.aircraft.file=file:./AircraftAirwave.txt
