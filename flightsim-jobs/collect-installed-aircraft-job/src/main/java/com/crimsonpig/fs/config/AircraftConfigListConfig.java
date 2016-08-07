@@ -20,7 +20,7 @@ import com.crimsonpig.fs.lineaggregators.AircraftConfigListLineAggregator;
 import com.crimsonpig.fs.mappers.AircraftConfigListLineMapper;
 import com.crimsonpig.fs.processors.AircraftConfigListProcessor;
 import com.crimsonpig.fs.readers.AircraftDirectoryReader;
-import com.crimsonpig.fs.tasklet.DeleteFileTasklet;
+import com.crimsonpig.fs.tasklet.DeleteFilesTasklet;
 
 @Configuration
 public class AircraftConfigListConfig {
@@ -63,7 +63,7 @@ public class AircraftConfigListConfig {
 	
 	@Bean(name="deleteAircraftIndexTasklet")
 	public Tasklet deleteAircraftIndexTasklet() throws MalformedURLException{
-		DeleteFileTasklet deleteTasklet = new DeleteFileTasklet();
+		DeleteFilesTasklet deleteTasklet = new DeleteFilesTasklet();
 		deleteTasklet.setFileToDelete(getAircraftConfigListFile());
 		return deleteTasklet;
 	}

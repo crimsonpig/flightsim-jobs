@@ -42,6 +42,9 @@
 					commit-interval="10" writer="flightPlansWriter" />
 			</tasklet>
 		</step>
+		<step id="DeleteTempFilesStep">
+			
+		</step>
 	</job>
 
 </beans>
