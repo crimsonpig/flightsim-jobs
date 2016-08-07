@@ -27,6 +27,7 @@ public class DeleteTemporaryFilesStepConfig {
 		filesToDelete.add(new UrlResource(batchProperties.getProperty("full.routes.file")));
 		filesToDelete.add(new UrlResource(batchProperties.getProperty("flightplan.routes.file")));
 		filesToDelete.add(new UrlResource(batchProperties.getProperty("flightplan.aircraft.file")));
+		tasklet.setFilesToDelete(filesToDelete);
 		return tasklet;
 		
 	}
