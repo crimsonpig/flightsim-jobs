@@ -36,14 +36,14 @@
 					commit-interval="10" writer="flightPlanRoutesWriter" />
 			</tasklet>
 		</step>
-		<step id="GenerateFlightPlansStep">
+		<step id="GenerateFlightPlansStep" next="DeleteTempFilesStep">
 			<tasklet>
 				<chunk reader="flightPlanRoutesReader" processor="flightPlanGenerator"
 					commit-interval="10" writer="flightPlansWriter" />
 			</tasklet>
 		</step>
 		<step id="DeleteTempFilesStep">
-			
+			<tasklet ref="deleteTempFilesTasklet"/>
 		</step>
 	</job>
 
