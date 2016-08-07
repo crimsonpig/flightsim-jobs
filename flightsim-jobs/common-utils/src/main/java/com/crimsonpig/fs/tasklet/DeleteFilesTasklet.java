@@ -1,6 +1,7 @@
 package com.crimsonpig.fs.tasklet;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.batch.core.StepContribution;
@@ -17,6 +18,12 @@ public class DeleteFilesTasklet implements Tasklet  {
 		this.filesToDelete = fileToDelete;
 	}
 
+	public void setFileToDelete(Resource singleFile) {
+		List<Resource> singleFileList = new ArrayList<Resource>(1);
+		singleFileList.add(singleFile);
+		this.filesToDelete = singleFileList;
+	}
+	
 	public RepeatStatus execute(StepContribution contribution,
 			ChunkContext chunkContext) throws Exception {
 		for(Resource fileToDelete : filesToDelete){
@@ -25,5 +32,6 @@ public class DeleteFilesTasklet implements Tasklet  {
 		}
 		return RepeatStatus.FINISHED;
 	}
+
 
 }
