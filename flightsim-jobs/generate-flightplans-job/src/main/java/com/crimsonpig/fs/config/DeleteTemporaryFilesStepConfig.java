@@ -7,11 +7,13 @@ import java.util.List;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
 import com.crimsonpig.fs.tasklet.DeleteFilesTasklet;
 
+@Configuration
 public class DeleteTemporaryFilesStepConfig {
 
 	@Autowired
