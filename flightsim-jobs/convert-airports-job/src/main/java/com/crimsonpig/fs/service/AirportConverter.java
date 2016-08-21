@@ -1,16 +1,16 @@
 package com.crimsonpig.fs.service;
 
-import com.crimsonpig.fs.domain.airport.Airport;
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.FS9Airport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 
 public class AirportConverter {
 
-	public ConvertedAirport convertAirport(Airport airport) {
-		ConvertedAirport convertedAp = new ConvertedAirport();
-		convertedAp.setIdentifier(airport.getIdentifier());
-		convertedAp.setElevation(airport.getElevation());
-		convertedAp.setLatitudeRadians(convertLatitudeFromString(airport.getLatitude()));
-		convertedAp.setLongitudeRadians(convertLongitudeFromString(airport.getLongitude()));
+	public ConvertedFS9Airport convertAirport(FS9Airport fS9Airport) {
+		ConvertedFS9Airport convertedAp = new ConvertedFS9Airport();
+		convertedAp.setIdentifier(fS9Airport.getIdentifier());
+		convertedAp.setElevation(fS9Airport.getElevation());
+		convertedAp.setLatitudeRadians(convertLatitudeFromString(fS9Airport.getLatitude()));
+		convertedAp.setLongitudeRadians(convertLongitudeFromString(fS9Airport.getLongitude()));
 		return convertedAp;
 	}
 

@@ -1,13 +1,13 @@
 package com.crimsonpig.fs.domain.airport;
 
-public class Airport {
+public class FS9Airport {
 	
 	private String identifier;
 	private String latitude;
 	private String longitude;
 	private int elevation;
 	
-	public Airport(){
+	public FS9Airport(){
 		
 	}
 

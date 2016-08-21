@@ -1,14 +1,14 @@
 package com.crimsonpig.fs.domain.airport;
 
 /*Converted airport stores lat/lon in radians*/
-public class ConvertedAirport {
+public class ConvertedFS9Airport {
 	
 	private String identifier;
 	private double latitudeRadians;
 	private double longitudeRadians;
 	private int elevation;
 	
-	public ConvertedAirport(){
+	public ConvertedFS9Airport(){
 		
 	}
 

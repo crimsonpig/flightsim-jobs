@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.crimsonpig.fs.domain.airport.Airport;
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.FS9Airport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 
 public class AirportProcessorTest {
 	
@@ -13,19 +13,19 @@ public class AirportProcessorTest {
 	
 	@Test
 	public void airportProcessorTest(){
-		Airport airport = new Airport();
-		airport.setIdentifier("KLAX");
-		airport.setLatitude("N33* 56.55220'");
-		airport.setLongitude("W118* 24.48450'");
-		airport.setElevation(125);
+		FS9Airport fS9Airport = new FS9Airport();
+		fS9Airport.setIdentifier("KLAX");
+		fS9Airport.setLatitude("N33* 56.55220'");
+		fS9Airport.setLongitude("W118* 24.48450'");
+		fS9Airport.setElevation(125);
 		AirportProcessor processor = new AirportProcessor();
-		ConvertedAirport convertedAirport;
+		ConvertedFS9Airport convertedFS9Airport;
 		try {
-			convertedAirport = processor.process(airport);
-			assertEquals(airport.getIdentifier(), convertedAirport.getIdentifier());
-			assertEquals(airport.getElevation(), convertedAirport.getElevation());
-			assertEquals(0.592409021, convertedAirport.getLatitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
-			assertEquals(-2.06661077, convertedAirport.getLongitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);		
+			convertedFS9Airport = processor.process(fS9Airport);
+			assertEquals(fS9Airport.getIdentifier(), convertedFS9Airport.getIdentifier());
+			assertEquals(fS9Airport.getElevation(), convertedFS9Airport.getElevation());
+			assertEquals(0.592409021, convertedFS9Airport.getLatitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);
+			assertEquals(-2.06661077, convertedFS9Airport.getLongitudeRadians(), DOUBLE_ACCEPTANCE_INTERVAL);		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

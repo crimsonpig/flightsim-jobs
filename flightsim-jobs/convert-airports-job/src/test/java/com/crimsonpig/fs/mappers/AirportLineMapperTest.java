@@ -6,15 +6,15 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.springframework.batch.item.file.LineMapper;
 
-import com.crimsonpig.fs.domain.airport.Airport;
+import com.crimsonpig.fs.domain.airport.FS9Airport;
 
 public class AirportLineMapperTest {
 
 	@Test
 	public void mapLineToAirport(){
-		LineMapper<Airport> mapper = new AirportLineMapper();
+		LineMapper<FS9Airport> mapper = new AirportLineMapper();
 		String lineToMap = "KSEA,N47* 26.94000',W122* 18.55830',433";
-		Airport ksea = null;
+		FS9Airport ksea = null;
 		try {
 			ksea = mapper.mapLine(lineToMap, 1);
 		} catch (Exception e) {

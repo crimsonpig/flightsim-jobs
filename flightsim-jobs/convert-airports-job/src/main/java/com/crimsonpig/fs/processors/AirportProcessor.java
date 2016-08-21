@@ -2,12 +2,12 @@ package com.crimsonpig.fs.processors;
 
 import org.springframework.batch.item.ItemProcessor;
 
-import com.crimsonpig.fs.domain.airport.Airport;
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.FS9Airport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 import com.crimsonpig.fs.service.AirportConverter;
 
 public class AirportProcessor implements
-		ItemProcessor<Airport, ConvertedAirport> {
+		ItemProcessor<FS9Airport, ConvertedFS9Airport> {
 	
 	private AirportConverter conversionService;
 	
@@ -15,7 +15,7 @@ public class AirportProcessor implements
 		conversionService = new AirportConverter();
 	}
 
-	public ConvertedAirport process(Airport airportToConvert) throws Exception {
+	public ConvertedFS9Airport process(FS9Airport airportToConvert) throws Exception {
 		return conversionService.convertAirport(airportToConvert);
 	}
 

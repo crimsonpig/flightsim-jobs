@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.UrlResource;
 
-import com.crimsonpig.fs.domain.airport.Airport;
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.FS9Airport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 import com.crimsonpig.fs.mappers.AirportLineMapper;
 import com.crimsonpig.fs.processors.AirportProcessor;
 
@@ -31,22 +31,22 @@ public class ConvertAirportsStepConfig {
 	private BatchPropertiesConfig batchProperties;
 
 	@Bean(name = "airportsFileReader")
-	public ItemReader<Airport> reader() throws MalformedURLException {
-		FlatFileItemReader<Airport> reader = new FlatFileItemReader<Airport>();
+	public ItemReader<FS9Airport> reader() throws MalformedURLException {
+		FlatFileItemReader<FS9Airport> reader = new FlatFileItemReader<FS9Airport>();
 		reader.setResource(new UrlResource(batchProperties.getProperty("convert.airports.input.filename")));
 		reader.setLineMapper(new AirportLineMapper());
 		return reader;
 	}
 
 	@Bean(name = "airportLatLonDecimalConverter")
-	public ItemProcessor<Airport,ConvertedAirport> processor(){
+	public ItemProcessor<FS9Airport,ConvertedFS9Airport> processor(){
 		return new AirportProcessor();
 	}
 
 	@Bean(name = "convertedAirportsWriter")
-	public ItemWriter<ConvertedAirport> writer() {
-		JdbcBatchItemWriter<ConvertedAirport> writer = new JdbcBatchItemWriter<ConvertedAirport>();
-		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<ConvertedAirport>());
+	public ItemWriter<ConvertedFS9Airport> writer() {
+		JdbcBatchItemWriter<ConvertedFS9Airport> writer = new JdbcBatchItemWriter<ConvertedFS9Airport>();
+		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<ConvertedFS9Airport>());
 		writer.setAssertUpdates(true);
 		writer.setDataSource(domainDataSource);
 		writer.setSql("INSERT INTO CONVERTEDAIRPORTS(IDENT,LATITUDE,LONGITUDE,ELEVATION) VALUES(:identifier, :latitudeRadians, :longitudeRadians, :elevation)");

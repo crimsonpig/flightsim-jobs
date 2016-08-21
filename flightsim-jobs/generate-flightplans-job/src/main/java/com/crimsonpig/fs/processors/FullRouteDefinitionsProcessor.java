@@ -3,7 +3,7 @@ package com.crimsonpig.fs.processors;
 import org.springframework.batch.item.ItemProcessor;
 
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 import com.crimsonpig.fs.domain.route.FullRouteDefinition;
 import com.crimsonpig.fs.domain.route.SimpleRouteDefinition;
 import com.crimsonpig.fs.service.retrieve.RetrieveAirportService;
@@ -29,8 +29,8 @@ public class FullRouteDefinitionsProcessor implements ItemProcessor<SimpleRouteD
 		String title = item.getTitle();
 		FlightplanAircraft flightPlanAircraft = aircraftService.retrieveInstalledAircraftByTitle(title);
 		
-		ConvertedAirport originAirport = airportService.retrieveAirport(item.getOriginAirport());
-		ConvertedAirport destinationAirport = airportService.retrieveAirport(item.getDestinationAirport());
+		ConvertedFS9Airport originAirport = airportService.retrieveAirport(item.getOriginAirport());
+		ConvertedFS9Airport destinationAirport = airportService.retrieveAirport(item.getDestinationAirport());
 		
 		FullRouteDefinition fullRoute = new FullRouteDefinition();
 		

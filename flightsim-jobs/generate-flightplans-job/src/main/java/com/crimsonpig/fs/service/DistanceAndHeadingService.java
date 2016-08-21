@@ -1,11 +1,11 @@
 package com.crimsonpig.fs.service;
 
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 import com.crimsonpig.fs.domain.route.DistanceAndHeading;
 
 public class DistanceAndHeadingService {
 
-	public DistanceAndHeading computeDistanceAndHeading(ConvertedAirport originAirport, ConvertedAirport destinationAirport){
+	public DistanceAndHeading computeDistanceAndHeading(ConvertedFS9Airport originAirport, ConvertedFS9Airport destinationAirport){
 		
 		double originLatitude = originAirport.getLatitudeRadians();
 		double originLongitude = originAirport.getLongitudeRadians();

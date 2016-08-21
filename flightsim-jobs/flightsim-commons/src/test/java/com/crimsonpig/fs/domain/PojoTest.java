@@ -7,15 +7,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.crimsonpig.fs.domain.airport.Airport;
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.FS9Airport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 
 @RunWith(JUnit4.class)
 public class PojoTest {
 	
 	@Test
 	public void airportTest(){
-		Airport ap = new Airport();
+		FS9Airport ap = new FS9Airport();
 		ap.setIdentifier("KLAX");
 		ap.setLatitude("N33* 56.55220'");
 		ap.setLongitude("W118* 24.48450'");
@@ -28,7 +28,7 @@ public class PojoTest {
 	
 	@Test
 	public void convertedAirportTest(){
-		ConvertedAirport ap = new ConvertedAirport();
+		ConvertedFS9Airport ap = new ConvertedFS9Airport();
 		ap.setIdentifier("KLAX");
 		ap.setLatitudeRadians(0.592409021);
 		ap.setLongitudeRadians(-2.06661077);

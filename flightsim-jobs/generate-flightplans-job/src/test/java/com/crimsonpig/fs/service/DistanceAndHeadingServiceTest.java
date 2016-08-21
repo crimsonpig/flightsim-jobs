@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 import com.crimsonpig.fs.domain.route.DistanceAndHeading;
 import com.crimsonpig.fs.service.DistanceAndHeadingService;
 
@@ -46,40 +46,40 @@ public class DistanceAndHeadingServiceTest {
 		assertEquals(79,dAndH.getHeading(),0.5);		
 	}
 	
-	private ConvertedAirport getOntarioAirport(){
-		ConvertedAirport kont = new ConvertedAirport();
+	private ConvertedFS9Airport getOntarioAirport(){
+		ConvertedFS9Airport kont = new ConvertedFS9Airport();
 		kont.setIdentifier("KONT");
 		kont.setLatitudeRadians(0.59438933);
 		kont.setLongitudeRadians(-2.05252806);
 		return kont;
 	}
 	
-	private ConvertedAirport getSacramentoAirport(){
-		ConvertedAirport ksmf = new ConvertedAirport();
+	private ConvertedFS9Airport getSacramentoAirport(){
+		ConvertedFS9Airport ksmf = new ConvertedFS9Airport();
 		ksmf.setIdentifier("KSMF");
 		ksmf.setLatitudeRadians(0.67536243);
 		ksmf.setLongitudeRadians(-2.12215942);
 		return ksmf;
 	}
 	
-	private ConvertedAirport getEugeneAirport(){
-		ConvertedAirport keug = new ConvertedAirport();
+	private ConvertedFS9Airport getEugeneAirport(){
+		ConvertedFS9Airport keug = new ConvertedFS9Airport();
 		keug.setIdentifier("KEUG");
 		keug.setLatitudeRadians(0.77009599);
 		keug.setLongitudeRadians(-2.15057143);
 		return keug;
 	}
 	
-	private ConvertedAirport getSanDiegoAirport(){
-		ConvertedAirport ksan = new ConvertedAirport();
+	private ConvertedFS9Airport getSanDiegoAirport(){
+		ConvertedFS9Airport ksan = new ConvertedFS9Airport();
 		ksan.setIdentifier("KSAN");
 		ksan.setLatitudeRadians(0.57130831);
 		ksan.setLongitudeRadians(-2.04534553);
 		return ksan;
 	}
 	
-	private ConvertedAirport getAtlantaAirport(){
-		ConvertedAirport katl = new ConvertedAirport();
+	private ConvertedFS9Airport getAtlantaAirport(){
+		ConvertedFS9Airport katl = new ConvertedFS9Airport();
 		katl.setIdentifier("KATL");
 		katl.setLatitudeRadians(0.58713653);
 		katl.setLongitudeRadians(-1.47352817);

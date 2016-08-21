@@ -1,7 +1,7 @@
 package com.crimsonpig.fs.domain.route;
 
 import com.crimsonpig.fs.domain.aircraft.FlightplanAircraft;
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 
 public class FullRouteDefinition {
 	
@@ -9,13 +9,13 @@ public class FullRouteDefinition {
 	private int flightFrequency;
 	private int lowestFlightLevel;
 	private FlightplanAircraft fpAircraft;
-	private ConvertedAirport origin;
-	private ConvertedAirport destination;
+	private ConvertedFS9Airport origin;
+	private ConvertedFS9Airport destination;
 
 	public FullRouteDefinition(){
 		this.fpAircraft = new FlightplanAircraft();
-		this.origin = new ConvertedAirport();
-		this.destination = new ConvertedAirport();
+		this.origin = new ConvertedFS9Airport();
+		this.destination = new ConvertedFS9Airport();
 	}
 
 	public int getOriginTimezone() {
@@ -50,19 +50,19 @@ public class FullRouteDefinition {
 		this.fpAircraft = fpAircraft;
 	}
 
-	public ConvertedAirport getOrigin() {
+	public ConvertedFS9Airport getOrigin() {
 		return origin;
 	}
 
-	public void setOrigin(ConvertedAirport origin) {
+	public void setOrigin(ConvertedFS9Airport origin) {
 		this.origin = origin;
 	}
 
-	public ConvertedAirport getDestination() {
+	public ConvertedFS9Airport getDestination() {
 		return destination;
 	}
 
-	public void setDestination(ConvertedAirport destination) {
+	public void setDestination(ConvertedFS9Airport destination) {
 		this.destination = destination;
 	}
 

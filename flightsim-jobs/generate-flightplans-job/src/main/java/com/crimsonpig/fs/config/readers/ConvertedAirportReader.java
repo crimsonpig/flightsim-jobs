@@ -5,20 +5,20 @@ import java.util.List;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.crimsonpig.fs.domain.airport.ConvertedAirport;
+import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
 import com.crimsonpig.fs.service.retrieve.RetrieveItemFromDataSourceService;
 
 public class ConvertedAirportReader extends RetrieveItemFromDataSourceService {
 
-	private RowMapper<ConvertedAirport> rowMapper;
+	private RowMapper<ConvertedFS9Airport> rowMapper;
 	
 	public ConvertedAirportReader(){
-		this.rowMapper = new BeanPropertyRowMapper<ConvertedAirport>(ConvertedAirport.class);
+		this.rowMapper = new BeanPropertyRowMapper<ConvertedFS9Airport>(ConvertedFS9Airport.class);
 	}
 	
-	public List<ConvertedAirport> retrieveAirport(String identifier){
+	public List<ConvertedFS9Airport> retrieveAirport(String identifier){
 		String sql = "SELECT IDENT AS IDENTIFIER, LATITUDE AS LATITUDE_RADIANS, LONGITUDE AS LONGITUDE_RADIANS FROM CONVERTEDAIRPORTS WHERE IDENT= ?";		
-		List<ConvertedAirport> foundAirports 
+		List<ConvertedFS9Airport> foundAirports 
 			= getJdbcAccessor().query(sql, rowMapper, identifier);
 		return foundAirports;	
 	}

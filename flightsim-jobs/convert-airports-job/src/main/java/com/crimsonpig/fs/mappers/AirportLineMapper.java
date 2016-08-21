@@ -6,9 +6,9 @@ import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.file.transform.LineTokenizer;
 
-import com.crimsonpig.fs.domain.airport.Airport;
+import com.crimsonpig.fs.domain.airport.FS9Airport;
 
-public class AirportLineMapper extends DefaultLineMapper<Airport> {
+public class AirportLineMapper extends DefaultLineMapper<FS9Airport> {
 
 	public AirportLineMapper(){
 		setLineTokenizer(airportLineTokenizer());
@@ -21,9 +21,9 @@ public class AirportLineMapper extends DefaultLineMapper<Airport> {
 		return tokenizer;
 	}
 
-	private FieldSetMapper<Airport> airportFieldSetMapper(){
-		BeanWrapperFieldSetMapper<Airport> wrapper = new BeanWrapperFieldSetMapper<Airport>();
-		wrapper.setTargetType(Airport.class);
+	private FieldSetMapper<FS9Airport> airportFieldSetMapper(){
+		BeanWrapperFieldSetMapper<FS9Airport> wrapper = new BeanWrapperFieldSetMapper<FS9Airport>();
+		wrapper.setTargetType(FS9Airport.class);
 		return wrapper;
 	}
 }
