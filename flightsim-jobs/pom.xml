@@ -114,6 +114,7 @@
 		<module>convert-airports-job</module>
 		<module>collect-installed-aircraft-job</module>
 		<module>generate-flightplans-job</module>
+		<module>load-airports-file-job</module>
 	</modules>
 
 </project>
