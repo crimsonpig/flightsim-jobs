@@ -1,5 +1,9 @@
 package com.crimsonpig.fs.domain.airport;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Airport {
 
 	private String identifier;
@@ -10,9 +14,12 @@ public class Airport {
 	private int approachFrequencies;
 	private double trafficScalar;
 	private String country;
+	private List<Runway> runways;
+	private List<ParkingSpot> parkingSpots;
 	
 	public Airport() {
-
+		runways = new ArrayList<Runway>(2);
+		parkingSpots = new LinkedList<ParkingSpot>();
 	}
 
 	public String getIdentifier() {
@@ -77,6 +84,24 @@ public class Airport {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public List<Runway> getRunways() {
+		return runways;
+	}
+
+	public List<ParkingSpot> getParkingSpots() {
+		return parkingSpots;
+	}
+
+	public void addRunway(Runway runway) {
+		runway.setAirportIdentifier(getIdentifier());
+		runways.add(runway);
+	}
+
+	public void addParkingSpot(ParkingSpot parking) {
+		parking.setAirportIdentifier(getIdentifier());
+		parkingSpots.add(parking);
 	}
 	
 	
