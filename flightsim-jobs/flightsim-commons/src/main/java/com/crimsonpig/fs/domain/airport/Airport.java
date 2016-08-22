@@ -6,7 +6,7 @@ public class Airport {
 	private double latitudeDegrees;
 	private double longitudeDegrees;
 	private double altitude;
-	private String airspace;
+	private Airspace airspace;
 	private int approachFrequencies;
 	private double trafficScalar;
 	private String country;
@@ -47,11 +47,11 @@ public class Airport {
 		this.altitude = altitude;
 	}
 
-	public String getAirspace() {
+	public Airspace getAirspace() {
 		return airspace;
 	}
 
-	public void setAirspace(String airspace) {
+	public void setAirspace(Airspace airspace) {
 		this.airspace = airspace;
 	}
 
