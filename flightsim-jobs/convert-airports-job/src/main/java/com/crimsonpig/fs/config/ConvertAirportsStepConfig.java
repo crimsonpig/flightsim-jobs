@@ -18,7 +18,7 @@ import org.springframework.core.io.UrlResource;
 
 import com.crimsonpig.fs.domain.airport.FS9Airport;
 import com.crimsonpig.fs.domain.airport.ConvertedFS9Airport;
-import com.crimsonpig.fs.mappers.AirportLineMapper;
+import com.crimsonpig.fs.mappers.FS9AirportLineMapper;
 import com.crimsonpig.fs.processors.AirportProcessor;
 
 @Configuration
@@ -34,7 +34,7 @@ public class ConvertAirportsStepConfig {
 	public ItemReader<FS9Airport> reader() throws MalformedURLException {
 		FlatFileItemReader<FS9Airport> reader = new FlatFileItemReader<FS9Airport>();
 		reader.setResource(new UrlResource(batchProperties.getProperty("convert.airports.input.filename")));
-		reader.setLineMapper(new AirportLineMapper());
+		reader.setLineMapper(new FS9AirportLineMapper());
 		return reader;
 	}
 

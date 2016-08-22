@@ -8,11 +8,11 @@ import org.springframework.batch.item.file.LineMapper;
 
 import com.crimsonpig.fs.domain.airport.FS9Airport;
 
-public class AirportLineMapperTest {
+public class FS9AirportLineMapperTest {
 
 	@Test
 	public void mapLineToAirport(){
-		LineMapper<FS9Airport> mapper = new AirportLineMapper();
+		LineMapper<FS9Airport> mapper = new FS9AirportLineMapper();
 		String lineToMap = "KSEA,N47* 26.94000',W122* 18.55830',433";
 		FS9Airport ksea = null;
 		try {

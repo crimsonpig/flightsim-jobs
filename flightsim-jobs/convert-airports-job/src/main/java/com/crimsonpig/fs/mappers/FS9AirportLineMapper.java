@@ -8,9 +8,9 @@ import org.springframework.batch.item.file.transform.LineTokenizer;
 
 import com.crimsonpig.fs.domain.airport.FS9Airport;
 
-public class AirportLineMapper extends DefaultLineMapper<FS9Airport> {
+public class FS9AirportLineMapper extends DefaultLineMapper<FS9Airport> {
 
-	public AirportLineMapper(){
+	public FS9AirportLineMapper(){
 		setLineTokenizer(airportLineTokenizer());
 		setFieldSetMapper(airportFieldSetMapper());
 	}
