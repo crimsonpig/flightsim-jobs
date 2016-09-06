@@ -21,8 +21,10 @@ public class MultilineFS10AirportReader implements ItemStreamReader<Airport> {
 
 	private static final String RUNWAY = "RUNWAY";
 	private static final String PARKING = "PARKING";
-	private static final String OPEN_CURLY_BRACE = "{";
 	private static final String CLOSE_CURLY_BRACE = "}";
+	
+	// Not actually necessary, as it turns out
+//	private static final String OPEN_CURLY_BRACE = "{";
 
 	private ItemStreamReader<FieldSet> delegate;
 	
@@ -65,19 +67,15 @@ public class MultilineFS10AirportReader implements ItemStreamReader<Airport> {
 		FieldSet line = null;
 		line = delegate.read();
 
-		while(!context.hasCompleteAirport() && line != null){
+		while(!reachedEndOfAirportRecord(line)){
 			if(isHeader(line)){
 				context.setAirport(airportFieldSetMapper.mapFieldSet(line));
-			} else if(enteringRunwaysAndParking(line)){
-				context.setInRunwaysAndParking();
 			} else if(isRunway(line)){
 				Runway runway = runwayFieldSetMapper.mapFieldSet(line);
 				context.addRunway(runway);						
 			} else if(isParkingSpot(line)){
 				ParkingSpot parking = parkingFieldSetMapper.mapFieldSet(line);
 				context.addParkingSpot(parking);						
-			} else if(reachedEndOfAirportRecord(line)){
-				context.setHasCompleteAirport();
 			} 
 			line = delegate.read();
 		}
@@ -88,11 +86,7 @@ public class MultilineFS10AirportReader implements ItemStreamReader<Airport> {
 	private boolean isHeader(FieldSet line) {
 		return context.readyToSetAirportHeader() && 8 == line.getFieldCount();
 	}
-	
-	private boolean enteringRunwaysAndParking(FieldSet line) {
-		return context.notInRunwaysAndParking() && 1 == line.getFieldCount() && OPEN_CURLY_BRACE.equals(line.readString(0));
-	}
-	
+
 	private boolean isRunway(FieldSet line) {
 		return context.readyToAddRunwaysAndParking() && RUNWAY.equals(line.readString(0));
 	}
@@ -102,49 +96,32 @@ public class MultilineFS10AirportReader implements ItemStreamReader<Airport> {
 	}
 
 	private boolean reachedEndOfAirportRecord(FieldSet line) {
-		return context.inRunwaysAndParking() && 1 == line.getFieldCount() && CLOSE_CURLY_BRACE.equals(line.readString(0));
+		return line == null || isCloseCurlyBrace(line);
+	}
+	
+//	Not actually necessary, it turns out
+//	private boolean isOpenCurlyBrace(FieldSet line){
+//		return 1 == line.getFieldCount() && OPEN_CURLY_BRACE.equals(line.readString(0));
+//	}
+	
+	private boolean isCloseCurlyBrace(FieldSet line){
+		return 1 == line.getFieldCount() && CLOSE_CURLY_BRACE.equals(line.readString(0));
 	}
 
 	private class ReadingContext {
-		private boolean inRunwaysAndParking = false;
+
 		private Airport airport = null;
-		private boolean hasCompleteAirport = false;
-		
+
 		public ReadingContext(){}
 
 		public boolean readyToSetAirportHeader() {
-			return notInRunwaysAndParking() && airport == null;
-		}
-
-		public boolean inRunwaysAndParking() {
-			return inRunwaysAndParking;
-		}
-		
-		public boolean notInRunwaysAndParking(){
-			return !inRunwaysAndParking;
+			return airport == null;
 		}
 
 		public boolean readyToAddRunwaysAndParking(){
-			return inRunwaysAndParking() && airport != null;
-		}
-		
-		public void setInRunwaysAndParking() {
-			this.inRunwaysAndParking = true;
-		}
-		
-		public void setNotInRunwaysAndParking(){
-			this.inRunwaysAndParking = false;
-		}
-		
-		public boolean hasCompleteAirport() {
-			return hasCompleteAirport;
+			return airport != null;
 		}
 
-		public void setHasCompleteAirport() {
-			this.hasCompleteAirport = true;
-			setNotInRunwaysAndParking();
-		}
-		
 		public Airport getAirport() {
 			return airport;
 		}
