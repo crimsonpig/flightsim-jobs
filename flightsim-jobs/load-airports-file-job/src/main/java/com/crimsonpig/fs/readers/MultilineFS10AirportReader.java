@@ -53,71 +53,113 @@ public class MultilineFS10AirportReader implements ItemStreamReader<Airport> {
 	public void close() throws ItemStreamException {
 		delegate.close();
 	}	
+
+	private ReadingContext context = null;
 	
 	@Override
 	public Airport read() throws Exception, UnexpectedInputException,
 			ParseException, NonTransientResourceException {
 		
-		Airport airport = null;
-		boolean inRunwaysAndParking = false;
-		boolean hasCompleteAirport = false;
+		context = new ReadingContext();
 		
 		FieldSet line = null;
 		line = delegate.read();
 
-		while(!hasCompleteAirport && line != null){
-			// skip blank lines
-			if(isNotBlank(line)){
-				if(!inRunwaysAndParking){
-					if(isHeader(line)){
-						airport = airportFieldSetMapper.mapFieldSet(line);
-					} else if(enteringRunwaysAndParking(line)){
-						inRunwaysAndParking = true;
-					} else {
-						throw new RuntimeException("Invalid header data!");
-					}
-				} else {
-					if(isRunway(line)){
-						Runway runway = runwayFieldSetMapper.mapFieldSet(line);
-						airport.addRunway(runway);						
-					} else if(isParkingSpot(line)){
-						ParkingSpot parking = parkingFieldSetMapper.mapFieldSet(line);
-						airport.addParkingSpot(parking);						
-					} else if(exitingRunwaysAndParking(line)){
-						inRunwaysAndParking = false;
-						hasCompleteAirport = true;
-					} else {
-						throw new RuntimeException("Invalid runway and parking data!");
-					}
-				}
-			} 	
+		while(!context.hasCompleteAirport() && line != null){
+			if(isHeader(line)){
+				context.setAirport(airportFieldSetMapper.mapFieldSet(line));
+			} else if(enteringRunwaysAndParking(line)){
+				context.setInRunwaysAndParking();
+			} else if(isRunway(line)){
+				Runway runway = runwayFieldSetMapper.mapFieldSet(line);
+				context.addRunway(runway);						
+			} else if(isParkingSpot(line)){
+				ParkingSpot parking = parkingFieldSetMapper.mapFieldSet(line);
+				context.addParkingSpot(parking);						
+			} else if(reachedEndOfAirportRecord(line)){
+				context.setHasCompleteAirport();
+			} 
 			line = delegate.read();
 		}
-		return airport;
-	}
-
-	private boolean isNotBlank(FieldSet line) {
-		return line.getFieldCount() > 0;
+		Airport toReturn = context.getAirport();
+		return toReturn;
 	}
 
 	private boolean isHeader(FieldSet line) {
-		return 8 == line.getFieldCount();
+		return context.readyToSetAirportHeader() && 8 == line.getFieldCount();
 	}
 	
 	private boolean enteringRunwaysAndParking(FieldSet line) {
-		return 1 == line.getFieldCount() && OPEN_CURLY_BRACE.equals(line.readString(0));
+		return context.notInRunwaysAndParking() && 1 == line.getFieldCount() && OPEN_CURLY_BRACE.equals(line.readString(0));
 	}
 	
 	private boolean isRunway(FieldSet line) {
-		return RUNWAY.equals(line.readString(0));
+		return context.readyToAddRunwaysAndParking() && RUNWAY.equals(line.readString(0));
 	}
 	
 	private boolean isParkingSpot(FieldSet line) {
-		return PARKING.equals(line.readString(0));
+		return context.readyToAddRunwaysAndParking() && PARKING.equals(line.readString(0));
 	}
 
-	private boolean exitingRunwaysAndParking(FieldSet line) {
-		return 1 == line.getFieldCount() && CLOSE_CURLY_BRACE.equals(line.readString(0));
+	private boolean reachedEndOfAirportRecord(FieldSet line) {
+		return context.inRunwaysAndParking() && 1 == line.getFieldCount() && CLOSE_CURLY_BRACE.equals(line.readString(0));
 	}
 
+	private class ReadingContext {
+		private boolean inRunwaysAndParking = false;
+		private Airport airport = null;
+		private boolean hasCompleteAirport = false;
+		
+		public ReadingContext(){}
+
+		public boolean readyToSetAirportHeader() {
+			return notInRunwaysAndParking() && airport == null;
+		}
+
+		public boolean inRunwaysAndParking() {
+			return inRunwaysAndParking;
+		}
+		
+		public boolean notInRunwaysAndParking(){
+			return !inRunwaysAndParking;
+		}
+
+		public boolean readyToAddRunwaysAndParking(){
+			return inRunwaysAndParking() && airport != null;
+		}
+		
+		public void setInRunwaysAndParking() {
+			this.inRunwaysAndParking = true;
+		}
+		
+		public void setNotInRunwaysAndParking(){
+			this.inRunwaysAndParking = false;
+		}
+		
+		public boolean hasCompleteAirport() {
+			return hasCompleteAirport;
+		}
+
+		public void setHasCompleteAirport() {
+			this.hasCompleteAirport = true;
+			setNotInRunwaysAndParking();
+		}
+		
+		public Airport getAirport() {
+			return airport;
+		}
+
+		public void setAirport(Airport airport) {
+			this.airport = airport;
+		}
+		
+		public void addParkingSpot(ParkingSpot parking) {
+			getAirport().addParkingSpot(parking);
+		}		
+		
+		public void addRunway(Runway runway){
+			getAirport().addRunway(runway);
+		}
+		
+	}
 }
