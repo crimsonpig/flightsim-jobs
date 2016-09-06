@@ -19,6 +19,11 @@ import com.crimsonpig.fs.mappers.RunwayFieldSetMapper;
 
 public class MultilineFS10AirportReader implements ItemStreamReader<Airport> {
 
+	private static final String RUNWAY = "RUNWAY";
+	private static final String PARKING = "PARKING";
+	private static final String OPEN_CURLY_BRACE = "{";
+	private static final String CLOSE_CURLY_BRACE = "}";
+
 	private ItemStreamReader<FieldSet> delegate;
 	
 	private FieldSetMapper<Airport> airportFieldSetMapper;
@@ -55,33 +60,64 @@ public class MultilineFS10AirportReader implements ItemStreamReader<Airport> {
 		
 		Airport airport = null;
 		boolean inRunwaysAndParking = false;
-		for(FieldSet line = null; (line = delegate.read()) != null;){
-			
-			if(!inRunwaysAndParking){
-				if(line.getFieldCount() > 1){
-					airport = airportFieldSetMapper.mapFieldSet(line);
-				} else if(line.getFieldCount() == 1 && "{".equals(line.readString(0))){
-					inRunwaysAndParking = true;
-				}
-			} else {
-				if(line.getFieldCount() == 1 && "}".equals(line.readString(0))){
-					inRunwaysAndParking = false;
-					break;
-				} else if(line.getFieldCount() > 1){
-					if("PARKING".equals(line.readString(0))){
-						ParkingSpot parking = parkingFieldSetMapper.mapFieldSet(line);
-						airport.addParkingSpot(parking);
-					} else if("RUNWAY".equals(line.readString(0))){
+		boolean hasCompleteAirport = false;
+		
+		FieldSet line = null;
+		line = delegate.read();
+
+		while(!hasCompleteAirport && line != null){
+			// skip blank lines
+			if(isNotBlank(line)){
+				if(!inRunwaysAndParking){
+					if(isHeader(line)){
+						airport = airportFieldSetMapper.mapFieldSet(line);
+					} else if(enteringRunwaysAndParking(line)){
+						inRunwaysAndParking = true;
+					} else {
+						throw new RuntimeException("Invalid header data!");
+					}
+				} else {
+					if(isRunway(line)){
 						Runway runway = runwayFieldSetMapper.mapFieldSet(line);
-						airport.addRunway(runway);
+						airport.addRunway(runway);						
+					} else if(isParkingSpot(line)){
+						ParkingSpot parking = parkingFieldSetMapper.mapFieldSet(line);
+						airport.addParkingSpot(parking);						
+					} else if(exitingRunwaysAndParking(line)){
+						inRunwaysAndParking = false;
+						hasCompleteAirport = true;
+					} else {
+						throw new RuntimeException("Invalid runway and parking data!");
 					}
 				}
-			}
+			} 	
+			line = delegate.read();
 		}
-		
 		return airport;
 	}
 
+	private boolean isNotBlank(FieldSet line) {
+		return line.getFieldCount() > 0;
+	}
 
+	private boolean isHeader(FieldSet line) {
+		return 8 == line.getFieldCount();
+	}
+	
+	private boolean enteringRunwaysAndParking(FieldSet line) {
+		return 1 == line.getFieldCount() && OPEN_CURLY_BRACE.equals(line.readString(0));
+	}
+	
+	private boolean isRunway(FieldSet line) {
+		return RUNWAY.equals(line.readString(0));
+	}
+	
+	private boolean isParkingSpot(FieldSet line) {
+		return PARKING.equals(line.readString(0));
+	}
+
+	private boolean exitingRunwaysAndParking(FieldSet line) {
+		return 1 == line.getFieldCount() && CLOSE_CURLY_BRACE.equals(line.readString(0));
+	}
 
 }
