@@ -37,22 +37,33 @@ public class MultilineFS10AirportReaderTest {
 	
 	@Test
 	public void testReadAirport(){
-		Airport actual = null;
+		Airport kmci = null;
+		Airport kojc = null;
+		Airport eof = new Airport(); 
 		try {
 			reader.open(new ExecutionContext());
-			actual = reader.read();
-			reader.close();
+			kmci = reader.read();
+			kojc = reader.read();
+			eof = reader.read();
+			reader.close();	
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
-		assertNotNull(actual);
-		assertAirportHeader(actual);
-		assertRunways(actual.getRunways());
-		assertParkingSpots(actual.getParkingSpots());
+		assertNotNull(kmci);
+		assertNotNull(kojc);
+		assertAirportHeaderMCI(kmci);
+		assertRunwaysMCI(kmci.getRunways());
+		assertParkingSpotsMCI(kmci.getParkingSpots());
+		
+		assertAirportHeaderOJC(kojc);
+		assertRunwaysOJC(kojc.getRunways());
+		assertParkingSpotsOJC(kojc.getParkingSpots());
+		
+		assertNull(eof);
 	}	
 
-	private void assertAirportHeader(Airport actual){
+	private void assertAirportHeaderMCI(Airport actual){
 		assertEquals("KMCI", actual.getIdentifier());
 		assertEquals(39.297605529, actual.getLatitudeDegrees(), 0.0000000001);
 		assertEquals(-94.713905454, actual.getLongitudeDegrees(), 0.0000000001);
@@ -63,7 +74,18 @@ public class MultilineFS10AirportReaderTest {
 		assertEquals("United States", actual.getCountry());			
 	}
 	
-	private void assertRunways(List<Runway> runways) {
+	private void assertAirportHeaderOJC(Airport actual){
+		assertEquals("KOJC", actual.getIdentifier());
+		assertEquals(38.847591542, actual.getLatitudeDegrees(), 0.0000000001);
+		assertEquals(-94.735108763, actual.getLongitudeDegrees(), 0.0000000001);
+		assertEquals(334.1, actual.getAltitude(), 0.00001);
+		assertEquals(Airspace.D, actual.getAirspace());
+		assertEquals(2, actual.getApproachFrequencies());
+		assertEquals(0.70, actual.getTrafficScalar(), 0.01);
+		assertEquals("United States", actual.getCountry());			
+	}	
+	
+	private void assertRunwaysMCI(List<Runway> runways) {
 		assertNotNull(runways);
 		assertEquals(3, runways.size());
 		Runway longest = runways.get(0);
@@ -73,7 +95,17 @@ public class MultilineFS10AirportReaderTest {
 		assertEquals("KMCI", longest.getAirportIdentifier());
 	}
 	
-	private void assertParkingSpots(List<ParkingSpot> parkingSpots) {
+	private void assertRunwaysOJC(List<Runway> runways) {
+		assertNotNull(runways);
+		assertEquals(1, runways.size());
+		Runway longest = runways.get(0);
+		assertEquals(4101, longest.getLength());
+		assertEquals(75, longest.getWidth());
+		assertEquals(Surface.HARD, longest.getSurface());
+		assertEquals("KOJC", longest.getAirportIdentifier());
+	}	
+	
+	private void assertParkingSpotsMCI(List<ParkingSpot> parkingSpots) {
 		assertNotNull(parkingSpots);
 		assertEquals(43, parkingSpots.size());
 		ParkingSpot gate = parkingSpots.get(42);
@@ -82,5 +114,12 @@ public class MultilineFS10AirportReaderTest {
 		assertEquals("KMCI", gate.getAirportIdentifier());
 	}	
 
-	
+	private void assertParkingSpotsOJC(List<ParkingSpot> parkingSpots) {
+		assertNotNull(parkingSpots);
+		assertEquals(19, parkingSpots.size());
+		ParkingSpot gate = parkingSpots.get(4);
+		assertEquals(10.0, gate.getRadius(), 0.001);
+		assertEquals(ParkingType.RAMP, gate.getParkingType());
+		assertEquals("KOJC", gate.getAirportIdentifier());
+	}
 }
