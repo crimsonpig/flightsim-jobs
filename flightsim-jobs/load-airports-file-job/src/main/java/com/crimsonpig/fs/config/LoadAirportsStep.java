@@ -17,6 +17,7 @@ import org.springframework.core.io.UrlResource;
 
 import com.crimsonpig.fs.domain.airport.Airport;
 import com.crimsonpig.fs.mappers.AirportLineMapper;
+import com.crimsonpig.fs.readers.AirportSqlParameterSource;
 import com.crimsonpig.fs.readers.MultilineFS10AirportReader;
 
 @Configuration
@@ -46,8 +47,8 @@ public class LoadAirportsStep {
 		JdbcBatchItemWriter<Airport> writer = new JdbcBatchItemWriter<Airport>();
 		writer.setAssertUpdates(true);
 		writer.setDataSource(domainDataSource);
-		writer.setItemSqlParameterSourceProvider(itemSqlParameterSourceProvider);
-		writer.setSql("");
+		writer.setItemSqlParameterSourceProvider(new AirportSqlParameterSource());
+		writer.setSql(AirportSqlParameterSource.LOAD_AIRPORTS_SQL);
 		return writer;
 	}
 }
